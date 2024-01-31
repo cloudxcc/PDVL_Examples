@@ -16,6 +16,6 @@ The executable spec version is not timing optimized. This project now is a manua
 
 ## mSoC_RV32IMC_1P:
 
-The core from the RV32IMC_1P is taken and embedded is a minimalistic SoC completely written in PDVL. 
+The core from the RV32IMC_1P is taken and embedded in a minimalistic SoC completely written in PDVL. 
 
 
