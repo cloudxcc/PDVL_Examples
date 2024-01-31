@@ -1,0 +1,202 @@
+\chapter{RV32/64G Instruction Set Listings}
+
+One goal of the RISC-V project is that it be used as a stable software
+development target.  For this purpose, we define a combination of a
+base ISA (RV32I or RV64I) plus selected standard extensions (IMAFD, Zicsr, Zifencei) as
+a ``general-purpose'' ISA, and we use the abbreviation G for the IMAFDZicsr\_Zifencei
+combination of instruction-set extensions.    This chapter presents
+opcode maps and instruction-set listings for RV32G and RV64G.
+
+\input{opcode-map}
+
+Table~\ref{opcodemap} shows a map of the major opcodes for RVG.  Major
+opcodes with 3 or more lower bits set are reserved for instruction
+lengths greater than 32 bits.  Opcodes marked as {\em reserved} should
+be avoided for custom instruction-set extensions as they might be used
+by future standard extensions.  Major opcodes marked as {\em custom-0}
+and {\em custom-1} will be avoided by future standard extensions and
+are recommended for use by custom instruction-set extensions within
+the base 32-bit instruction format.  The opcodes marked {\em
+  custom-2/rv128} and {\em custom-3/rv128} are reserved for future use
+by RV128, but will otherwise be avoided for standard extensions and so
+can also be used for custom instruction-set extensions in RV32 and
+RV64.
+
+We believe RV32G and RV64G provide simple but complete instruction
+sets for a broad range of general-purpose computing.  The optional
+compressed instruction set described in Chapter~\ref{compressed} can
+be added (forming RV32GC and RV64GC) to improve performance, code
+size, and energy efficiency, though with some additional hardware
+complexity.
+
+As we move beyond IMAFDC into further instruction-set extensions, the
+added instructions tend to be more domain-specific and only provide
+benefits to a restricted class of applications, e.g., for multimedia
+or security.  Unlike most commercial ISAs, the RISC-V ISA design
+clearly separates the base ISA and broadly applicable standard
+extensions from these more specialized additions.
+Chapter~\ref{extensions} has a more extensive discussion of ways to
+add extensions to the RISC-V ISA.
+
+\input{instr-table}
+
+\FloatBarrier
+Table~\ref{rvgcsrnames} lists the CSRs that have
+currently been allocated CSR addresses.  The timers, counters, and
+floating-point CSRs are the only CSRs defined in this specification.
+
+\setlength\parindent{24pt}
+
+\begin{table}[htb!]
+\begin{center}
+\begin{tabular}{|l|l|l|l|}
+\hline
+Number    & Privilege & Name & Description \\
+\hline
+\multicolumn{4}{|c|}{Floating-Point Control and Status Registers} \\
+\hline
+\tt 0x001 & Read/write  &\tt fflags     & Floating-Point Accrued Exceptions. \\
+\tt 0x002 & Read/write  &\tt frm        & Floating-Point Dynamic Rounding Mode. \\
+\tt 0x003 & Read/write  &\tt fcsr       & Floating-Point Control and Status
+Register ({\tt frm} + {\tt fflags}). \\
+\hline
+\multicolumn{4}{|c|}{Counters and Timers} \\
+\hline
+\tt 0xC00 & Read-only  &\tt cycle      & Cycle counter for RDCYCLE instruction. \\
+\tt 0xC01 & Read-only  &\tt time       & Timer for RDTIME instruction. \\
+\tt 0xC02 & Read-only  &\tt instret    & Instructions-retired counter for RDINSTRET instruction. \\
+\tt 0xC80 & Read-only  &\tt cycleh     & Upper 32 bits of {\tt cycle}, RV32I only. \\
+\tt 0xC81 & Read-only  &\tt timeh      & Upper 32 bits of {\tt time}, RV32I only. \\
+\tt 0xC82 & Read-only  &\tt instreth   & Upper 32 bits of {\tt instret}, RV32I only. \\
+\hline
+\end{tabular}
+\end{center}
+\caption{RISC-V control and status register (CSR) address map.}
+\label{rvgcsrnames}
+\end{table}
+\noindent  %\\
+\textcolor{blue}{
+\noindent \textless" cl\_rv32i\_dec \{\\%pdvlrvi
+%   ///////////////////////////////////////////// \\%pdvlrvi
+%   // Support function \\%pdvlrvi
+%   ///////////////////////////////////////////// %pdvlrvi
+\indent c\_cmp(integer a, integer b) \{ if (a == b) this; \}\\%pdvlrvi
+	\\
+%   ///////////////////////////////////////////// \\%pdvlrvi
+%   // I transactions \\%pdvlrvi
+%   ///////////////////////////////////////////// %pdvlrvi
+\indent tr\_rv32i \{ \\%pdvlrvi
+\indent \indent tr\_rv32i\_lui; \space tr\_rv32i\_auipc; \space tr\_rv32i\_jal; \space tr\_rv32i\_jalr; \\%pdvlrvi
+\indent \indent tr\_rv32i\_beq; \space tr\_rv32i\_bne; \space tr\_rv32i\_blt; \space tr\_rv32i\_bge; \space tr\_rv32i\_bltu; \space tr\_rv32i\_bgeu; \\%pdvlrvi
+\indent \indent tr\_rv32i\_lb; \space tr\_rv32i\_lh; \space tr\_rv32i\_lw; \space tr\_rv32i\_lbu; \space tr\_rv32i\_lhu; \\%pdvlrvi
+\indent \indent tr\_rv32i\_sb; \space tr\_rv32i\_sh; \space tr\_rv32i\_sw; \\%pdvlrvi
+\indent \indent tr\_rv32i\_addi; \space tr\_rv32i\_slti; \space tr\_rv32i\_sltiu; \space tr\_rv32i\_xori; \space tr\_rv32i\_ori; \space tr\_rv32i\_andi; \\%pdvlrvi
+\indent \indent tr\_rv32i\_slli; \space tr\_rv32i\_srli; \space tr\_rv32i\_srai; \\%pdvlrvi
+\indent \indent tr\_rv32i\_add; \space tr\_rv32i\_sub; \space tr\_rv32i\_sll; \space tr\_rv32i\_slt; \space tr\_rv32i\_sltu; \\%pdvlrvi
+\indent \indent tr\_rv32i\_xor; \space tr\_rv32i\_srl; \space tr\_rv32i\_sra; \space tr\_rv32i\_or; \space tr\_rv32i\_and; \\%pdvlrvi
+\indent \indent tr\_rv32i\_fence; tr\_rv32i\_ecall; tr\_rv32i\_ebreak; \} \\%pdvlrvi
+\\
+%   ///////////////////////////////////////////// \\%pdvlrvi
+%   // I conditions \\%pdvlrvi
+%   ///////////////////////////////////////////// %pdvlrvi
+\indent c\_instr\_i\_lui; \space c\_instr\_i\_auipc; \space c\_instr\_i\_jal;\space c\_instr\_i\_jalr;\\%pdvlrvi
+\indent c\_instr\_i\_beq; \space c\_instr\_i\_bne; \space c\_instr\_i\_blt; \space c\_instr\_i\_bge; \space c\_instr\_i\_bltu; \space c\_instr\_i\_bgeu;\\%pdvlrvi
+\indent c\_instr\_i\_lb; \space c\_instr\_i\_lh; \space c\_instr\_i\_lw; \space c\_instr\_i\_lbu; \space c\_instr\_i\_lhu;\\%pdvlrvi
+\indent c\_instr\_i\_sb; \space c\_instr\_i\_sh; \space c\_instr\_i\_sw;\\%pdvlrvi
+\indent c\_instr\_i\_addi; \space c\_instr\_i\_slti; \space c\_instr\_i\_sltiu; \space c\_instr\_i\_xori; \space c\_instr\_i\_ori; \space c\_instr\_i\_andi;\\%pdvlrvi
+\indent c\_instr\_i\_slli; \space c\_instr\_i\_srli; \space c\_instr\_i\_srai;\\%pdvlrvi
+\indent c\_instr\_i\_add; \space c\_instr\_i\_sub; \space c\_instr\_i\_sll; \space c\_instr\_i\_slt; \space c\_instr\_i\_sltu;\\%pdvlrvi
+\indent c\_instr\_i\_xor; \space c\_instr\_i\_srl; \space c\_instr\_i\_sra; \space c\_instr\_i\_or; \space c\_instr\_i\_and;\\%pdvlrvi
+\indent c\_instr\_i\_fence; \space c\_instr\_i\_ecall; \space c\_instr\_i\_ebreak;\\%pdvlrvi
+\\
+%   ///////////////////////////////////////////// \\%pdvlrvi
+%   // I decode \\%pdvlrvi
+%   ///////////////////////////////////////////// %pdvlrvi
+\indent tr\_decode \{\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b0110111) \{ c\_instr\_i\_lui; \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b0010111) \{ c\_instr\_i\_auipc; \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b1101111) \{ c\_instr\_i\_jal; \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b1100111) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_i\_jalr; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b0000011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_i\_lb; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 1) \{ c\_instr\_i\_lh; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 2) \{ c\_instr\_i\_lw; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 4) \{ c\_instr\_i\_lbu; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 5) \{ c\_instr\_i\_lhu; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b0010011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_i\_addi; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 1) \{ \\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct7\_i, 0) \{ c\_instr\_i\_slli; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 2) \{ c\_instr\_i\_slti; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 3) \{ c\_instr\_i\_sltiu; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 4) \{ c\_instr\_i\_xori; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 5) \{ \\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 0) \{ c\_instr\_i\_srli; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 32) \{ c\_instr\_i\_srai; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 6) \{ c\_instr\_i\_ori; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 7) \{ c\_instr\_i\_andi; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b0100011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_i\_sb; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 1) \{ c\_instr\_i\_sh; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 2) \{ c\_instr\_i\_sw; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b0110011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 0) \{ c\_instr\_i\_add; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 32) \{ c\_instr\_i\_sub; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 1) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 0) \{ c\_instr\_i\_sll; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 2) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 0) \{ c\_instr\_i\_slt; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 3) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 0)  \{ c\_instr\_i\_sltu; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 4) \{ @c\_cmp(funct7\_i, 0)  \{ c\_instr\_i\_xor; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 5) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 0)  \{ c\_instr\_i\_srl; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent}	@c\_cmp(funct7\_i, 32) \{ c\_instr\_i\_sra; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 6) \{ @c\_cmp(funct7\_i, 0)  \{ c\_instr\_i\_or; \} \}\\%pdvlrvi
+\indent \hspace{\parindent}	\hspace{\parindent} @c\_cmp(funct3\_i, 7) \{ @c\_cmp(funct7\_i, 0)  \{ c\_instr\_i\_and; \} \} \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b1100011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_i\_beq; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 1) \{ c\_instr\_i\_bne; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 4) \{ c\_instr\_i\_blt; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 5) \{ c\_instr\_i\_bge; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 6) \{ c\_instr\_i\_bltu; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 7) \{ c\_instr\_i\_bgeu; \} \} \\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b1110011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_i\_fence; \} \}\\%pdvlrvi
+\indent \hspace{\parindent} @c\_cmp(opcode\_i, 7'b1110011) \{\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(instr[31:7], 25'h000000) \{ c\_instr\_i\_ecall; \}\\%pdvlrvi
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(instr[31:7], 25'h002000) \{ c\_instr\_i\_ebreak; \} \} \}\\%pdvlrvi
+\noindent \} "\textgreater\\%pdvlrvi
+\\
+\noindent \textless" cl\_rv32m\_dec \{\\%pdvlrvm
+%   ///////////////////////////////////////////// \\%pdvlrvm
+%   // M conditions \\%pdvlrvm
+%   ///////////////////////////////////////////// %pdvlrvm
+\indent c\_instr\_m\_mul;\\%pdvlrvm
+\indent c\_instr\_m\_mulh;\\%pdvlrvm
+\indent c\_instr\_m\_mulhu;\\%pdvlrvm
+\indent c\_instr\_m\_mulhsu;\\%pdvlrvm
+\indent c\_instr\_m\_div;\\%pdvlrvm
+\indent c\_instr\_m\_divu;\\%pdvlrvm
+\indent c\_instr\_m\_rem;\\%pdvlrvm
+\indent c\_instr\_m\_remu;\\%pdvlrvm
+%   ///////////////////////////////////////////// \\%pdvlrvm
+%   // M decode \\%pdvlrvm
+%   ///////////////////////////////////////////// %pdvlrvm
+\indent tr\_m\_decode \{\\%pdvlrvm
+\indent @c\_cmp(opcode\_i, 7'b0110011) \{\\%pdvlrvm
+\indent \hspace{\parindent} @c\_cmp(funct7\_i, 7'b0000001) \{ \\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 0) \{ c\_instr\_m\_mul; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 1) \{ c\_instr\_m\_mulh; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 2) \{ c\_instr\_m\_mulhsu; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 3) \{ c\_instr\_m\_mulhu; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 4) \{ c\_instr\_m\_div; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 5) \{ c\_instr\_m\_divu; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 6) \{ c\_instr\_m\_rem; \}\\%pdvlrvm
+\indent \hspace{\parindent} \hspace{\parindent} @c\_cmp(funct3\_i, 7) \{ c\_instr\_m\_remu; \} \} \} \}\\%pdvlrvm
+\} "\textgreater\\%pdvlrvm
+}
+
+

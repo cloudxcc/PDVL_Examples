@@ -1,0 +1,570 @@
+\relax 
+\providecommand\hyper@newdestlabel[2]{}
+\providecommand\HyperFirstAtBeginDocument{\AtBeginDocument}
+\HyperFirstAtBeginDocument{\ifx\hyper@anchor\@undefined
+\global\let\oldcontentsline\contentsline
+\gdef\contentsline#1#2#3#4{\oldcontentsline{#1}{#2}{#3}}
+\global\let\oldnewlabel\newlabel
+\gdef\newlabel#1#2{\newlabelxx{#1}#2}
+\gdef\newlabelxx#1#2#3#4#5#6{\oldnewlabel{#1}{{#2}{#3}}}
+\AtEndDocument{\ifx\hyper@anchor\@undefined
+\let\contentsline\oldcontentsline
+\let\newlabel\oldnewlabel
+\fi}
+\fi}
+\global\let\hyper@last\relax 
+\gdef\HyperFirstAtBeginDocument#1{#1}
+\providecommand\HyField@AuxAddToFields[1]{}
+\providecommand\HyField@AuxAddToCoFields[2]{}
+\@writefile{toc}{\contentsline {chapter}{Preface}{i}{chapter*.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\citation{riscv-elf-psabi}
+\citation{riscvtr2}
+\citation{riscvtr}
+\citation{ieee754-2008}
+\citation{riscI-isca1981}
+\citation{Katevenis:1983}
+\citation{Ungar:1984}
+\citation{spur-jsscc1989}
+\@writefile{toc}{\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {1.1}RISC-V Hardware Platform Terminology}{2}{section.1.1}\protected@file@percent }
+\citation{lithe-pan-hotpar09}
+\citation{lithe-pan-pldi10}
+\@writefile{toc}{\contentsline {section}{\numberline {1.2}RISC-V Software Execution Environments and Harts}{3}{section.1.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.3}RISC-V ISA Overview}{4}{section.1.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.4}Memory}{6}{section.1.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.5}Base Instruction-Length Encoding}{7}{section.1.5}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {1.1}{\ignorespaces RISC-V instruction length encoding. Only the 16-bit and 32-bit encodings are considered frozen at this time.}}{8}{figure.1.1}\protected@file@percent }
+\newlabel{instlengthcode}{{1.1}{8}{RISC-V instruction length encoding. Only the 16-bit and 32-bit encodings are considered frozen at this time}{figure.1.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {1.6}Exceptions, Traps, and Interrupts}{10}{section.1.6}\protected@file@percent }
+\newlabel{sec:trap-defn}{{1.6}{10}{Exceptions, Traps, and Interrupts}{section.1.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {1.1}{\ignorespaces Characteristics of traps. Notes: 1) termination may be requested; 2) imprecise fatal traps might be observable by software.}}{11}{table.1.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {1.7}UNSPECIFIED Behaviors and Values}{11}{section.1.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {2}RV32I Base Integer Instruction Set, Version 2.1}{13}{chapter.2}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{rv32}{{2}{13}{RV32I Base Integer Instruction Set, Version 2.1}{chapter.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.1}Programmers' Model for Base Integer ISA}{13}{section.2.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.1}{\ignorespaces RISC-V base unprivileged integer register state.}}{14}{figure.2.1}\protected@file@percent }
+\newlabel{gprs}{{2.1}{14}{RISC-V base unprivileged integer register state}{figure.2.1}{}}
+\citation{jtseng:sbbci}
+\@writefile{toc}{\contentsline {section}{\numberline {2.2}Base Instruction Formats}{15}{section.2.2}\protected@file@percent }
+\citation{spur-jsscc1989}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.2}{\ignorespaces RISC-V base instruction formats. Each immediate subfield is labeled with the bit position (imm[{\em  x}\,]) in the immediate value being produced, rather than the bit position within the instruction's immediate field as is usually done. }}{17}{figure.2.2}\protected@file@percent }
+\newlabel{fig:baseinstformats}{{2.2}{17}{RISC-V base instruction formats. Each immediate subfield is labeled with the bit position (imm[{\em x}\,]) in the immediate value being produced, rather than the bit position within the instruction's immediate field as is usually done}{figure.2.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.3}Immediate Encoding Variants}{17}{section.2.3}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {2.3}{\ignorespaces RISC-V base instruction formats showing immediate variants.}}{18}{figure.2.3}\protected@file@percent }
+\newlabel{fig:baseinstformatsimm}{{2.3}{18}{RISC-V base instruction formats showing immediate variants}{figure.2.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {2.4}{\ignorespaces Types of immediate produced by RISC-V instructions. The fields are labeled with the instruction bits used to construct their value. Sign extension always uses inst[31].}}{18}{figure.2.4}\protected@file@percent }
+\newlabel{fig:immtypes}{{2.4}{18}{Types of immediate produced by RISC-V instructions. The fields are labeled with the instruction bits used to construct their value. Sign extension always uses inst[31]}{figure.2.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.4}Integer Computational Instructions}{19}{section.2.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.5}Control Transfer Instructions}{25}{section.2.5}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {2.1}{\ignorespaces Return-address stack prediction hints encoded in register specifiers used in the instruction. In the above, {\em  link} is true when the register is either {\tt  x1} or {\tt  x5}.}}{27}{table.2.1}\protected@file@percent }
+\newlabel{rashints}{{2.1}{27}{Return-address stack prediction hints encoded in register specifiers used in the instruction. In the above, {\em link} is true when the register is either {\tt x1} or {\tt x5}}{table.2.1}{}}
+\citation{heil-tr1996}
+\citation{Klauser-1998}
+\citation{Kim-micro2005}
+\citation{ibmpower7}
+\citation{ibmpower7}
+\@writefile{toc}{\contentsline {section}{\numberline {2.6}Load and Store Instructions}{30}{section.2.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.7}Memory Ordering Instructions}{33}{section.2.7}\protected@file@percent }
+\newlabel{sec:fence}{{2.7}{33}{Memory Ordering Instructions}{section.2.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.2}{\ignorespaces Fence mode encoding.}}{33}{table.2.2}\protected@file@percent }
+\newlabel{fm}{{2.2}{33}{Fence mode encoding}{table.2.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.8}Environment Call and Breakpoints}{34}{section.2.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {2.9}HINT Instructions}{35}{section.2.9}\protected@file@percent }
+\newlabel{sec:rv32i-hints}{{2.9}{35}{HINT Instructions}{section.2.9}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {2.3}{\ignorespaces RV32I HINT instructions.}}{36}{table.2.3}\protected@file@percent }
+\newlabel{tab:rv32i-hints}{{2.3}{36}{RV32I HINT instructions}{table.2.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {2.10}\leavevmode {\color  {blue}RV32I Datapath and Data Memory Interface}}{37}{section.2.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.1}\leavevmode {\color  {blue}RV32I Registerfile}}{37}{subsection.2.10.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.2}\leavevmode {\color  {blue}RV32I PC}}{37}{subsection.2.10.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.3}\leavevmode {\color  {blue}RV32I Datapath}}{37}{subsection.2.10.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {2.10.4}\leavevmode {\color  {blue}RV32I Data Memory Interface}}{37}{subsection.2.10.4}\protected@file@percent }
+\citation{majc}
+\@writefile{toc}{\contentsline {chapter}{\numberline {3}``Zifencei'' Instruction-Fetch Fence, Version 2.0}{39}{chapter.3}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{chap:zifencei}{{3}{39}{``Zifencei'' Instruction-Fetch Fence, Version 2.0}{chapter.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {4}RV32E Base Integer Instruction Set, Version 1.9}{41}{chapter.4}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{rv32e}{{4}{41}{RV32E Base Integer Instruction Set, Version 1.9}{chapter.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {4.1}RV32E Programmers' Model}{41}{section.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {4.2}RV32E Instruction Set}{42}{section.4.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {5}RV64I Base Integer Instruction Set, Version 2.1}{43}{chapter.5}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{rv64}{{5}{43}{RV64I Base Integer Instruction Set, Version 2.1}{chapter.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {5.1}Register State}{43}{section.5.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.2}Integer Computational Instructions}{43}{section.5.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.3}Load and Store Instructions}{45}{section.5.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {5.4}HINT Instructions}{46}{section.5.4}\protected@file@percent }
+\newlabel{sec:rv64i-hints}{{5.4}{46}{HINT Instructions}{section.5.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {5.1}{\ignorespaces RV64I HINT instructions.}}{47}{table.5.1}\protected@file@percent }
+\newlabel{tab:rv64i-hints}{{5.1}{47}{RV64I HINT instructions}{table.5.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {6}RV128I Base Integer Instruction Set, Version 1.7}{49}{chapter.6}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{rv128}{{6}{49}{RV128I Base Integer Instruction Set, Version 1.7}{chapter.6}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {7}``M'' Standard Extension for Integer Multiplication and Division, Version 2.0}{51}{chapter.7}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {7.1}Multiplication Operations}{52}{section.7.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {7.2}Division Operations}{53}{section.7.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {7.1}{\ignorespaces Semantics for division by zero and division overflow. L is the width of the operation in bits: XLEN for DIV[U] and REM[U], or 32 for DIV[U]W and REM[U]W.}}{54}{table.7.1}\protected@file@percent }
+\newlabel{tab:divby0}{{7.1}{54}{Semantics for division by zero and division overflow. L is the width of the operation in bits: XLEN for DIV[U] and REM[U], or 32 for DIV[U]W and REM[U]W}{table.7.1}{}}
+\citation{Gharachorloo90memoryconsistency}
+\citation{Gharachorloo90memoryconsistency}
+\@writefile{toc}{\contentsline {chapter}{\numberline {8}``A'' Standard Extension for Atomic Instructions, Version 2.1}{55}{chapter.8}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{atomics}{{8}{55}{``A'' Standard Extension for Atomic Instructions, Version 2.1}{chapter.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.1}Specifying Ordering of Atomic Instructions}{55}{section.8.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {8.2}Load-Reserved/Store-Conditional Instructions}{56}{section.8.2}\protected@file@percent }
+\newlabel{sec:lrsc}{{8.2}{56}{Load-Reserved/Store-Conditional Instructions}{section.8.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.1}{\ignorespaces Sample code for compare-and-swap function using LR/SC.}}{58}{figure.8.1}\protected@file@percent }
+\newlabel{cas}{{8.1}{58}{Sample code for compare-and-swap function using LR/SC}{figure.8.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.3}Eventual Success of Store-Conditional Instructions}{59}{section.8.3}\protected@file@percent }
+\newlabel{sec:lrscseq}{{8.3}{59}{Eventual Success of Store-Conditional Instructions}{section.8.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {8.4}Atomic Memory Operations}{60}{section.8.4}\protected@file@percent }
+\newlabel{sec:amo}{{8.4}{60}{Atomic Memory Operations}{section.8.4}{}}
+\citation{Rajwar:2001:SLE}
+\@writefile{lof}{\contentsline {figure}{\numberline {8.2}{\ignorespaces Sample code for mutual exclusion. {\tt  a0} contains the address of the lock.}}{62}{figure.8.2}\protected@file@percent }
+\newlabel{critical}{{8.2}{62}{Sample code for mutual exclusion. {\tt a0} contains the address of the lock}{figure.8.2}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {9}``Zicsr'', Control and Status Register (CSR) Instructions, Version 2.0}{63}{chapter.9}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{csrinsts}{{9}{63}{``Zicsr'', Control and Status Register (CSR) Instructions, Version 2.0}{chapter.9}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {9.1}CSR Instructions}{63}{section.9.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {9.1}{\ignorespaces Table showing whether a CSR instruction reads or writes a given CSR. The CSRRS and CSRRC instructions have same behavior so are shown as CSRR{S/C} in Table.}}{64}{table.9.1}\protected@file@percent }
+\newlabel{tab:csrsideeffects}{{9.1}{64}{Table showing whether a CSR instruction reads or writes a given CSR. The CSRRS and CSRRC instructions have same behavior so are shown as CSRR{S/C} in Table}{table.9.1}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {10}Counters}{67}{chapter.10}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{counters}{{10}{67}{Counters}{chapter.10}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10.1}Base Counters and Timers}{67}{section.10.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {10.1}{\ignorespaces Sample code for reading the 64-bit cycle counter in RV32.}}{69}{figure.10.1}\protected@file@percent }
+\newlabel{rdcycle}{{10.1}{69}{Sample code for reading the 64-bit cycle counter in RV32}{figure.10.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {10.2}Hardware Performance Counters}{69}{section.10.2}\protected@file@percent }
+\citation{ieee754-2008}
+\@writefile{toc}{\contentsline {chapter}{\numberline {11}``F'' Standard Extension for Single-Precision Floating-Point, Version 2.2}{71}{chapter.11}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:single-float}{{11}{71}{``F'' Standard Extension for Single-Precision Floating-Point, Version 2.2}{chapter.11}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.1}F Register State}{71}{section.11.1}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.1}{\ignorespaces RISC-V standard F extension single-precision floating-point state.}}{72}{figure.11.1}\protected@file@percent }
+\newlabel{fprs}{{11.1}{72}{RISC-V standard F extension single-precision floating-point state}{figure.11.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.2}Floating-Point Control and Status Register}{73}{section.11.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {11.2}{\ignorespaces Floating-point control and status register.}}{73}{figure.11.2}\protected@file@percent }
+\newlabel{fcsr}{{11.2}{73}{Floating-point control and status register}{figure.11.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11.1}{\ignorespaces Rounding mode encoding.}}{74}{table.11.1}\protected@file@percent }
+\newlabel{rm}{{11.1}{74}{Rounding mode encoding}{table.11.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11.2}{\ignorespaces Accrued exception flag encoding.}}{74}{table.11.2}\protected@file@percent }
+\newlabel{bitdef}{{11.2}{74}{Accrued exception flag encoding}{table.11.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.3}NaN Generation and Propagation}{74}{section.11.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.4}Subnormal Arithmetic}{75}{section.11.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.5}Single-Precision Load and Store Instructions}{75}{section.11.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.6}Single-Precision Floating-Point Computational Instructions}{75}{section.11.6}\protected@file@percent }
+\newlabel{sec:single-float-compute}{{11.6}{75}{Single-Precision Floating-Point Computational Instructions}{section.11.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {11.3}{\ignorespaces Format field encoding.}}{76}{table.11.3}\protected@file@percent }
+\newlabel{tab:fmt}{{11.3}{76}{Format field encoding}{table.11.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.7}Single-Precision Floating-Point Conversion and Move \mbox  {Instructions}}{77}{section.11.7}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11.4}{\ignorespaces Domains of float-to-integer conversions and behavior for invalid inputs.}}{78}{table.11.4}\protected@file@percent }
+\newlabel{tab:int_conv}{{11.4}{78}{Domains of float-to-integer conversions and behavior for invalid inputs}{table.11.4}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {11.8}Single-Precision Floating-Point Compare Instructions}{79}{section.11.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {11.9}Single-Precision Floating-Point Classify Instruction}{79}{section.11.9}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {11.5}{\ignorespaces Format of result of FCLASS instruction.}}{80}{table.11.5}\protected@file@percent }
+\newlabel{tab:fclass}{{11.5}{80}{Format of result of FCLASS instruction}{table.11.5}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {12}``D'' Standard Extension for Double-Precision Floating-Point, Version 2.2}{81}{chapter.12}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {12.1}D Register State}{81}{section.12.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.2}NaN Boxing of Narrower Values}{81}{section.12.2}\protected@file@percent }
+\newlabel{nanboxing}{{12.2}{81}{NaN Boxing of Narrower Values}{section.12.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12.3}Double-Precision Load and Store Instructions}{82}{section.12.3}\protected@file@percent }
+\newlabel{fld_fsd}{{12.3}{82}{Double-Precision Load and Store Instructions}{section.12.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {12.4}Double-Precision Floating-Point Computational Instructions}{83}{section.12.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.5}Double-Precision Floating-Point Conversion and Move Instructions}{83}{section.12.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.6}Double-Precision Floating-Point Compare Instructions}{85}{section.12.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {12.7}Double-Precision Floating-Point Classify Instruction}{85}{section.12.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {13}``Q'' Standard Extension for Quad-Precision Floating-Point, Version 2.2}{87}{chapter.13}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {13.1}Quad-Precision Load and Store Instructions}{87}{section.13.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13.2}Quad-Precision Computational Instructions}{88}{section.13.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {13.1}{\ignorespaces Format field encoding.}}{88}{table.13.1}\protected@file@percent }
+\newlabel{tab:fpextfmt}{{13.1}{88}{Format field encoding}{table.13.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {13.3}Quad-Precision Convert and Move Instructions}{88}{section.13.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13.4}Quad-Precision Floating-Point Compare Instructions}{89}{section.13.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {13.5}Quad-Precision Floating-Point Classify Instruction}{90}{section.13.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {14}RVWMO Memory Consistency Model, Version 0.1}{91}{chapter.14}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{ch:memorymodel}{{14}{91}{RVWMO Memory Consistency Model, Version 0.1}{chapter.14}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {14.1}Definition of the RVWMO Memory Model}{92}{section.14.1}\protected@file@percent }
+\newlabel{sec:rvwmo}{{14.1}{92}{Definition of the RVWMO Memory Model}{section.14.1}{}}
+\newlabel{sec:rvwmo:primitives}{{14.1}{92}{Memory Model Primitives}{section*.16}{}}
+\citation{Gharachorloo90memoryconsistency}
+\newlabel{sec:memorymodel:dependencies}{{14.1}{93}{Syntactic Dependencies}{section*.17}{}}
+\newlabel{ppo:->st}{{1}{95}{Preserved Program Order}{Item.4}{}}
+\newlabel{ppo:rdw}{{2}{95}{Preserved Program Order}{Item.5}{}}
+\newlabel{ppo:amoforward}{{3}{95}{Preserved Program Order}{Item.6}{}}
+\newlabel{ppo:fence}{{4}{95}{Preserved Program Order}{Item.7}{}}
+\newlabel{ppo:acquire}{{5}{95}{Preserved Program Order}{Item.8}{}}
+\newlabel{ppo:release}{{6}{95}{Preserved Program Order}{Item.9}{}}
+\newlabel{ppo:rcsc}{{7}{95}{Preserved Program Order}{Item.10}{}}
+\newlabel{ppo:pair}{{8}{95}{Preserved Program Order}{Item.11}{}}
+\newlabel{ppo:addr}{{9}{95}{Preserved Program Order}{Item.12}{}}
+\newlabel{ppo:data}{{10}{95}{Preserved Program Order}{Item.13}{}}
+\newlabel{ppo:ctrl}{{11}{95}{Preserved Program Order}{Item.14}{}}
+\newlabel{ppo:addrdatarfi}{{12}{95}{Preserved Program Order}{Item.15}{}}
+\newlabel{ppo:addrpo}{{13}{95}{Preserved Program Order}{Item.16}{}}
+\newlabel{rvwmo:ax:load}{{14.1}{96}{Load Value Axiom}{section*.20}{}}
+\@writefile{toc}{\contentsline {paragraph}{Load Value Axiom}{96}{section*.20}\protected@file@percent }
+\newlabel{rvwmo:ax:atom}{{14.1}{96}{Atomicity Axiom}{section*.21}{}}
+\@writefile{toc}{\contentsline {paragraph}{Atomicity Axiom}{96}{section*.21}\protected@file@percent }
+\newlabel{rvwmo:ax:prog}{{14.1}{96}{Progress Axiom}{section*.22}{}}
+\@writefile{toc}{\contentsline {paragraph}{Progress Axiom}{96}{section*.22}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {14.2}CSR Dependency Tracking Granularity}{96}{section.14.2}\protected@file@percent }
+\newlabel{sec:csr-granularity}{{14.2}{96}{CSR Dependency Tracking Granularity}{section.14.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {14.1}{\ignorespaces Granularities at which syntactic dependencies are tracked through CSRs}}{96}{table.14.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {14.3}Source and Destination Register Listings}{96}{section.14.3}\protected@file@percent }
+\newlabel{sec:source-dest-regs}{{14.3}{96}{Source and Destination Register Listings}{section.14.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {15}``L'' Standard Extension for Decimal Floating-Point, Version 0.0}{103}{chapter.15}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {15.1}Decimal Floating-Point Registers}{103}{section.15.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {16}``C'' Standard Extension for Compressed Instructions, Version 2.0}{105}{chapter.16}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{compressed}{{16}{105}{``C'' Standard Extension for Compressed Instructions, Version 2.0}{chapter.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {16.1}Overview}{106}{section.16.1}\protected@file@percent }
+\citation{stretch}
+\citation{ibm360}
+\citation{cdc6600}
+\citation{waterman-ms}
+\@writefile{toc}{\contentsline {section}{\numberline {16.2}Compressed Instruction Formats}{108}{section.16.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {16.1}{\ignorespaces Compressed 16-bit RVC instruction formats.}}{109}{table.16.1}\protected@file@percent }
+\newlabel{rvc-formats}{{16.1}{109}{Compressed 16-bit RVC instruction formats}{table.16.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {16.2}{\ignorespaces Registers specified by the three-bit {\em  rs1\,$'$}, {\em  rs2\,$'$}, and {\em  rd\,$'$} fields of the CIW, CL, CS, CA, and CB formats.}}{109}{table.16.2}\protected@file@percent }
+\newlabel{registers}{{16.2}{109}{Registers specified by the three-bit {\em \rsoneprime }, {\em \rstwoprime }, and {\em \rdprime } fields of the CIW, CL, CS, CA, and CB formats}{table.16.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {16.3}Load and Store Instructions}{110}{section.16.3}\protected@file@percent }
+\citation{waterman-phd}
+\@writefile{toc}{\contentsline {section}{\numberline {16.4}Control Transfer Instructions}{114}{section.16.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {16.5}Integer Computational Instructions}{117}{section.16.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {16.6}Usage of C Instructions in LR/SC Sequences}{124}{section.16.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {16.7}HINT Instructions}{124}{section.16.7}\protected@file@percent }
+\newlabel{sec:rvc-hints}{{16.7}{124}{HINT Instructions}{section.16.7}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {16.3}{\ignorespaces RVC HINT instructions.}}{125}{table.16.3}\protected@file@percent }
+\newlabel{tab:rvc-hints}{{16.3}{125}{RVC HINT instructions}{table.16.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {16.8}RVC Instruction Set Listings}{126}{section.16.8}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {16.4}{\ignorespaces RVC opcode map}}{126}{table.16.4}\protected@file@percent }
+\newlabel{rvcopcodemap}{{16.4}{126}{RVC opcode map}{table.16.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {16.5}{\ignorespaces Instruction listing for RVC, Quadrant 0.}}{127}{table.16.5}\protected@file@percent }
+\newlabel{rvc-instr-table0}{{16.5}{127}{Instruction listing for RVC, Quadrant 0}{table.16.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {16.6}{\ignorespaces Instruction listing for RVC, Quadrant 1.}}{128}{table.16.6}\protected@file@percent }
+\newlabel{rvc-instr-table1}{{16.6}{128}{Instruction listing for RVC, Quadrant 1}{table.16.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {16.7}{\ignorespaces Instruction listing for RVC, Quadrant 2.}}{129}{table.16.7}\protected@file@percent }
+\newlabel{rvc-instr-table2}{{16.7}{129}{Instruction listing for RVC, Quadrant 2}{table.16.7}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {17}``B'' Standard Extension for Bit Manipulation, Version 0.0}{131}{chapter.17}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:bits}{{17}{131}{``B'' Standard Extension for Bit Manipulation, Version 0.0}{chapter.17}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {18}``J'' Standard Extension for Dynamically Translated Languages, Version 0.0}{133}{chapter.18}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:j}{{18}{133}{``J'' Standard Extension for Dynamically Translated Languages, Version 0.0}{chapter.18}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {19}``T'' Standard Extension for Transactional Memory, Version 0.0}{135}{chapter.19}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:tm}{{19}{135}{``T'' Standard Extension for Transactional Memory, Version 0.0}{chapter.19}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {20}``P'' Standard Extension for Packed-SIMD Instructions, Version 0.2}{137}{chapter.20}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:packedsimd}{{20}{137}{``P'' Standard Extension for Packed-SIMD Instructions, Version 0.2}{chapter.20}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {21}``V'' Standard Extension for Vector Operations, Version 0.7}{139}{chapter.21}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:vector}{{21}{139}{``V'' Standard Extension for Vector Operations, Version 0.7}{chapter.21}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {22}``Zam'' Standard Extension for Misaligned Atomics, v0.1}{141}{chapter.22}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:zam}{{22}{141}{``Zam'' Standard Extension for Misaligned Atomics, v0.1}{chapter.22}{}}
+\newlabel{rvwmo:ax:misaligned}{{22}{141}{Atomicity Axiom for misaligned atomics}{section*.31}{}}
+\@writefile{toc}{\contentsline {paragraph}{Atomicity Axiom for misaligned atomics}{141}{section*.31}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {23}``Ztso'' Standard Extension for Total Store Ordering, v0.1}{143}{chapter.23}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:ztso}{{23}{143}{``Ztso'' Standard Extension for Total Store Ordering, v0.1}{chapter.23}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {24}RV32/64G Instruction Set Listings}{145}{chapter.24}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{lot}{\contentsline {table}{\numberline {24.1}{\ignorespaces RISC-V base opcode map, inst[1:0]=11}}{145}{table.24.1}\protected@file@percent }
+\newlabel{opcodemap}{{24.1}{145}{RISC-V base opcode map, inst[1:0]=11}{table.24.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {24.2}{\ignorespaces Instruction listing for RISC-V}}{151}{table.24.2}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {24.3}{\ignorespaces RISC-V control and status register (CSR) address map.}}{152}{table.24.3}\protected@file@percent }
+\newlabel{rvgcsrnames}{{24.3}{152}{RISC-V control and status register (CSR) address map}{table.24.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {25}RISC-V Assembly Programmer's Handbook}{155}{chapter.25}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{assembly}{{25}{155}{RISC-V Assembly Programmer's Handbook}{chapter.25}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {25.1}{\ignorespaces Assembler mnemonics for RISC-V integer and floating-point registers, and their role in the first standard calling convention.}}{155}{table.25.1}\protected@file@percent }
+\newlabel{regmap}{{25.1}{155}{Assembler mnemonics for RISC-V integer and floating-point registers, and their role in the first standard calling convention}{table.25.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {25.2}{\ignorespaces RISC-V pseudoinstructions.}}{157}{table.25.2}\protected@file@percent }
+\newlabel{pseudos}{{25.2}{157}{RISC-V pseudoinstructions}{table.25.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {25.3}{\ignorespaces RISC-V pseudoinstructions.}}{158}{table.25.3}\protected@file@percent }
+\newlabel{csr-pseudos}{{25.3}{158}{RISC-V pseudoinstructions}{table.25.3}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {26}Extending RISC-V}{159}{chapter.26}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{extensions}{{26}{159}{Extending RISC-V}{chapter.26}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {26.1}Extension Terminology}{159}{section.26.1}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {26.1}{\ignorespaces Suggested standard RISC-V instruction encoding space sizes.}}{160}{table.26.1}\protected@file@percent }
+\newlabel{encodingspaces}{{26.1}{160}{Suggested standard RISC-V instruction encoding space sizes}{table.26.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {26.2}{\ignorespaces Two-dimensional characterization of standard instruction-set extensions.}}{161}{table.26.2}\protected@file@percent }
+\newlabel{exttax}{{26.2}{161}{Two-dimensional characterization of standard instruction-set extensions}{table.26.2}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {26.2}RISC-V Extension Design Philosophy}{162}{section.26.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {26.3}Extensions within fixed-width 32-bit instruction format}{162}{section.26.3}\protected@file@percent }
+\newlabel{fix32b}{{26.3}{162}{Extensions within fixed-width 32-bit instruction format}{section.26.3}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {26.4}Adding aligned 64-bit instruction extensions}{164}{section.26.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {26.5}Supporting VLIW encodings}{164}{section.26.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {27}ISA Extension Naming Conventions}{167}{chapter.27}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{naming}{{27}{167}{ISA Extension Naming Conventions}{chapter.27}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {27.1}Case Sensitivity}{167}{section.27.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.2}Base Integer ISA}{167}{section.27.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.3}Instruction-Set Extension Names}{167}{section.27.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.4}Version Numbers}{168}{section.27.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.5}Underscores}{168}{section.27.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.6}Additional Standard Extension Names}{168}{section.27.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.7}Supervisor-level Instruction-Set Extensions}{169}{section.27.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.8}Hypervisor-level Instruction-Set Extensions}{169}{section.27.8}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.9}Machine-level Instruction-Set Extensions}{169}{section.27.9}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.10}Non-Standard Extension Names}{169}{section.27.10}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {27.11}Subset Naming Convention}{170}{section.27.11}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {27.1}{\ignorespaces Standard ISA extension names. The table also defines the canonical order in which extension names must appear in the name string, with top-to-bottom in table indicating first-to-last in the name string, e.g., RV32IMACV is legal, whereas RV32IMAVC is not.}}{170}{table.27.1}\protected@file@percent }
+\newlabel{isanametable}{{27.1}{170}{Standard ISA extension names. The table also defines the canonical order in which extension names must appear in the name string, with top-to-bottom in table indicating first-to-last in the name string, e.g., RV32IMACV is legal, whereas RV32IMAVC is not}{table.27.1}{}}
+\citation{sparcieee1994}
+\@writefile{toc}{\contentsline {chapter}{\numberline {28}History and Acknowledgments}{171}{chapter.28}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{history}{{28}{171}{History and Acknowledgments}{chapter.28}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {28.1}``Why Develop a new ISA?'' Rationale from Berkeley Group}{171}{section.28.1}\protected@file@percent }
+\citation{openriscarch}
+\@writefile{toc}{\contentsline {section}{\numberline {28.2}History from Revision 1.0 of ISA manual}{173}{section.28.2}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {28.3}History from Revision 2.0 of ISA manual}{174}{section.28.3}\protected@file@percent }
+\@writefile{lot}{\contentsline {table}{\numberline {28.1}{\ignorespaces Fabricated RISC-V testchips.}}{174}{table.28.1}\protected@file@percent }
+\newlabel{silicon}{{28.1}{174}{Fabricated RISC-V testchips}{table.28.1}{}}
+\citation{waterman-ms}
+\@writefile{toc}{\contentsline {section}{\numberline {28.4}History from Revision 2.1}{176}{section.28.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {28.5}History from Revision 2.2}{176}{section.28.5}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {28.6}History for Revision 2.3}{177}{section.28.6}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {28.7}Funding}{177}{section.28.7}\protected@file@percent }
+\@writefile{toc}{\contentsline {chapter}{\numberline {A}RVWMO Explanatory Material, Version 0.1}{179}{appendix.A}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\newlabel{sec:memorymodelexplanation}{{A}{179}{RVWMO Explanatory Material, Version 0.1}{appendix.A}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.1}Why RVWMO?}{179}{section.A.1}\protected@file@percent }
+\newlabel{sec:whyrvwmo}{{A.1}{179}{Why RVWMO?}{section.A.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.2}Litmus Tests}{180}{section.A.2}\protected@file@percent }
+\newlabel{sec:litmustests}{{A.2}{180}{Litmus Tests}{section.A.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.1}{\ignorespaces A sample litmus test and one forbidden execution ({\tt  a0=1}).}}{180}{figure.A.1}\protected@file@percent }
+\newlabel{fig:litmus:sample}{{A.1}{180}{A sample litmus test and one forbidden execution ({\tt a0=1})}{figure.A.1}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.1}{\ignorespaces A key for the litmus test diagrams drawn in this appendix}}{181}{table.A.1}\protected@file@percent }
+\newlabel{tab:litmus:key}{{A.1}{181}{A key for the litmus test diagrams drawn in this appendix}{table.A.1}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.3}Explaining the RVWMO Rules}{181}{section.A.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.1}Preserved Program Order and Global Memory Order}{182}{subsection.A.3.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.2}\nameref  *{rvwmo:ax:load}}{182}{subsection.A.3.2}\protected@file@percent }
+\newlabel{sec:memory:loadvalueaxiom}{{A.3.2}{182}{\nameref *{rvwmo:ax:load}}{subsection.A.3.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.2}{\ignorespaces A store buffer forwarding litmus test (outcome permitted)}}{183}{figure.A.2}\protected@file@percent }
+\newlabel{fig:litmus:storebuffer}{{A.2}{183}{A store buffer forwarding litmus test (outcome permitted)}{figure.A.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.3}{\ignorespaces The ``PPOCA'' store buffer forwarding litmus test (outcome permitted)}}{184}{figure.A.3}\protected@file@percent }
+\newlabel{fig:litmus:ppoca}{{A.3}{184}{The ``PPOCA'' store buffer forwarding litmus test (outcome permitted)}{figure.A.3}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.3}\nameref  *{rvwmo:ax:atom}}{185}{subsection.A.3.3}\protected@file@percent }
+\newlabel{sec:memory:atomicityaxiom}{{A.3.3}{185}{\nameref *{rvwmo:ax:atom}}{subsection.A.3.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.4}{\ignorespaces In all four (independent) code snippets, the store-conditional (c) is permitted but not guaranteed to succeed}}{185}{figure.A.4}\protected@file@percent }
+\newlabel{fig:litmus:lrsdsc}{{A.4}{185}{In all four (independent) code snippets, the store-conditional (c) is permitted but not guaranteed to succeed}{figure.A.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.4}\nameref  *{rvwmo:ax:prog}}{186}{subsection.A.3.4}\protected@file@percent }
+\newlabel{sec:memory:progress}{{A.3.4}{186}{\nameref *{rvwmo:ax:prog}}{subsection.A.3.4}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.5}Overlapping-Address Orderings (Rules\nobreakspace  {}\ref  {ppo:->st}--\ref  {ppo:amoforward})}{186}{subsection.A.3.5}\protected@file@percent }
+\newlabel{sec:memory:overlap}{{A.3.5}{186}{Overlapping-Address Orderings (Rules~\ref {ppo:->st}--\ref {ppo:amoforward})}{subsection.A.3.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.5}{\ignorespaces Litmus test MP+fence.w.w+fri-rfi-addr (outcome permitted)}}{187}{figure.A.5}\protected@file@percent }
+\newlabel{fig:litmus:frirfi}{{A.5}{187}{Litmus test MP+fence.w.w+fri-rfi-addr (outcome permitted)}{figure.A.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.6}{\ignorespaces Litmus test RSW (outcome permitted)}}{188}{figure.A.6}\protected@file@percent }
+\newlabel{fig:litmus:rsw}{{A.6}{188}{Litmus test RSW (outcome permitted)}{figure.A.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.6}Fences (Rule\nobreakspace  {}\ref  {ppo:fence})}{189}{subsection.A.3.6}\protected@file@percent }
+\newlabel{sec:mm:fence}{{A.3.6}{189}{Fences (Rule~\ref {ppo:fence})}{subsection.A.3.6}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.7}Explicit Synchronization (Rules\nobreakspace  {}\ref  {ppo:acquire}--\ref  {ppo:pair})}{189}{subsection.A.3.7}\protected@file@percent }
+\newlabel{sec:memory:acqrel}{{A.3.7}{189}{Explicit Synchronization (Rules~\ref {ppo:acquire}--\ref {ppo:pair})}{subsection.A.3.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.7}{\ignorespaces A spinlock with atomics}}{190}{figure.A.7}\protected@file@percent }
+\newlabel{fig:litmus:spinlock_atomics}{{A.7}{190}{A spinlock with atomics}{figure.A.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.8}{\ignorespaces A spinlock with fences}}{190}{figure.A.8}\protected@file@percent }
+\newlabel{fig:litmus:spinlock_fences}{{A.8}{190}{A spinlock with fences}{figure.A.8}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.8}Syntactic Dependencies (Rules\nobreakspace  {}\ref  {ppo:addr}--\ref  {ppo:ctrl})}{191}{subsection.A.3.8}\protected@file@percent }
+\newlabel{sec:memory:dependencies}{{A.3.8}{191}{Syntactic Dependencies (Rules~\ref {ppo:addr}--\ref {ppo:ctrl})}{subsection.A.3.8}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.9}{\ignorespaces (c) has a syntactic dependency on both (a) and (b) via {\tt  fflags}, a destination register that both (a) and (b) implicitly accumulate into}}{192}{figure.A.9}\protected@file@percent }
+\newlabel{fig:litmus:fflags}{{A.9}{192}{(c) has a syntactic dependency on both (a) and (b) via {\tt fflags}, a destination register that both (a) and (b) implicitly accumulate into}{figure.A.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.10}{\ignorespaces A syntactic address dependency}}{192}{figure.A.10}\protected@file@percent }
+\newlabel{fig:litmus:address}{{A.10}{192}{A syntactic address dependency}{figure.A.10}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.11}{\ignorespaces A syntactic control dependency}}{192}{figure.A.11}\protected@file@percent }
+\newlabel{fig:litmus:control1}{{A.11}{192}{A syntactic control dependency}{figure.A.11}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.12}{\ignorespaces Another syntactic control dependency}}{193}{figure.A.12}\protected@file@percent }
+\newlabel{fig:litmus:control2}{{A.12}{193}{Another syntactic control dependency}{figure.A.12}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.13}{\ignorespaces A variant of the LB litmus test (outcome forbidden)}}{193}{figure.A.13}\protected@file@percent }
+\newlabel{fig:litmus:successdeps}{{A.13}{193}{A variant of the LB litmus test (outcome forbidden)}{figure.A.13}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.3.9}Pipeline Dependencies (Rules\nobreakspace  {}\ref  {ppo:addrdatarfi}--\ref  {ppo:addrpo})}{194}{subsection.A.3.9}\protected@file@percent }
+\newlabel{sec:memory:ppopipeline}{{A.3.9}{194}{Pipeline Dependencies (Rules~\ref {ppo:addrdatarfi}--\ref {ppo:addrpo})}{subsection.A.3.9}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.14}{\ignorespaces Because of PPO rule\nobreakspace  {}\ref  {ppo:addrdatarfi} and the data dependency from (d) to (e), (d) must also precede (f) in the global memory order (outcome forbidden)}}{194}{figure.A.14}\protected@file@percent }
+\newlabel{fig:litmus:addrdatarfi}{{A.14}{194}{Because of PPO rule~\ref {ppo:addrdatarfi} and the data dependency from (d) to (e), (d) must also precede (f) in the global memory order (outcome forbidden)}{figure.A.14}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.15}{\ignorespaces Because of the extra store between (e) and (g), (d) no longer necessarily precedes (g) (outcome permitted)}}{195}{figure.A.15}\protected@file@percent }
+\newlabel{fig:litmus:addrdatarfi_no}{{A.15}{195}{Because of the extra store between (e) and (g), (d) no longer necessarily precedes (g) (outcome permitted)}{figure.A.15}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.16}{\ignorespaces Because of the address dependency from (d) to (e), (d) also precedes (f) (outcome forbidden)}}{195}{figure.A.16}\protected@file@percent }
+\newlabel{fig:litmus:addrpo}{{A.16}{195}{Because of the address dependency from (d) to (e), (d) also precedes (f) (outcome forbidden)}{figure.A.16}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.4}Beyond Main Memory}{195}{section.A.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4.1}Coherence and Cacheability}{196}{subsection.A.4.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.4.2}I/O Ordering}{196}{subsection.A.4.2}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {A.17}{\ignorespaces Ordering memory and I/O accesses}}{197}{figure.A.17}\protected@file@percent }
+\newlabel{fig:litmus:wo}{{A.17}{197}{Ordering memory and I/O accesses}{figure.A.17}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.5}Code Porting and Mapping Guidelines}{198}{section.A.5}\protected@file@percent }
+\newlabel{sec:memory:porting}{{A.5}{198}{Code Porting and Mapping Guidelines}{section.A.5}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.2}{\ignorespaces Mappings from TSO operations to RISC-V operations}}{198}{table.A.2}\protected@file@percent }
+\newlabel{tab:tsomappings}{{A.2}{198}{Mappings from TSO operations to RISC-V operations}{table.A.2}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.3}{\ignorespaces Mappings from Power operations to RISC-V operations}}{199}{table.A.3}\protected@file@percent }
+\newlabel{tab:powermappings}{{A.3}{199}{Mappings from Power operations to RISC-V operations}{table.A.3}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.4}{\ignorespaces Mappings from ARM operations to RISC-V operations}}{199}{table.A.4}\protected@file@percent }
+\newlabel{tab:armmappings}{{A.4}{199}{Mappings from ARM operations to RISC-V operations}{table.A.4}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.5}{\ignorespaces Mappings from Linux memory primitives to RISC-V primitives. Other constructs (such as spinlocks) should follow accordingly. Platforms or devices with non-coherent DMA may need additional synchronization (such as cache flush or invalidate mechanisms); currently any such extra synchronization will be device-specific.}}{200}{table.A.5}\protected@file@percent }
+\newlabel{tab:linuxmappings}{{A.5}{200}{Mappings from Linux memory primitives to RISC-V primitives. Other constructs (such as spinlocks) should follow accordingly. Platforms or devices with non-coherent DMA may need additional synchronization (such as cache flush or invalidate mechanisms); currently any such extra synchronization will be device-specific}{table.A.5}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.18}{\ignorespaces Orderings between critical sections in Linux}}{201}{figure.A.18}\protected@file@percent }
+\newlabel{fig:litmus:lkmm_ll}{{A.18}{201}{Orderings between critical sections in Linux}{figure.A.18}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.6}{\ignorespaces Mappings from C/C++ primitives to RISC-V primitives.}}{201}{table.A.6}\protected@file@percent }
+\newlabel{tab:c11mappings}{{A.6}{201}{Mappings from C/C++ primitives to RISC-V primitives}{table.A.6}{}}
+\@writefile{lot}{\contentsline {table}{\numberline {A.7}{\ignorespaces Hypothetical mappings from C/C++ primitives to RISC-V primitives, if native load-acquire and store-release opcodes are introduced.}}{202}{table.A.7}\protected@file@percent }
+\newlabel{tab:c11mappings_hypothetical}{{A.7}{202}{Hypothetical mappings from C/C++ primitives to RISC-V primitives, if native load-acquire and store-release opcodes are introduced}{table.A.7}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {A.6}Implementation Guidelines}{203}{section.A.6}\protected@file@percent }
+\@writefile{lof}{\contentsline {figure}{\numberline {A.19}{\ignorespaces Write subsumption litmus test, allowed execution.}}{205}{figure.A.19}\protected@file@percent }
+\newlabel{fig:litmus:subsumption}{{A.19}{205}{Write subsumption litmus test, allowed execution}{figure.A.19}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.6.1}Possible Future Extensions}{205}{subsection.A.6.1}\protected@file@percent }
+\@writefile{toc}{\contentsline {section}{\numberline {A.7}Known Issues}{206}{section.A.7}\protected@file@percent }
+\newlabel{sec:memory:discrepancies}{{A.7}{206}{Known Issues}{section.A.7}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {A.7.1}Mixed-size RSW}{206}{subsection.A.7.1}\protected@file@percent }
+\newlabel{sec:memory:discrepancies:mixedrsw}{{A.7.1}{206}{Mixed-size RSW}{subsection.A.7.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.20}{\ignorespaces Mixed-size discrepancy (permitted by axiomatic models, forbidden by operational model)}}{206}{figure.A.20}\protected@file@percent }
+\newlabel{fig:litmus:discrepancy:rsw1}{{A.20}{206}{Mixed-size discrepancy (permitted by axiomatic models, forbidden by operational model)}{figure.A.20}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.21}{\ignorespaces Mixed-size discrepancy (permitted by axiomatic models, forbidden by operational model)}}{206}{figure.A.21}\protected@file@percent }
+\newlabel{fig:litmus:discrepancy:rsw2}{{A.21}{206}{Mixed-size discrepancy (permitted by axiomatic models, forbidden by operational model)}{figure.A.21}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {A.22}{\ignorespaces Mixed-size discrepancy (permitted by axiomatic models, forbidden by operational model)}}{207}{figure.A.22}\protected@file@percent }
+\newlabel{fig:litmus:discrepancy:rsw3}{{A.22}{207}{Mixed-size discrepancy (permitted by axiomatic models, forbidden by operational model)}{figure.A.22}{}}
+\@writefile{toc}{\contentsline {chapter}{\numberline {B}Formal Memory Model Specifications, Version 0.1}{209}{appendix.B}\protected@file@percent }
+\@writefile{lof}{\addvspace {10\p@ }}
+\@writefile{lot}{\addvspace {10\p@ }}
+\@writefile{toc}{\contentsline {section}{\numberline {B.1}Formal Axiomatic Specification in Alloy}{210}{section.B.1}\protected@file@percent }
+\newlabel{sec:alloy}{{B.1}{210}{Formal Axiomatic Specification in Alloy}{section.B.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.1}{\ignorespaces The RVWMO memory model formalized in Alloy (1/5: PPO)}}{210}{figure.B.1}\protected@file@percent }
+\newlabel{fig:alloy1}{{B.1}{210}{The RVWMO memory model formalized in Alloy (1/5: PPO)}{figure.B.1}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.2}{\ignorespaces The RVWMO memory model formalized in Alloy (2/5: Axioms)}}{211}{figure.B.2}\protected@file@percent }
+\newlabel{fig:alloy2}{{B.2}{211}{The RVWMO memory model formalized in Alloy (2/5: Axioms)}{figure.B.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.3}{\ignorespaces The RVWMO memory model formalized in Alloy (3/5: model of memory)}}{212}{figure.B.3}\protected@file@percent }
+\newlabel{fig:alloy3}{{B.3}{212}{The RVWMO memory model formalized in Alloy (3/5: model of memory)}{figure.B.3}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.4}{\ignorespaces The RVWMO memory model formalized in Alloy (4/5: Basic model rules)}}{213}{figure.B.4}\protected@file@percent }
+\newlabel{fig:alloy4}{{B.4}{213}{The RVWMO memory model formalized in Alloy (4/5: Basic model rules)}{figure.B.4}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.5}{\ignorespaces The RVWMO memory model formalized in Alloy (5/5: Auxiliaries)}}{214}{figure.B.5}\protected@file@percent }
+\newlabel{fig:alloy5}{{B.5}{214}{The RVWMO memory model formalized in Alloy (5/5: Auxiliaries)}{figure.B.5}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.2}Formal Axiomatic Specification in Herd}{215}{section.B.2}\protected@file@percent }
+\newlabel{sec:herd}{{B.2}{215}{Formal Axiomatic Specification in Herd}{section.B.2}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.6}{\ignorespaces {\tt  riscv-defs.cat}, a herd definition of preserved program order (1/3)}}{216}{figure.B.6}\protected@file@percent }
+\newlabel{fig:herd1}{{B.6}{216}{{\tt riscv-defs.cat}, a herd definition of preserved program order (1/3)}{figure.B.6}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.7}{\ignorespaces {\tt  riscv.cat}, a herd version of the RVWMO memory model (2/3)}}{217}{figure.B.7}\protected@file@percent }
+\newlabel{fig:herd2}{{B.7}{217}{{\tt riscv.cat}, a herd version of the RVWMO memory model (2/3)}{figure.B.7}{}}
+\@writefile{lof}{\contentsline {figure}{\numberline {B.8}{\ignorespaces {\tt  riscv.cat}, an alternative herd presentation of the RVWMO memory model (3/3)}}{218}{figure.B.8}\protected@file@percent }
+\newlabel{fig:herd3}{{B.8}{218}{{\tt riscv.cat}, an alternative herd presentation of the RVWMO memory model (3/3)}{figure.B.8}{}}
+\@writefile{toc}{\contentsline {section}{\numberline {B.3}An Operational Memory Model}{219}{section.B.3}\protected@file@percent }
+\newlabel{sec:operational}{{B.3}{219}{An Operational Memory Model}{section.B.3}{}}
+\@writefile{toc}{\contentsline {paragraph}{Model states}{219}{section*.48}\protected@file@percent }
+\@writefile{toc}{\contentsline {paragraph}{Model transitions}{220}{section*.49}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.1}Intra-instruction Pseudocode Execution}{223}{subsection.B.3.1}\protected@file@percent }
+\newlabel{sec:omm:pseudocode_exec}{{B.3.1}{223}{Intra-instruction Pseudocode Execution}{subsection.B.3.1}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.2}Instruction Instance State}{224}{subsection.B.3.2}\protected@file@percent }
+\newlabel{sec:omm:inst_state}{{B.3.2}{224}{Instruction Instance State}{subsection.B.3.2}{}}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.3}Hart State}{225}{subsection.B.3.3}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.4}Shared Memory State}{226}{subsection.B.3.4}\protected@file@percent }
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.5}Transitions}{226}{subsection.B.3.5}\protected@file@percent }
+\newlabel{sec:omm:transitions}{{B.3.5}{226}{Transitions}{subsection.B.3.5}{}}
+\newlabel{omm:fetch}{{B.3.5}{226}{Fetch instruction}{section*.50}{}}
+\@writefile{toc}{\contentsline {paragraph}{Fetch instruction}{226}{section*.50}\protected@file@percent }
+\newlabel{omm:initiate_load}{{B.3.5}{227}{Initiate memory load operations}{section*.51}{}}
+\@writefile{toc}{\contentsline {paragraph}{Initiate memory load operations}{227}{section*.51}\protected@file@percent }
+\newlabel{omm:sat_by_forwarding}{{B.3.5}{227}{Satisfy memory load operation by forwarding from unpropagated stores}{section*.52}{}}
+\@writefile{toc}{\contentsline {paragraph}{Satisfy memory load operation by forwarding from unpropagated stores}{227}{section*.52}\protected@file@percent }
+\newlabel{omm:sat_from_mem}{{B.3.5}{229}{Satisfy memory load operation from memory}{section*.53}{}}
+\@writefile{toc}{\contentsline {paragraph}{Satisfy memory load operation from memory}{229}{section*.53}\protected@file@percent }
+\newlabel{omm:complete_loads}{{B.3.5}{229}{Complete load operations}{section*.54}{}}
+\@writefile{toc}{\contentsline {paragraph}{Complete load operations}{229}{section*.54}\protected@file@percent }
+\newlabel{omm:early_sc_fail}{{B.3.5}{229}{Early {\tt sc} fail}{section*.55}{}}
+\@writefile{toc}{\contentsline {paragraph}{Early {\tt  sc} fail}{229}{section*.55}\protected@file@percent }
+\newlabel{omm:paired_sc}{{B.3.5}{229}{Paired {\tt sc}}{section*.56}{}}
+\@writefile{toc}{\contentsline {paragraph}{Paired {\tt  sc}}{229}{section*.56}\protected@file@percent }
+\newlabel{omm:initiate_store_footprint}{{B.3.5}{229}{Initiate memory store operation footprints}{section*.57}{}}
+\@writefile{toc}{\contentsline {paragraph}{Initiate memory store operation footprints}{229}{section*.57}\protected@file@percent }
+\newlabel{omm:instantiate_store_value}{{B.3.5}{230}{Instantiate memory store operation values}{section*.58}{}}
+\@writefile{toc}{\contentsline {paragraph}{Instantiate memory store operation values}{230}{section*.58}\protected@file@percent }
+\newlabel{omm:commit_stores}{{B.3.5}{230}{Commit store instruction}{section*.59}{}}
+\@writefile{toc}{\contentsline {paragraph}{Commit store instruction}{230}{section*.59}\protected@file@percent }
+\newlabel{omm:commit_store:prev_addrs}{{8}{230}{Commit store instruction}{Item.65}{}}
+\newlabel{omm:commit_store:prev_stores}{{9}{230}{Commit store instruction}{Item.66}{}}
+\newlabel{omm:commit_store:prev_loads}{{10}{230}{Commit store instruction}{Item.67}{}}
+\newlabel{omm:prop_store}{{B.3.5}{231}{Propagate store operation}{section*.60}{}}
+\@writefile{toc}{\contentsline {paragraph}{Propagate store operation}{231}{section*.60}\protected@file@percent }
+\newlabel{omm:commit_sc}{{B.3.5}{232}{Commit and propagate store operation of an {\tt sc}}{section*.61}{}}
+\@writefile{toc}{\contentsline {paragraph}{Commit and propagate store operation of an {\tt  sc}}{232}{section*.61}\protected@file@percent }
+\newlabel{omm:late_sc_fail}{{B.3.5}{232}{Late {\tt sc} fail}{section*.62}{}}
+\@writefile{toc}{\contentsline {paragraph}{Late {\tt  sc} fail}{232}{section*.62}\protected@file@percent }
+\newlabel{omm:complete_stores}{{B.3.5}{232}{Complete store operations}{section*.63}{}}
+\@writefile{toc}{\contentsline {paragraph}{Complete store operations}{232}{section*.63}\protected@file@percent }
+\newlabel{omm:do_amo}{{B.3.5}{232}{Satisfy, commit and propagate operations of an AMO}{section*.64}{}}
+\@writefile{toc}{\contentsline {paragraph}{Satisfy, commit and propagate operations of an AMO}{232}{section*.64}\protected@file@percent }
+\newlabel{omm:commit_fence}{{B.3.5}{233}{Commit fence}{section*.65}{}}
+\@writefile{toc}{\contentsline {paragraph}{Commit fence}{233}{section*.65}\protected@file@percent }
+\newlabel{omm:reg_read}{{B.3.5}{233}{Register read}{section*.66}{}}
+\@writefile{toc}{\contentsline {paragraph}{Register read}{233}{section*.66}\protected@file@percent }
+\newlabel{omm:reg_write}{{B.3.5}{234}{Register write}{section*.67}{}}
+\@writefile{toc}{\contentsline {paragraph}{Register write}{234}{section*.67}\protected@file@percent }
+\newlabel{omm:sail_interp}{{B.3.5}{234}{Pseudocode internal step}{section*.68}{}}
+\@writefile{toc}{\contentsline {paragraph}{Pseudocode internal step}{234}{section*.68}\protected@file@percent }
+\newlabel{omm:finish}{{B.3.5}{234}{Finish instruction}{section*.69}{}}
+\@writefile{toc}{\contentsline {paragraph}{Finish instruction}{234}{section*.69}\protected@file@percent }
+\bibstyle{plain}
+\bibdata{riscv-spec}
+\@writefile{toc}{\contentsline {subsection}{\numberline {B.3.6}Limitations}{235}{subsection.B.3.6}\protected@file@percent }
+\newlabel{sec:omm:limitations}{{B.3.6}{235}{Limitations}{subsection.B.3.6}{}}
+\bibcite{riscv-elf-psabi}{1}
+\bibcite{sparcieee1994}{2}
+\bibcite{ibm360}{3}
+\bibcite{stretch}{4}
+\bibcite{Gharachorloo90memoryconsistency}{5}
+\bibcite{heil-tr1996}{6}
+\bibcite{ieee754-2008}{7}
+\bibcite{Katevenis:1983}{8}
+\bibcite{Kim-micro2005}{9}
+\bibcite{Klauser-1998}{10}
+\bibcite{spur-jsscc1989}{11}
+\bibcite{openriscarch}{12}
+\bibcite{lithe-pan-hotpar09}{13}
+\bibcite{lithe-pan-pldi10}{14}
+\bibcite{riscI-isca1981}{15}
+\bibcite{Rajwar:2001:SLE}{16}
+\bibcite{ibmpower7}{17}
+\bibcite{cdc6600}{18}
+\bibcite{majc}{19}
+\bibcite{jtseng:sbbci}{20}
+\bibcite{Ungar:1984}{21}
+\bibcite{waterman-ms}{22}
+\bibcite{waterman-phd}{23}
+\bibcite{riscvtr}{24}
+\bibcite{riscvtr2}{25}
+\gdef \@abspage@last{256}

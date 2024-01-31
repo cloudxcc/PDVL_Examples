@@ -1,0 +1,61 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+<"
+
+cl_rv32imc {}
+
+build TB_RV32IMC {
+   join cl_rv32i cl_rv32imc;
+   join cl_rv32i_rf cl_rv32imc;
+   join cl_rv32i_dec cl_rv32imc;
+   join cl_rv32m cl_rv32imc;
+   join cl_rv32m_dec cl_rv32imc;
+   join cl_rv32c cl_rv32imc;
+   join cl_rv32c_list cl_rv32imc;
+   join cl_rv32c_dec_op0 cl_rv32imc;
+   join cl_rv32c_dec_op1 cl_rv32imc;
+   join cl_rv32c_dec_op2 cl_rv32imc;
+
+   join {
+      parameter PC_LEN = 15;
+      e_clk posedge clk;  
+      tr_rf_write { @c_rf_write { d_rf_write; } } 
+      
+	  tr_clocking { 
+	     @e_clk  { 
+            tr_rv32i;
+            tr_rv32m; 
+            tr_rv32c; 
+            tr_rf_write; } }
+
+	  tr_clocking_pc { 
+	     @c_arst { d_pc_reset; }
+         else { @e_clk  { d_pc_next; } } }
+         
+   } cl_rv32imc;
+   
+   place RISCV i_rv;
+   join cl_rv32imc i_rv;
+   join cl_ios;
+}
+
+cl_ios {
+   c_arst; 
+   item (* source *) clk; 
+   item (* source *) [31:0] instr; 
+   item (* sink *) [31:0] pc;
+   item (* sink *) [31:0] dmem_store_data;
+   item (* sink *) [1:0] dmem_store_width;
+   item (* sink *) [31:0] dmem_store_addr;
+   item (* sink *) [31:0] dmem_load_addr;
+   item (* source *) [31:0] dmem_load_data; 
+   item dummy;
+   d_dummy { dummy = 0; }
+   tr_dummy { @c_dmem_store { d_dummy; } 
+              @c_dmem_load { d_dummy; } }
+}
+
+">

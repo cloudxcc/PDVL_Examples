@@ -1,0 +1,42 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Memory with fixed size
+   "AXI" slave interface for write and read.
+
+<"
+cl_mem {
+      
+   //////////////////////////////////////////////
+   // AXI slave write interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_AWADDR *) [31:0] slv_wr_addr;
+   item (* AXI_SLV_AWDATA *) [31:0] slv_wr_data;
+   (* AXI_SLV_AWVALID *) c_slv_wr;
+
+   //////////////////////////////////////////////
+   // AXI slave read interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_ARADDR *) [31:0] slv_rd_addr;
+   item (* AXI_SLV_ARDATA=DRIVER *) [31:0] slv_rd_data;
+   (* AXI_SLV_ARVALID *) c_slv_rd_valid;
+   (* AXI_SLV_ARREADY=DRIVER *) c_slv_rd_ready;
+
+   //////////////////////////////////////////////
+   // memory model write                              
+   //////////////////////////////////////////////
+   reg [31:0] ram[4095:0]; 
+    
+   d_mem_store { ram[slv_wr_addr] = slv_wr_data; }
+
+   tr_clocking { @e_clk { @c_mem_store { d_mem_store; } } }           
+
+   //////////////////////////////////////////////
+   // memory model async read
+   //////////////////////////////////////////////
+   d_sv_rd_data { slv_rd_data = ram[slv_rd_addr]; }
+   tr_async_read { d_sv_rd_data; }
+}
+">

@@ -1,0 +1,178 @@
+\contentsline {chapter}{Preface}{i}{chapter*.1}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}RISC-V Hardware Platform Terminology}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}RISC-V Software Execution Environments and Harts}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}RISC-V ISA Overview}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Memory}{6}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Base Instruction-Length Encoding}{7}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Exceptions, Traps, and Interrupts}{10}{section.1.6}%
+\contentsline {section}{\numberline {1.7}UNSPECIFIED Behaviors and Values}{11}{section.1.7}%
+\contentsline {chapter}{\numberline {2}RV32I Base Integer Instruction Set, Version 2.1}{13}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Programmers' Model for Base Integer ISA}{13}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Base Instruction Formats}{15}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Immediate Encoding Variants}{17}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Integer Computational Instructions}{19}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Control Transfer Instructions}{25}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Load and Store Instructions}{30}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Memory Ordering Instructions}{33}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Environment Call and Breakpoints}{34}{section.2.8}%
+\contentsline {section}{\numberline {2.9}HINT Instructions}{35}{section.2.9}%
+\contentsline {section}{\numberline {2.10}\leavevmode {\color {blue}RV32I Datapath and Data Memory Interface}}{37}{section.2.10}%
+\contentsline {subsection}{\numberline {2.10.1}\leavevmode {\color {blue}RV32I Registerfile}}{37}{subsection.2.10.1}%
+\contentsline {subsection}{\numberline {2.10.2}\leavevmode {\color {blue}RV32I PC}}{37}{subsection.2.10.2}%
+\contentsline {subsection}{\numberline {2.10.3}\leavevmode {\color {blue}RV32I Datapath}}{37}{subsection.2.10.3}%
+\contentsline {subsection}{\numberline {2.10.4}\leavevmode {\color {blue}RV32I Data Memory Interface}}{37}{subsection.2.10.4}%
+\contentsline {chapter}{\numberline {3}``Zifencei'' Instruction-Fetch Fence, Version 2.0}{39}{chapter.3}%
+\contentsline {chapter}{\numberline {4}RV32E Base Integer Instruction Set, Version 1.9}{41}{chapter.4}%
+\contentsline {section}{\numberline {4.1}RV32E Programmers' Model}{41}{section.4.1}%
+\contentsline {section}{\numberline {4.2}RV32E Instruction Set}{42}{section.4.2}%
+\contentsline {chapter}{\numberline {5}RV64I Base Integer Instruction Set, Version 2.1}{43}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Register State}{43}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Integer Computational Instructions}{43}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Load and Store Instructions}{45}{section.5.3}%
+\contentsline {section}{\numberline {5.4}HINT Instructions}{46}{section.5.4}%
+\contentsline {chapter}{\numberline {6}RV128I Base Integer Instruction Set, Version 1.7}{49}{chapter.6}%
+\contentsline {chapter}{\numberline {7}``M'' Standard Extension for Integer Multiplication and Division, Version 2.0}{51}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Multiplication Operations}{52}{section.7.1}%
+\contentsline {section}{\numberline {7.2}Division Operations}{53}{section.7.2}%
+\contentsline {chapter}{\numberline {8}``A'' Standard Extension for Atomic Instructions, Version 2.1}{55}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Specifying Ordering of Atomic Instructions}{55}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Load-Reserved/Store-Conditional Instructions}{56}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Eventual Success of Store-Conditional Instructions}{59}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Atomic Memory Operations}{60}{section.8.4}%
+\contentsline {chapter}{\numberline {9}``Zicsr'', Control and Status Register (CSR) Instructions, Version 2.0}{63}{chapter.9}%
+\contentsline {section}{\numberline {9.1}CSR Instructions}{63}{section.9.1}%
+\contentsline {chapter}{\numberline {10}Counters}{67}{chapter.10}%
+\contentsline {section}{\numberline {10.1}Base Counters and Timers}{67}{section.10.1}%
+\contentsline {section}{\numberline {10.2}Hardware Performance Counters}{69}{section.10.2}%
+\contentsline {chapter}{\numberline {11}``F'' Standard Extension for Single-Precision Floating-Point, Version 2.2}{71}{chapter.11}%
+\contentsline {section}{\numberline {11.1}F Register State}{71}{section.11.1}%
+\contentsline {section}{\numberline {11.2}Floating-Point Control and Status Register}{73}{section.11.2}%
+\contentsline {section}{\numberline {11.3}NaN Generation and Propagation}{74}{section.11.3}%
+\contentsline {section}{\numberline {11.4}Subnormal Arithmetic}{75}{section.11.4}%
+\contentsline {section}{\numberline {11.5}Single-Precision Load and Store Instructions}{75}{section.11.5}%
+\contentsline {section}{\numberline {11.6}Single-Precision Floating-Point Computational Instructions}{75}{section.11.6}%
+\contentsline {section}{\numberline {11.7}Single-Precision Floating-Point Conversion and Move \mbox {Instructions}}{77}{section.11.7}%
+\contentsline {section}{\numberline {11.8}Single-Precision Floating-Point Compare Instructions}{79}{section.11.8}%
+\contentsline {section}{\numberline {11.9}Single-Precision Floating-Point Classify Instruction}{79}{section.11.9}%
+\contentsline {chapter}{\numberline {12}``D'' Standard Extension for Double-Precision Floating-Point, Version 2.2}{81}{chapter.12}%
+\contentsline {section}{\numberline {12.1}D Register State}{81}{section.12.1}%
+\contentsline {section}{\numberline {12.2}NaN Boxing of Narrower Values}{81}{section.12.2}%
+\contentsline {section}{\numberline {12.3}Double-Precision Load and Store Instructions}{82}{section.12.3}%
+\contentsline {section}{\numberline {12.4}Double-Precision Floating-Point Computational Instructions}{83}{section.12.4}%
+\contentsline {section}{\numberline {12.5}Double-Precision Floating-Point Conversion and Move Instructions}{83}{section.12.5}%
+\contentsline {section}{\numberline {12.6}Double-Precision Floating-Point Compare Instructions}{85}{section.12.6}%
+\contentsline {section}{\numberline {12.7}Double-Precision Floating-Point Classify Instruction}{85}{section.12.7}%
+\contentsline {chapter}{\numberline {13}``Q'' Standard Extension for Quad-Precision Floating-Point, Version 2.2}{87}{chapter.13}%
+\contentsline {section}{\numberline {13.1}Quad-Precision Load and Store Instructions}{87}{section.13.1}%
+\contentsline {section}{\numberline {13.2}Quad-Precision Computational Instructions}{88}{section.13.2}%
+\contentsline {section}{\numberline {13.3}Quad-Precision Convert and Move Instructions}{88}{section.13.3}%
+\contentsline {section}{\numberline {13.4}Quad-Precision Floating-Point Compare Instructions}{89}{section.13.4}%
+\contentsline {section}{\numberline {13.5}Quad-Precision Floating-Point Classify Instruction}{90}{section.13.5}%
+\contentsline {chapter}{\numberline {14}RVWMO Memory Consistency Model, Version 0.1}{91}{chapter.14}%
+\contentsline {section}{\numberline {14.1}Definition of the RVWMO Memory Model}{92}{section.14.1}%
+\contentsline {paragraph}{Load Value Axiom}{96}{section*.20}%
+\contentsline {paragraph}{Atomicity Axiom}{96}{section*.21}%
+\contentsline {paragraph}{Progress Axiom}{96}{section*.22}%
+\contentsline {section}{\numberline {14.2}CSR Dependency Tracking Granularity}{96}{section.14.2}%
+\contentsline {section}{\numberline {14.3}Source and Destination Register Listings}{96}{section.14.3}%
+\contentsline {chapter}{\numberline {15}``L'' Standard Extension for Decimal Floating-Point, Version 0.0}{103}{chapter.15}%
+\contentsline {section}{\numberline {15.1}Decimal Floating-Point Registers}{103}{section.15.1}%
+\contentsline {chapter}{\numberline {16}``C'' Standard Extension for Compressed Instructions, Version 2.0}{105}{chapter.16}%
+\contentsline {section}{\numberline {16.1}Overview}{106}{section.16.1}%
+\contentsline {section}{\numberline {16.2}Compressed Instruction Formats}{108}{section.16.2}%
+\contentsline {section}{\numberline {16.3}Load and Store Instructions}{110}{section.16.3}%
+\contentsline {section}{\numberline {16.4}Control Transfer Instructions}{114}{section.16.4}%
+\contentsline {section}{\numberline {16.5}Integer Computational Instructions}{117}{section.16.5}%
+\contentsline {section}{\numberline {16.6}Usage of C Instructions in LR/SC Sequences}{124}{section.16.6}%
+\contentsline {section}{\numberline {16.7}HINT Instructions}{124}{section.16.7}%
+\contentsline {section}{\numberline {16.8}RVC Instruction Set Listings}{126}{section.16.8}%
+\contentsline {chapter}{\numberline {17}``B'' Standard Extension for Bit Manipulation, Version 0.0}{131}{chapter.17}%
+\contentsline {chapter}{\numberline {18}``J'' Standard Extension for Dynamically Translated Languages, Version 0.0}{133}{chapter.18}%
+\contentsline {chapter}{\numberline {19}``T'' Standard Extension for Transactional Memory, Version 0.0}{135}{chapter.19}%
+\contentsline {chapter}{\numberline {20}``P'' Standard Extension for Packed-SIMD Instructions, Version 0.2}{137}{chapter.20}%
+\contentsline {chapter}{\numberline {21}``V'' Standard Extension for Vector Operations, Version 0.7}{139}{chapter.21}%
+\contentsline {chapter}{\numberline {22}``Zam'' Standard Extension for Misaligned Atomics, v0.1}{141}{chapter.22}%
+\contentsline {paragraph}{Atomicity Axiom for misaligned atomics}{141}{section*.31}%
+\contentsline {chapter}{\numberline {23}``Ztso'' Standard Extension for Total Store Ordering, v0.1}{143}{chapter.23}%
+\contentsline {chapter}{\numberline {24}RV32/64G Instruction Set Listings}{145}{chapter.24}%
+\contentsline {chapter}{\numberline {25}RISC-V Assembly Programmer's Handbook}{155}{chapter.25}%
+\contentsline {chapter}{\numberline {26}Extending RISC-V}{159}{chapter.26}%
+\contentsline {section}{\numberline {26.1}Extension Terminology}{159}{section.26.1}%
+\contentsline {section}{\numberline {26.2}RISC-V Extension Design Philosophy}{162}{section.26.2}%
+\contentsline {section}{\numberline {26.3}Extensions within fixed-width 32-bit instruction format}{162}{section.26.3}%
+\contentsline {section}{\numberline {26.4}Adding aligned 64-bit instruction extensions}{164}{section.26.4}%
+\contentsline {section}{\numberline {26.5}Supporting VLIW encodings}{164}{section.26.5}%
+\contentsline {chapter}{\numberline {27}ISA Extension Naming Conventions}{167}{chapter.27}%
+\contentsline {section}{\numberline {27.1}Case Sensitivity}{167}{section.27.1}%
+\contentsline {section}{\numberline {27.2}Base Integer ISA}{167}{section.27.2}%
+\contentsline {section}{\numberline {27.3}Instruction-Set Extension Names}{167}{section.27.3}%
+\contentsline {section}{\numberline {27.4}Version Numbers}{168}{section.27.4}%
+\contentsline {section}{\numberline {27.5}Underscores}{168}{section.27.5}%
+\contentsline {section}{\numberline {27.6}Additional Standard Extension Names}{168}{section.27.6}%
+\contentsline {section}{\numberline {27.7}Supervisor-level Instruction-Set Extensions}{169}{section.27.7}%
+\contentsline {section}{\numberline {27.8}Hypervisor-level Instruction-Set Extensions}{169}{section.27.8}%
+\contentsline {section}{\numberline {27.9}Machine-level Instruction-Set Extensions}{169}{section.27.9}%
+\contentsline {section}{\numberline {27.10}Non-Standard Extension Names}{169}{section.27.10}%
+\contentsline {section}{\numberline {27.11}Subset Naming Convention}{170}{section.27.11}%
+\contentsline {chapter}{\numberline {28}History and Acknowledgments}{171}{chapter.28}%
+\contentsline {section}{\numberline {28.1}``Why Develop a new ISA?'' Rationale from Berkeley Group}{171}{section.28.1}%
+\contentsline {section}{\numberline {28.2}History from Revision 1.0 of ISA manual}{173}{section.28.2}%
+\contentsline {section}{\numberline {28.3}History from Revision 2.0 of ISA manual}{174}{section.28.3}%
+\contentsline {section}{\numberline {28.4}History from Revision 2.1}{176}{section.28.4}%
+\contentsline {section}{\numberline {28.5}History from Revision 2.2}{176}{section.28.5}%
+\contentsline {section}{\numberline {28.6}History for Revision 2.3}{177}{section.28.6}%
+\contentsline {section}{\numberline {28.7}Funding}{177}{section.28.7}%
+\contentsline {chapter}{\numberline {A}RVWMO Explanatory Material, Version 0.1}{179}{appendix.A}%
+\contentsline {section}{\numberline {A.1}Why RVWMO?}{179}{section.A.1}%
+\contentsline {section}{\numberline {A.2}Litmus Tests}{180}{section.A.2}%
+\contentsline {section}{\numberline {A.3}Explaining the RVWMO Rules}{181}{section.A.3}%
+\contentsline {subsection}{\numberline {A.3.1}Preserved Program Order and Global Memory Order}{182}{subsection.A.3.1}%
+\contentsline {subsection}{\numberline {A.3.2}\nameref *{rvwmo:ax:load}}{182}{subsection.A.3.2}%
+\contentsline {subsection}{\numberline {A.3.3}\nameref *{rvwmo:ax:atom}}{185}{subsection.A.3.3}%
+\contentsline {subsection}{\numberline {A.3.4}\nameref *{rvwmo:ax:prog}}{186}{subsection.A.3.4}%
+\contentsline {subsection}{\numberline {A.3.5}Overlapping-Address Orderings (Rules\nobreakspace {}\ref {ppo:->st}--\ref {ppo:amoforward})}{186}{subsection.A.3.5}%
+\contentsline {subsection}{\numberline {A.3.6}Fences (Rule\nobreakspace {}\ref {ppo:fence})}{189}{subsection.A.3.6}%
+\contentsline {subsection}{\numberline {A.3.7}Explicit Synchronization (Rules\nobreakspace {}\ref {ppo:acquire}--\ref {ppo:pair})}{189}{subsection.A.3.7}%
+\contentsline {subsection}{\numberline {A.3.8}Syntactic Dependencies (Rules\nobreakspace {}\ref {ppo:addr}--\ref {ppo:ctrl})}{191}{subsection.A.3.8}%
+\contentsline {subsection}{\numberline {A.3.9}Pipeline Dependencies (Rules\nobreakspace {}\ref {ppo:addrdatarfi}--\ref {ppo:addrpo})}{194}{subsection.A.3.9}%
+\contentsline {section}{\numberline {A.4}Beyond Main Memory}{195}{section.A.4}%
+\contentsline {subsection}{\numberline {A.4.1}Coherence and Cacheability}{196}{subsection.A.4.1}%
+\contentsline {subsection}{\numberline {A.4.2}I/O Ordering}{196}{subsection.A.4.2}%
+\contentsline {section}{\numberline {A.5}Code Porting and Mapping Guidelines}{198}{section.A.5}%
+\contentsline {section}{\numberline {A.6}Implementation Guidelines}{203}{section.A.6}%
+\contentsline {subsection}{\numberline {A.6.1}Possible Future Extensions}{205}{subsection.A.6.1}%
+\contentsline {section}{\numberline {A.7}Known Issues}{206}{section.A.7}%
+\contentsline {subsection}{\numberline {A.7.1}Mixed-size RSW}{206}{subsection.A.7.1}%
+\contentsline {chapter}{\numberline {B}Formal Memory Model Specifications, Version 0.1}{209}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Formal Axiomatic Specification in Alloy}{210}{section.B.1}%
+\contentsline {section}{\numberline {B.2}Formal Axiomatic Specification in Herd}{215}{section.B.2}%
+\contentsline {section}{\numberline {B.3}An Operational Memory Model}{219}{section.B.3}%
+\contentsline {paragraph}{Model states}{219}{section*.48}%
+\contentsline {paragraph}{Model transitions}{220}{section*.49}%
+\contentsline {subsection}{\numberline {B.3.1}Intra-instruction Pseudocode Execution}{223}{subsection.B.3.1}%
+\contentsline {subsection}{\numberline {B.3.2}Instruction Instance State}{224}{subsection.B.3.2}%
+\contentsline {subsection}{\numberline {B.3.3}Hart State}{225}{subsection.B.3.3}%
+\contentsline {subsection}{\numberline {B.3.4}Shared Memory State}{226}{subsection.B.3.4}%
+\contentsline {subsection}{\numberline {B.3.5}Transitions}{226}{subsection.B.3.5}%
+\contentsline {paragraph}{Fetch instruction}{226}{section*.50}%
+\contentsline {paragraph}{Initiate memory load operations}{227}{section*.51}%
+\contentsline {paragraph}{Satisfy memory load operation by forwarding from unpropagated stores}{227}{section*.52}%
+\contentsline {paragraph}{Satisfy memory load operation from memory}{229}{section*.53}%
+\contentsline {paragraph}{Complete load operations}{229}{section*.54}%
+\contentsline {paragraph}{Early {\tt sc} fail}{229}{section*.55}%
+\contentsline {paragraph}{Paired {\tt sc}}{229}{section*.56}%
+\contentsline {paragraph}{Initiate memory store operation footprints}{229}{section*.57}%
+\contentsline {paragraph}{Instantiate memory store operation values}{230}{section*.58}%
+\contentsline {paragraph}{Commit store instruction}{230}{section*.59}%
+\contentsline {paragraph}{Propagate store operation}{231}{section*.60}%
+\contentsline {paragraph}{Commit and propagate store operation of an {\tt sc}}{232}{section*.61}%
+\contentsline {paragraph}{Late {\tt sc} fail}{232}{section*.62}%
+\contentsline {paragraph}{Complete store operations}{232}{section*.63}%
+\contentsline {paragraph}{Satisfy, commit and propagate operations of an AMO}{232}{section*.64}%
+\contentsline {paragraph}{Commit fence}{233}{section*.65}%
+\contentsline {paragraph}{Register read}{233}{section*.66}%
+\contentsline {paragraph}{Register write}{234}{section*.67}%
+\contentsline {paragraph}{Pseudocode internal step}{234}{section*.68}%
+\contentsline {paragraph}{Finish instruction}{234}{section*.69}%
+\contentsline {subsection}{\numberline {B.3.6}Limitations}{235}{subsection.B.3.6}%

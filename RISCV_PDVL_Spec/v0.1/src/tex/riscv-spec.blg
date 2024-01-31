@@ -1,0 +1,53 @@
+This is BibTeX, Version 0.99d
+Capacity: max_strings=200000, hash_size=200000, hash_prime=170003
+The top-level auxiliary file: riscv-spec.aux
+Reallocating 'name_of_file' (item size: 1) to 6 items.
+The style file: plain.bst
+Reallocating 'name_of_file' (item size: 1) to 11 items.
+Database file #1: riscv-spec.bib
+Warning--string name "november" is undefined
+--line 235 of file riscv-spec.bib
+Warning--to sort, need author or key in riscv-elf-psabi
+Warning--to sort, need author or key in sparcieee1994
+You've used 25 entries,
+            2118 wiz_defined-function locations,
+            647 strings with 8651 characters,
+and the built_in function-call counts, 8652 in all, are:
+= -- 825
+> -- 465
+< -- 9
++ -- 190
+- -- 160
+* -- 590
+:= -- 1411
+add.period$ -- 71
+call.type$ -- 25
+change.case$ -- 155
+chr.to.int$ -- 0
+cite$ -- 27
+duplicate$ -- 338
+empty$ -- 663
+format.name$ -- 160
+if$ -- 1832
+int.to.chr$ -- 0
+int.to.str$ -- 25
+missing$ -- 16
+newline$ -- 123
+num.names$ -- 45
+pop$ -- 193
+preamble$ -- 1
+purify$ -- 131
+quote$ -- 0
+skip$ -- 249
+stack$ -- 0
+substring$ -- 389
+swap$ -- 86
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 98
+warning$ -- 2
+while$ -- 70
+width$ -- 27
+write$ -- 267
+(There were 3 warnings)

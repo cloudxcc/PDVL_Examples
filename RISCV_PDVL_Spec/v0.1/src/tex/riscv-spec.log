@@ -1,0 +1,2442 @@
+This is pdfTeX, Version 3.141592653-2.6-1.40.23 (MiKTeX 21.8) (preloaded format=pdflatex 2021.10.14)  20 JAN 2024 19:11
+entering extended mode
+**./riscv-spec.tex
+(riscv-spec.tex
+LaTeX2e <2021-06-01> patch level 1
+L3 programming layer <2021-08-27>
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\book.cls
+Document Class: book 2021/02/12 v1.4n Standard LaTeX document class
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\bk11.clo
+File: bk11.clo 2021/02/12 v1.4n Standard LaTeX file (size option)
+)
+\c@part=\count182
+\c@chapter=\count183
+\c@section=\count184
+\c@subsection=\count185
+\c@subsubsection=\count186
+\c@paragraph=\count187
+\c@subparagraph=\count188
+\c@figure=\count189
+\c@table=\count190
+\abovecaptionskip=\skip47
+\belowcaptionskip=\skip48
+\bibindent=\dimen138
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/pdftex\glyphtounicode.t
+ex) (preamble.tex
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphicx.sty
+Package: graphicx 2020/12/05 v1.2c Enhanced LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics\keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
+\KV@toks@=\toks16
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics\graphics.sty
+Package: graphics 2021/03/04 v1.4d Standard LaTeX Graphics (DPC,SPQR)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics\trig.sty
+Package: trig 2016/01/03 v1.10 sin cos tan (DPC)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\graphics.cfg
+File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
+)
+Package graphics Info: Driver file: pdftex.def on input line 107.
+ (C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics-def\pdftex.def
+File: pdftex.def 2020/10/05 v1.2a Graphics/color driver for pdftex
+))
+\Gin@req@height=\dimen139
+\Gin@req@width=\dimen140
+) (C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.sty
+Package: geometry 2020/01/02 v5.9 Page Geometry
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/iftex\ifvtex.sty
+Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/iftex\iftex.sty
+Package: iftex 2020/03/06 v1.0d TeX engine tests
+))
+\Gm@cnth=\count191
+\Gm@cntv=\count192
+\c@Gm@tempcnt=\count193
+\Gm@bindingoffset=\dimen141
+\Gm@wd@mp=\dimen142
+\Gm@odd@mp=\dimen143
+\Gm@even@mp=\dimen144
+\Gm@layoutwidth=\dimen145
+\Gm@layoutheight=\dimen146
+\Gm@layouthoffset=\dimen147
+\Gm@layoutvoffset=\dimen148
+\Gm@dimlist=\toks17
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/geometry\geometry.cfg))
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/tools\array.sty
+Package: array 2021/04/20 v2.5e Tabular extension package (FMi)
+\col@sep=\dimen149
+\ar@mcellbox=\box50
+\extrarowheight=\dimen150
+\NC@list=\toks18
+\extratabsurround=\skip49
+\backup@length=\skip50
+\ar@cellbox=\box51
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/colortbl\colortbl.sty
+Package: colortbl 2022/06/20 v1.0f Color table columns (DPC)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics\color.sty
+Package: color 2020/02/24 v1.2b Standard LaTeX Color (DPC)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package color Info: Driver file: pdftex.def on input line 149.
+)
+\everycr=\toks19
+\minrowclearance=\skip51
+\rownum=\count194
+) (xcolor.sty
+Package: xcolor 2007/01/21 v2.11 LaTeX color extensions (UK)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/graphics-cfg\color.cfg
+File: color.cfg 2016/01/02 v1.6 sample color configuration
+)
+Package xcolor Info: Driver file: pdftex.def on input line 225.
+LaTeX Info: Redefining \color on input line 702.
+Package xcolor Info: Model `cmy' substituted by `cmy0' on input line 1337.
+Package xcolor Info: Model `hsb' substituted by `rgb' on input line 1341.
+Package xcolor Info: Model `RGB' extended on input line 1353.
+Package xcolor Info: Model `HTML' substituted by `rgb' on input line 1355.
+Package xcolor Info: Model `Hsb' substituted by `hsb' on input line 1356.
+Package xcolor Info: Model `tHsb' substituted by `hsb' on input line 1357.
+Package xcolor Info: Model `HSB' substituted by `hsb' on input line 1358.
+Package xcolor Info: Model `Gray' substituted by `gray' on input line 1359.
+Package xcolor Info: Model `wave' substituted by `hsb' on input line 1360.
+
+(svgnam.def
+File: svgnam.def 2016/05/11 v2.12 Predefined colors according to SVG 1.1 (UK)
+))
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref.sty
+Package: hyperref 2021-06-07 v7.00m Hypertext links for LaTeX
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/ltxcmds\ltxcmds.sty
+Package: ltxcmds 2020-05-10 v1.25 LaTeX kernel commands for general use (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/pdftexcmds\pdftexcmds.s
+ty
+Package: pdftexcmds 2020-06-27 v0.33 Utility functions of pdfTeX for LuaTeX (HO
+)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/infwarerr\infwarerr.sty
+Package: infwarerr 2019/12/03 v1.5 Providing info/warning/error messages (HO)
+)
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/kvsetkeys\kvsetkeys.sty
+Package: kvsetkeys 2022-10-05 v1.19 Key value parser (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/kvdefinekeys\kvdefineke
+ys.sty
+Package: kvdefinekeys 2019-12-19 v1.6 Define keys (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/pdfescape\pdfescape.sty
+Package: pdfescape 2019/12/09 v1.15 Implements pdfTeX's escape features (HO)
+) (C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hycolor\hycolor.sty
+Package: hycolor 2020-01-27 v1.10 Color options for hyperref/bookmark (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/letltxmacro\letltxmacro.s
+ty
+Package: letltxmacro 2019/12/03 v1.6 Let assignment for LaTeX macros (HO)
+) (C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/auxhook\auxhook.sty
+Package: auxhook 2019-12-17 v1.6 Hooks for auxiliary files (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/kvoptions\kvoptions.sty
+Package: kvoptions 2022-06-15 v3.15 Key value format for package options (HO)
+)
+\@linkdim=\dimen151
+\Hy@linkcounter=\count195
+\Hy@pagecounter=\count196
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\pd1enc.def
+File: pd1enc.def 2021-06-07 v7.00m Hyperref: PDFDocEncoding definition (HO)
+Now handling font encoding PD1 ...
+... no UTF-8 mapping file for font encoding PD1
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hyperref-langpat
+ches.def
+File: hyperref-langpatches.def 2021-06-07 v7.00m Hyperref: patches for babel la
+nguages
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/intcalc\intcalc.sty
+Package: intcalc 2019/12/15 v1.3 Expandable calculations with integers (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/etexcmds\etexcmds.sty
+Package: etexcmds 2019/12/15 v1.7 Avoid name clashes with e-TeX commands (HO)
+)
+\Hy@SavedSpaceFactor=\count197
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\puenc.def
+File: puenc.def 2021-06-07 v7.00m Hyperref: PDF Unicode definition (HO)
+Now handling font encoding PU ...
+... no UTF-8 mapping file for font encoding PU
+)
+Package hyperref Info: Option `colorlinks' set `true' on input line 4073.
+Package hyperref Info: Hyper figures OFF on input line 4192.
+Package hyperref Info: Link nesting OFF on input line 4197.
+Package hyperref Info: Hyper index ON on input line 4200.
+Package hyperref Info: Plain pages OFF on input line 4207.
+Package hyperref Info: Backreferencing OFF on input line 4212.
+Package hyperref Info: Implicit mode ON; LaTeX internals redefined.
+Package hyperref Info: Bookmarks ON on input line 4445.
+\c@Hy@tempcnt=\count198
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/url\url.sty
+\Urlmuskip=\muskip16
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)
+LaTeX Info: Redefining \url on input line 4804.
+\XeTeXLinkMargin=\dimen152
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/bitset\bitset.sty
+Package: bitset 2019/12/09 v1.3 Handle bit-vector datatype (HO)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/bigintcalc\bigintcalc.s
+ty
+Package: bigintcalc 2019/12/15 v1.5 Expandable calculations on big integers (HO
+)
+))
+\Fld@menulength=\count199
+\Field@Width=\dimen153
+\Fld@charsize=\dimen154
+Package hyperref Info: Hyper figures OFF on input line 6076.
+Package hyperref Info: Link nesting OFF on input line 6081.
+Package hyperref Info: Hyper index ON on input line 6084.
+Package hyperref Info: backreferencing OFF on input line 6091.
+Package hyperref Info: Link coloring ON on input line 6094.
+Package hyperref Info: Link coloring with OCG OFF on input line 6101.
+Package hyperref Info: PDF/A mode OFF on input line 6106.
+LaTeX Info: Redefining \ref on input line 6146.
+LaTeX Info: Redefining \pageref on input line 6150.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\atbegshi-ltx.sty
+Package: atbegshi-ltx 2021/01/10 v1.0c Emulation of the original atbegshi
+package with kernel methods
+)
+\Hy@abspage=\count266
+\c@Item=\count267
+\c@Hfootnote=\count268
+)
+Package hyperref Info: Driver (autodetected): hpdftex.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\hpdftex.def
+File: hpdftex.def 2021-06-07 v7.00m Hyperref driver for pdfTeX
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\atveryend-ltx.sty
+Package: atveryend-ltx 2020/08/19 v1.0a Emulation of the original atvery packag
+e
+with kernel methods
+)
+\Fld@listcount=\count269
+\c@bookmark@seq@number=\count270
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/rerunfilecheck\rerunfilec
+heck.sty
+Package: rerunfilecheck 2022-07-10 v1.10 Rerun checks for auxiliary files (HO)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/uniquecounter\uniquecou
+nter.sty
+Package: uniquecounter 2019/12/15 v1.4 Provide unlimited unique counter (HO)
+)
+Package uniquecounter Info: New unique counter `rerunfilecheck' on input line 2
+85.
+)
+\Hy@SectionHShift=\skip52
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/placeins\placeins.sty
+Package: placeins 2005/04/18  v 2.2
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/tools\longtable.sty
+Package: longtable 2021-05-07 v4.16 Multi-page Table package (DPC)
+\LTleft=\skip53
+\LTright=\skip54
+\LTpre=\skip55
+\LTpost=\skip56
+\LTchunksize=\count271
+\LTcapwidth=\dimen155
+\LT@head=\box52
+\LT@firsthead=\box53
+\LT@foot=\box54
+\LT@lastfoot=\box55
+\LT@gbox=\box56
+\LT@cols=\count272
+\LT@rows=\count273
+\c@LT@tables=\count274
+\c@LT@chunks=\count275
+\LT@p@ftn=\toks20
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/multirow\multirow.sty
+Package: multirow 2021/03/15 v2.8 Span multiple rows of a table
+\multirow@colwidth=\skip57
+\multirow@cntb=\count276
+\multirow@dima=\skip58
+\bigstrutjot=\dimen156
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/float\float.sty
+Package: float 2001/11/08 v1.3d Float enhancements (AL)
+\c@float@type=\count277
+\float@exts=\toks21
+\float@box=\box57
+\@float@everytoks=\toks22
+\@floatcapt=\box58
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
+\lst@mode=\count278
+\lst@gtempboxa=\box59
+\lst@token=\toks23
+\lst@length=\count279
+\lst@currlwidth=\dimen157
+\lst@column=\count280
+\lst@pos=\count281
+\lst@lostspace=\dimen158
+\lst@width=\dimen159
+\lst@newlines=\count282
+\lst@lineno=\count283
+\lst@maxwidth=\dimen160
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstmisc.sty
+File: lstmisc.sty 2020/03/24 1.8d (Carsten Heinz)
+\c@lstnumber=\count284
+\lst@skipnumbers=\count285
+\lst@framebox=\box60
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.cfg
+File: listings.cfg 2020/03/24 1.8d listings configuration
+))
+Package: listings 2020/03/24 1.8d (Carsten Heinz)
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/comment\comment.sty
+\CommentStream=\write3
+
+Excluding comment 'comment')
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/enumitem\enumitem.sty
+Package: enumitem 2019/06/20 v3.9 Customized lists
+\labelindent=\skip59
+\enit@outerparindent=\dimen161
+\enit@toks=\toks24
+\enit@inbox=\box61
+\enit@count@id=\count286
+\enitdp@description=\count287
+)
+(verbatimbox.sty
+Package: verbatimbox 2014/03/12 v3.13 Routines for placing verbatim text into b
+oxes, useful in places where the verbatim environment is inaccessible. Secondar
+ily, for adding vertical buffer around an object.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
+Package: verbatim 2020-07-07 v1.5u LaTeX2e package for verbatim enhancements
+\every@verbatim=\toks25
+\verbatim@line=\toks26
+\verbatim@in@stream=\read2
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/readarray\readarray.sty
+Package: readarray 2021/09/17\ 3.1\ Routines for inputting 2D and 3D array data
+ and recalling it on an element-by-element basis.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/forloop\forloop.sty
+Package: forloop 2023/05/03 v3.0 For Loops for LaTeX
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\ifthen.sty
+Package: ifthen 2020/11/24 v1.1c Standard LaTeX ifthen package (DPC)
+))
+(listofitems.sty (listofitems.tex
+\loi_nestcnt=\count288
+)
+Package: listofitems 2017/10/24 v1.51 Grab items in lists using user-specified 
+sep char (CT)
+)
+\c@@index=\count289
+\c@@plane=\count290
+\c@@row=\count291
+\c@@col=\count292
+\c@use@args=\count293
+\c@@record=\count294
+\c@index@count=\count295
+\Arg@toks=\toks27
+\@arrayident@toks=\toks28
+\rdar@file=\read3
+\readarrayendlinechar=\count296
+
+readarray: bounds checking OFF
+)
+\savedverbbox=\box62
+\c@VerbboxLineNo=\count297
+\boxtopsep=\dimen162
+\boxbottomsep=\dimen163
+\ps@tempdima=\dimen164
+\ps@tempboxa=\box63
+\boxtop@sep=\skip60
+\boxbottom@sep=\skip61
+) (C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsmath.sty
+Package: amsmath 2021/04/20 v2.17j AMS math features
+\@mathmargin=\skip62
+
+For additional information on amsmath, use the `?' option.
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amstext.sty
+Package: amstext 2000/06/29 v2.01 AMS text
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
+File: amsgen.sty 1999/11/30 v2.0 generic functions
+\@emptytoks=\toks29
+\ex@=\dimen165
+))
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
+Package: amsbsy 1999/11/29 v1.2d Bold Symbols
+\pmbraise@=\dimen166
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsopn.sty
+Package: amsopn 2016/03/08 v2.02 operator names
+)
+\inf@bad=\count298
+LaTeX Info: Redefining \frac on input line 234.
+\uproot@=\count299
+\leftroot@=\count300
+LaTeX Info: Redefining \overline on input line 399.
+\classnum@=\count301
+\DOTSCASE@=\count302
+LaTeX Info: Redefining \ldots on input line 496.
+LaTeX Info: Redefining \dots on input line 499.
+LaTeX Info: Redefining \cdots on input line 620.
+\Mathstrutbox@=\box64
+\strutbox@=\box65
+\big@size=\dimen167
+LaTeX Font Info:    Redeclaring font encoding OML on input line 743.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 744.
+\macc@depth=\count303
+\c@MaxMatrixCols=\count304
+\dotsspace@=\muskip17
+\c@parentequation=\count305
+\dspbrk@lvl=\count306
+\tag@help=\toks30
+\row@=\count307
+\column@=\count308
+\maxfields@=\count309
+\andhelp@=\toks31
+\eqnshift@=\dimen168
+\alignsep@=\dimen169
+\tagshift@=\dimen170
+\tagwidth@=\dimen171
+\totwidth@=\dimen172
+\lineht@=\dimen173
+\@envbody=\toks32
+\multlinegap=\skip63
+\multlinetaggap=\skip64
+\mathdisplay@stack=\toks33
+LaTeX Info: Redefining \[ on input line 2923.
+LaTeX Info: Redefining \] on input line 2924.
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/paralist\paralist.sty
+Package: paralist 2017/01/22 v2.7 Extended list environments
+\pltopsep=\skip65
+\plpartopsep=\skip66
+\plitemsep=\skip67
+\plparsep=\skip68
+\pl@lab=\toks34
+)
+\savedwidth=\skip69
+\enitdp@tightlist=\count310
+
+
+Package array Warning: Column W is already defined on input line 113.
+
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdfte
+x.def
+File: l3backend-pdftex.def 2021-08-04 L3 backend support: PDF output (pdfTeX)
+\l__color_backend_stack_int=\count311
+\l__pdf_internal_box=\box66
+) (riscv-spec.aux)
+\openout1 = `riscv-spec.aux'.
+
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 16.
+LaTeX Font Info:    ... okay on input line 16.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count312
+\scratchdimen=\dimen174
+\scratchbox=\box67
+\nofMPsegments=\count313
+\nofMParguments=\count314
+\everyMPshowfont=\toks35
+\MPscratchCnt=\count315
+\MPscratchDim=\dimen175
+\MPnumerator=\count316
+\makeMPintoPDFobject=\count317
+\everyMPtoPDFconversion=\toks36
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-bas
+e.sty
+Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
+ (C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/grfext\grfext.sty
+Package: grfext 2019/12/03 v1.3 Manage graphics extensions (HO)
+)
+Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
+85.
+Package grfext Info: Graphics extension search list:
+(grfext)             [.pdf,.png,.jpg,.mps,.jpeg,.jbig2,.jb2,.PDF,.PNG,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 504.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
+))
+*geometry* driver: auto-detecting
+*geometry* detected driver: pdftex
+*geometry* verbose mode - [ preamble ] result:
+* driver: pdftex
+* paper: <default>
+* layout: <same size as paper>
+* layoutoffset:(h,v)=(0.0pt,0.0pt)
+* modes: twoside 
+* h-part:(L,W,R)=(73.71613pt, 430.00462pt, 110.57425pt)
+* v-part:(T,H,B)=(95.39737pt, 556.47656pt, 143.09605pt)
+* \paperwidth=614.295pt
+* \paperheight=794.96999pt
+* \textwidth=469.75499pt
+* \textheight=650.43pt
+* \oddsidemargin=0.0pt
+* \evensidemargin=0.0pt
+* \topmargin=-36.135pt
+* \headheight=12.0pt
+* \headsep=19.8738pt
+* \topskip=11.0pt
+* \footskip=27.46295pt
+* \marginparwidth=116.0pt
+* \marginparsep=7.0pt
+* \columnsep=10.0pt
+* \skip\footins=10.0pt plus 4.0pt minus 2.0pt
+* \hoffset=0.0pt
+* \voffset=0.0pt
+* \mag=1000
+* \@twocolumnfalse
+* \@twosidetrue
+* \@mparswitchtrue
+* \@reversemarginfalse
+* (1in=72.27pt=25.4mm, 1cm=28.453pt)
+
+Package hyperref Info: Link coloring ON on input line 16.
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/hyperref\nameref.sty
+Package: nameref 2021-04-02 v2.47 Cross-referencing by name of section
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/refcount\refcount.sty
+Package: refcount 2019/12/15 v3.6 Data extraction from label references (HO)
+)
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/generic/gettitlestring\gettitle
+string.sty
+Package: gettitlestring 2019/12/15 v1.6 Cleanup title references (HO)
+)
+\c@section@level=\count318
+)
+LaTeX Info: Redefining \ref on input line 16.
+LaTeX Info: Redefining \pageref on input line 16.
+LaTeX Info: Redefining \nameref on input line 16.
+ (riscv-spec.out) (riscv-spec.out)
+\@outlinefile=\write4
+\openout4 = `riscv-spec.out'.
+
+\c@lstlisting=\count319
+ [1
+
+
+{C:/Users/p15/AppData/Local/MiKTeX/pdftex/config/pdftex.map}] [2] (preface.tex 
+[1
+
+
+] [2] [3] [4] [5] [6])
+[7] [8
+
+] (riscv-spec.toc [9] [10] [11] [12] [13] [14])
+\tf@toc=\write5
+\openout5 = `riscv-spec.toc'.
+
+ [15] [16
+
+] (intro.tex
+Chapter 1.
+pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has 
+been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.54 \end{commentary}
+                      [1
+
+]pdfTeX warning (ext4): destination with the same identifier (name{page.2}) has
+ been already used, duplicate ignored
+<to be read again> 
+                   \relax 
+l.134   \item
+              ``Bare metal'' hardware platforms where harts are directly
+[2] [3] [4] [5] [6] [7]
+Overfull \hbox (9.10275pt too wide) in paragraph at lines 500--543
+ [] 
+ []
+
+[8pdfTeX warning (ext4): destination with the same identifier (name{figure.1.1}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.559 A
+       n implementation of the standard IMAFD ISA need only hold the] [9]
+[10]) (rv32.tex [11pdfTeX warning (ext4): destination with the same identifier 
+(name{table.1.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {RV32I Base Integer Instruction Set, Version 2.1}] [12]
+Chapter 2.
+LaTeX Font Info:    Trying to load font information for OML+cmr on input line 4
+7.
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\omlcmr.fd
+File: omlcmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OML/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OML/cmm/m/it' tried instead on input line 47.
+LaTeX Font Info:    Trying to load font information for OMS+cmr on input line 4
+7.
+
+(C:\Users\p15\AppData\Local\Programs\MiKTeX\tex/latex/base\omscmr.fd
+File: omscmr.fd 2019/12/16 v2.5j Standard LaTeX font definitions
+)
+LaTeX Font Info:    Font shape `OMS/cmr/m/n' in size <10.95> not available
+(Font)              Font shape `OMS/cmsy/m/n' tried instead on input line 47.
+
+Underfull \hbox (badness 10000) in paragraph at lines 36--48
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 50--63
+
+ []
+
+[13
+
+] [14pdfTeX warning (ext4): destination with the same identifier (name{figure.2
+.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.123 H
+       ardware might choose to accelerate function calls and returns that]
+[15] [16]
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[17pdfTeX warning (ext4): destination with the same identifier (name{figure.2.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.386 T
+       he only difference between the S and B formats is that the 12-bit]
+Overfull \hbox (3.04744pt too wide) in paragraph at lines 407--460
+ [] 
+ []
+
+[18pdfTeX warning (ext4): destination with the same identifier (name{figure.2.3
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.471 \begin{commentary}
+                        pdfTeX warning (ext4): destination with the same identi
+fier (name{figure.2.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.471 \begin{commentary}
+                        ]
+Overfull \hbox (10.61295pt too wide) in paragraph at lines 547--547
+ []|\OT1/cmr/m/n/10.95 ANDI/ORI/XORI| 
+ []
+
+[19]
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 611--612
+
+ []
+
+[20]
+Underfull \hbox (badness 10000) in paragraph at lines 689--690
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 689--690
+
+ []
+
+[21]
+Underfull \hbox (badness 10000) in paragraph at lines 736--737
+
+ []
+
+[22]
+Overfull \hbox (5.89835pt too wide) in paragraph at lines 789--789
+ []|\OT1/cmr/m/n/10.95 ADD/SLT/SLTU| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 896--897
+
+ []
+
+[23] [24] [25] [26]
+Underfull \hbox (badness 10000) in paragraph at lines 1241--1242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1241--1242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1241--1242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1241--1242
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1241--1242
+
+ []
+
+[27pdfTeX warning (ext4): destination with the same identifier (name{table.2.1}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1242 
+       ] [28] [29] [30] [31] [32]
+Overfull \hbox (5.36838pt too wide) in paragraph at lines 1556--1589
+ [] 
+ []
+
+[33pdfTeX warning (ext4): destination with the same identifier (name{table.2.2}
+) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1661 \begin{commentary}
+                         ] [34] [35] [36pdfTeX warning (ext4): destination with
+ the same identifier (name{table.2.3}) has been already used, duplicate ignored
+
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1858 \newpage
+               ]
+Underfull \hbox (badness 10000) in paragraph at lines 1888--1889
+
+ []
+
+[37] [38]) (zifencei.tex
+Chapter 3.
+[39
+
+]) (rv32e.tex [40]
+Chapter 4.
+[41
+
+]) (rv64.tex [42]
+Chapter 5.
+[43
+
+]
+Overfull \hbox (14.4978pt too wide) in paragraph at lines 89--89
+ []|\OT1/cmr/m/n/10.95 shamt[5]| 
+ []
+
+
+Overfull \hbox (14.4978pt too wide) in paragraph at lines 90--90
+ []|\OT1/cmr/m/n/10.95 shamt[5]| 
+ []
+
+
+Overfull \hbox (14.4978pt too wide) in paragraph at lines 91--91
+ []|\OT1/cmr/m/n/10.95 shamt[5]| 
+ []
+
+
+Overfull \hbox (4.16763pt too wide) in paragraph at lines 70--96
+ [] 
+ []
+
+[44] [45]) (rv128.tex [46] [47pdfTeX warning (ext4): destination with the same 
+identifier (name{table.5.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {RV128I Base Integer Instruction Set, Version 1.7}] [48
+
+]
+Chapter 6.
+[49]) (m.tex [50]
+Chapter 7.
+
+Underfull \hbox (badness 10000) in paragraph at lines 8--39
+
+ []
+
+
+Overfull \hbox (12.28592pt too wide) in paragraph at lines 67--67
+ []|\OT1/cmr/m/n/10.95 MUL/MULH[[S]U]| 
+ []
+
+[51
+
+]
+Underfull \hbox (badness 10000) in paragraph at lines 107--108
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--108
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 107--108
+
+ []
+
+[52]
+Overfull \hbox (11.59657pt too wide) in paragraph at lines 162--162
+ []|\OT1/cmr/m/n/10.95 DIV[U]W/REM[U]W| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 197--198
+
+ []
+
+[53]) (a.tex [54pdfTeX warning (ext4): destination with the same identifier (na
+me{table.7.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {``A'' Standard Extension for Atomic Instructions, Version 2.1}]
+Chapter 8.
+[55
+
+] [56] [57] [58pdfTeX warning (ext4): destination with the same identifier (nam
+e{figure.8.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.286 \section
+              {Eventual Success of Store-Conditional Instructions}] [59]
+Overfull \hbox (4.60077pt too wide) in paragraph at lines 427--427
+ []|\OT1/cmr/m/n/10.95 AMOMAX[U].W/D| 
+ []
+
+[60]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) (csr.tex [61] [62pdfTeX warning (ext4): destination with the same identifier 
+(name{figure.8.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {``Zicsr'', Control and Status Register (CSR) Instructions, Vers...
+]
+Chapter 9.
+
+Overfull \hbox (1.12473pt too wide) in paragraph at lines 43--43
+ []|\OT1/cmr/m/n/10.95 CSRRW| 
+ []
+
+
+Overfull \hbox (5.07889pt too wide) in paragraph at lines 46--46
+ []|\OT1/cmr/m/n/10.95 CSRRWI| 
+ []
+
+
+Overfull \hbox (1.12473pt too wide) in paragraph at lines 47--47
+ []|\OT1/cmr/m/n/10.95 CSRRSI| 
+ []
+
+
+Overfull \hbox (2.64554pt too wide) in paragraph at lines 48--48
+ []|\OT1/cmr/m/n/10.95 CSRRCI| 
+ []
+
+[63
+
+] [64pdfTeX warning (ext4): destination with the same identifier (name{table.9.
+1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.133 \begin{commentary}
+                        ] [65]) (counters.tex [66]
+Chapter 10.
+[67
+
+] [68]) (f.tex [69pdfTeX warning (ext4): destination with the same identifier (
+name{figure.10.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {``F'' Standard Extension for Single-Precision Floating-Point,]
+[70
+
+]
+Chapter 11.
+[71] [72pdfTeX warning (ext4): destination with the same identifier (name{figur
+e.11.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.89 \clearpage
+               ] [73
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.11.2})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.175 \newpage
+              ] [74pdfTeX warning (ext4): destination with the same identifier 
+(name{table.11.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.301 \end{commentary}
+                      pdfTeX warning (ext4): destination with the same identifi
+er (name{table.11.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.301 \end{commentary}
+                      ] [75]
+Overfull \hbox (0.50546pt too wide) in paragraph at lines 451--451
+ []|\OT1/cmr/m/n/10.95 FADD/FSUB| 
+ []
+
+
+Overfull \hbox (15.11642pt too wide) in paragraph at lines 454--454
+ []|\OT1/cmr/m/n/10.95 MIN/MAX| 
+ []
+
+[76pdfTeX warning (ext4): destination with the same identifier (name{table.11.3
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.482 \begin{commentary}
+                        ]
+Overfull \hbox (24.37164pt too wide) in paragraph at lines 514--515
+ []|\OT1/cmr/m/n/10.95 F[N]MADD/F[N]MSUB| 
+ []
+
+
+Underfull \hbox (badness 7540) in paragraph at lines 538--538
+[]\OT1/cmr/bx/n/14.4 Single-Precision Floating-Point Con-ver-sion and Move
+ []
+
+
+Overfull \hbox (1.01619pt too wide) in paragraph at lines 606--606
+ []|\OT1/cmr/m/n/10.95 FCVT.\OT1/cmr/m/it/10.95 int\OT1/cmr/m/n/10.95 .\OT1/cmr
+/m/it/10.95 fmt| 
+ []
+
+
+Overfull \hbox (1.01619pt too wide) in paragraph at lines 607--607
+ []|\OT1/cmr/m/n/10.95 FCVT.\OT1/cmr/m/it/10.95 fmt\OT1/cmr/m/n/10.95 .\OT1/cmr
+/m/it/10.95 int| 
+ []
+
+[77] [78pdfTeX warning (ext4): destination with the same identifier (name{table
+.11.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.687 \end{commentary}
+                      ]
+Overfull \hbox (16.02892pt too wide) in paragraph at lines 764--764
+ []|\OT1/cmr/m/n/10.95 EQ/LT/LE| 
+ []
+
+[79]) (d.tex [80pdfTeX warning (ext4): destination with the same identifier (na
+me{table.11.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {``D'' Standard Extension for Double-Precision Floating-Point,]
+Chapter 12.
+[81
+
+] [82]
+Overfull \hbox (0.50546pt too wide) in paragraph at lines 180--180
+ []|\OT1/cmr/m/n/10.95 FADD/FSUB| 
+ []
+
+
+Overfull \hbox (15.11642pt too wide) in paragraph at lines 182--182
+ []|\OT1/cmr/m/n/10.95 MIN/MAX| 
+ []
+
+
+Overfull \hbox (24.37164pt too wide) in paragraph at lines 208--209
+ []|\OT1/cmr/m/n/10.95 F[N]MADD/F[N]MSUB| 
+ []
+
+[83] [84]
+Overfull \hbox (16.02892pt too wide) in paragraph at lines 409--409
+ []|\OT1/cmr/m/n/10.95 EQ/LT/LE| 
+ []
+
+) (q.tex [85] [86
+
+]
+Chapter 13.
+[87]
+Overfull \hbox (0.50546pt too wide) in paragraph at lines 120--120
+ []|\OT1/cmr/m/n/10.95 FADD/FSUB| 
+ []
+
+
+Overfull \hbox (15.11642pt too wide) in paragraph at lines 122--122
+ []|\OT1/cmr/m/n/10.95 MIN/MAX| 
+ []
+
+
+Overfull \hbox (24.37164pt too wide) in paragraph at lines 148--149
+ []|\OT1/cmr/m/n/10.95 F[N]MADD/F[N]MSUB| 
+ []
+
+[88pdfTeX warning (ext4): destination with the same identifier (name{table.13.1
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.188 \end{center}
+                  ]
+Overfull \hbox (16.02892pt too wide) in paragraph at lines 290--290
+ []|\OT1/cmr/m/n/10.95 EQ/LT/LE| 
+ []
+
+[89]) (rvwmo.tex [90]
+Chapter 14.
+[91
+
+] [92] [93] [94] [95] (dep-table.tex [96pdfTeX warning (ext4): destination with
+ the same identifier (name{table.14.1}) has been already used, duplicate ignore
+d
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.30 I
+      nstructions carry a dependency from each source register in the ``Sour...
+]
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 42--131
+[][] 
+ []
+
+[97]
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 132--146
+[][] 
+ []
+
+[98]
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 147--161
+[][] 
+ []
+
+
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 162--199
+[][] 
+ []
+
+
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 200--223
+[][] 
+ []
+
+
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 224--241
+[][] 
+ []
+
+[99]
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 242--271
+[][] 
+ []
+
+
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 272--301
+[][] 
+ []
+
+
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 302--361
+[][] 
+ []
+
+[100]
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 362--377
+[][] 
+ []
+
+
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 378--437
+[][] 
+ []
+
+[101])) (l.tex
+Overfull \hbox (71.08905pt too wide) in paragraph at lines 438--1
+[][]
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 438--1
+
+ []
+
+[102]
+Chapter 15.
+) (c.tex [103
+
+] [104
+
+]
+Chapter 16.
+[105] [106] [107] [108]
+Overfull \hbox (8.50012pt too wide) in paragraph at lines 284--284
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 285--285
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 286--286
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 288--288
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 289--289
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 290--290
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 291--291
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 292--292
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 293--293
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 295--295
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 296--296
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 297--297
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 298--298
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 299--300
+[]|[]| 
+ []
+
+[109pdfTeX warning (ext4): destination with the same identifier (name{table.16.
+1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.423 R
+       VC provides two variants of loads and stores.  One uses the ABI stackpdf
+TeX warning (ext4): destination with the same identifier (name{table.16.2}) has
+ been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.423 R
+       VC provides two variants of loads and stores.  One uses the ABI stack]
+Overfull \hbox (10.84781pt too wide) in paragraph at lines 446--446
+ []|\OT1/cmr/m/n/10.95 offset[5]| 
+ []
+
+
+Overfull \hbox (10.84781pt too wide) in paragraph at lines 447--447
+ []|\OT1/cmr/m/n/10.95 offset[5]| 
+ []
+
+
+Overfull \hbox (10.84781pt too wide) in paragraph at lines 448--448
+ []|\OT1/cmr/m/n/10.95 offset[5]| 
+ []
+
+
+Overfull \hbox (10.84781pt too wide) in paragraph at lines 449--449
+ []|\OT1/cmr/m/n/10.95 offset[5]| 
+ []
+
+
+Overfull \hbox (10.84781pt too wide) in paragraph at lines 450--450
+ []|\OT1/cmr/m/n/10.95 offset[5]| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 479--481
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 479--481
+
+ []
+
+[110]
+Underfull \hbox (badness 10000) in paragraph at lines 560--561
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 560--561
+
+ []
+
+[111] [112] [113] [114]
+Underfull \hbox (badness 10000) in paragraph at lines 810--811
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 860--861
+
+ []
+
+[115]
+Underfull \hbox (badness 10000) in paragraph at lines 924--925
+
+ []
+
+[116]
+Overfull \hbox (6.83281pt too wide) in paragraph at lines 963--963
+ []|\OT1/cmr/m/n/10.95 imm[5]| 
+ []
+
+
+Overfull \hbox (23.25783pt too wide) in paragraph at lines 964--964
+ []|\OT1/cmr/m/n/10.95 nzimm[17]| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 985--986
+
+ []
+
+[117]
+Overfull \hbox (17.78282pt too wide) in paragraph at lines 1027--1027
+ []|\OT1/cmr/m/n/10.95 nzimm[5]| 
+ []
+
+
+Overfull \hbox (6.83281pt too wide) in paragraph at lines 1028--1028
+ []|\OT1/cmr/m/n/10.95 imm[5]| 
+ []
+
+
+Overfull \hbox (17.78282pt too wide) in paragraph at lines 1029--1029
+ []|\OT1/cmr/m/n/10.95 nzimm[9]| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1064--1065
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1064--1065
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1064--1065
+
+ []
+
+[118]
+Underfull \hbox (badness 10000) in paragraph at lines 1125--1126
+
+ []
+
+
+Overfull \hbox (14.4978pt too wide) in paragraph at lines 1152--1152
+ []|\OT1/cmr/m/n/10.95 shamt[5]| 
+ []
+
+[119]
+Overfull \hbox (14.4978pt too wide) in paragraph at lines 1201--1201
+ []|\OT1/cmr/m/n/10.95 shamt[5]| 
+ []
+
+
+Overfull \hbox (14.4978pt too wide) in paragraph at lines 1202--1202
+ []|\OT1/cmr/m/n/10.95 shamt[5]| 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1225--1226
+
+ []
+
+
+Overfull \hbox (6.83281pt too wide) in paragraph at lines 1277--1277
+ []|\OT1/cmr/m/n/10.95 imm[5]| 
+ []
+
+[120]
+Underfull \hbox (badness 10000) in paragraph at lines 1338--1339
+
+ []
+
+[121]
+Underfull \hbox (badness 10000) in paragraph at lines 1432--1433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1432--1433
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 1432--1433
+
+ []
+
+[122] [123] [124] [125pdfTeX warning (ext4): destination with the same identifi
+er (name{table.16.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1641 \clearpage
+                 ] (rvc-opcode-map.tex
+Overfull \hbox (17.78334pt too wide) in paragraph at lines 7--23
+ [] 
+ []
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 1704--1705
+
+ []
+
+[126
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.16.4}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1705 
+       ] (rvc-instr-table.tex
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 8--8
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 9--9
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 10--10
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 12--12
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 13--13
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 14--14
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 15--15
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 16--16
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 17--17
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 19--19
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 20--20
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 21--21
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 22--22
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 23--24
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 150--150
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 151--151
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 152--152
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 154--154
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 155--155
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 156--156
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 157--157
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 158--158
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 159--159
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 161--161
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 162--162
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 163--163
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 164--164
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 165--166
+[]|[]| 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 383--383
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 384--384
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 385--385
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 387--387
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 388--388
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 389--389
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 390--390
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 391--391
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 392--392
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 394--394
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 395--395
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 396--396
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 397--397
+[]|[]| 
+ []
+
+
+Overfull \hbox (0.63635pt too wide) in paragraph at lines 398--399
+[]|[]| 
+ []
+
+
+Overfull \hbox (14.47021pt too wide) in paragraph at lines 380--533
+ [] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+)
+Underfull \hbox (badness 10000) in paragraph at lines 1779--1779
+
+ []
+
+[127pdfTeX warning (ext4): destination with the same identifier (name{table.16.
+5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1779 }
+        ]
+Underfull \hbox (badness 10000) in paragraph at lines 1779--1779
+
+ []
+
+[128pdfTeX warning (ext4): destination with the same identifier (name{table.16.
+6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1779 }
+        ] [129pdfTeX warning (ext4): destination with the same identifier (name
+{table.16.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1779 }
+        ]) (b.tex [130]
+Chapter 17.
+) (j.tex [131
+
+] [132
+
+]
+Chapter 18.
+) (t.tex [133] [134
+
+]
+Chapter 19.
+) (p.tex [135] [136
+
+]
+Chapter 20.
+) (v.tex [137] [138
+
+]
+Chapter 21.
+) (zam.tex [139] [140
+
+]
+Chapter 22.
+) (ztso.tex [141] [142
+
+]
+Chapter 23.
+) (gmaps.tex [143] [144
+
+]
+Chapter 24.
+(opcode-map.tex) (instr-table.tex [145pdfTeX warning (ext4): destination with t
+he same identifier (name{table.24.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.2 \newpage
+            ]
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 12--12
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 13--13
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 478--478
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 479--479
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 910--910
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 911--911
+[]|[]| 
+ []
+
+
+Overfull \hbox (2.2206pt too wide) in paragraph at lines 905--1210
+ [] 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 1226--1226
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 1227--1227
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 1611--1611
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 1612--1612
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 2016--2016
+[]|[]| 
+ []
+
+
+Overfull \hbox (4.88641pt too wide) in paragraph at lines 2017--2017
+[]|[]| 
+ []
+
+) [146] [147] [148] [149] [150] [151pdfTeX warning (ext4): destination with the
+ same identifier (name{table.24.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.43 \FloatBarrier
+                  ]
+Overfull \hbox (9.45386pt too wide) in paragraph at lines 52--73
+ [] 
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--201
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--201
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--201
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 77--201
+
+ []
+
+[152
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.24.3}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.201 
+      ] [153]) (assembly.tex [154]
+Chapter 25.
+[155
+
+pdfTeX warning (ext4): destination with the same identifier (name{table.25.1}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.46 
+     ]
+LaTeX Font Info:    Trying to load font information for OMS+cmtt on input line 
+65.
+LaTeX Font Info:    No file OMScmtt.fd. on input line 65.
+
+
+LaTeX Font Warning: Font shape `OMS/cmtt/m/n' undefined
+(Font)              using `OMS/cmsy/m/n' instead
+(Font)              for symbol `textbraceleft' on input line 65.
+
+
+Overfull \hbox (9.18617pt too wide) in paragraph at lines 59--112
+ [] 
+ []
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+) (extensions.tex [156] [157pdfTeX warning (ext4): destination with the same id
+entifier (name{table.25.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {Extending RISC-V}] [158pdfTeX warning (ext4): destination with the
+ same identifier (name{table.25.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {Extending RISC-V}]
+Chapter 26.
+[159
+
+] [160pdfTeX warning (ext4): destination with the same identifier (name{table.2
+6.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.124 
+      ] [161pdfTeX warning (ext4): destination with the same identifier (name{t
+able.26.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.197 
+      ] [162] [163] [164]) (naming.tex [165] [166
+
+]
+Chapter 27.
+[167] [168] [169]) (history.tex [170pdfTeX warning (ext4): destination with the
+ same identifier (name{table.27.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1 \chapter
+            {History and Acknowledgments}]
+Chapter 28.
+[171
+
+] [172] [173] [174pdfTeX warning (ext4): destination with the same identifier (
+name{table.28.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.259 
+      ] [175] [176]) (memory.tex [177] [178
+
+]
+Appendix A.
+[179]
+Overfull \hbox (9.89958pt too wide) in paragraph at lines 49--65
+[]|[]| 
+ []
+
+(figs/litmus_sample.pdf_t
+<figs/litmus_sample.pdf, id=2039, 145.54375pt x 168.63pt>
+File: figs/litmus_sample.pdf Graphic file (type pdf)
+<use figs/litmus_sample.pdf>
+Package pdftex.def Info: figs/litmus_sample.pdf  used on input line 2.
+(pdftex.def)             Requested size: 145.54338pt x 168.62958pt.
+)
+
+LaTeX Warning: `h' float specifier changed to `ht'.
+
+[180pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.110 
+       <./figs/litmus_sample.pdf>] [181pdfTeX warning (ext4): destination with 
+the same identifier (name{table.A.1}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.137 
+      ]
+Overfull \hbox (9.89958pt too wide) in paragraph at lines 166--178
+[]|[]| 
+ []
+
+(figs/litmus_sb_fwd.pdf_t
+<figs/litmus_sb_fwd.pdf, id=2062, 207.77625pt x 120.45pt>
+File: figs/litmus_sb_fwd.pdf Graphic file (type pdf)
+<use figs/litmus_sb_fwd.pdf>
+Package pdftex.def Info: figs/litmus_sb_fwd.pdf  used on input line 2.
+(pdftex.def)             Requested size: 207.77573pt x 120.44969pt.
+)
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[182] [183pdfTeX warning (ext4): destination with the same identifier (name{fig
+ure.A.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.216 
+       <./figs/litmus_sb_fwd.pdf>]
+Overfull \hbox (20.39949pt too wide) in paragraph at lines 227--243
+[]|[]| 
+ []
+
+(figs/litmus_ppoca.pdf_t
+<figs/litmus_ppoca.pdf, id=2079, 234.8775pt x 168.63pt>
+File: figs/litmus_ppoca.pdf Graphic file (type pdf)
+<use figs/litmus_ppoca.pdf>
+Package pdftex.def Info: figs/litmus_ppoca.pdf  used on input line 2.
+(pdftex.def)             Requested size: 234.87692pt x 168.62958pt.
+)
+Overfull \hbox (46.14082pt too wide) in paragraph at lines 3--245
+[]|[][]| 
+ []
+
+[184pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.263   \item (
+               e) drains from the store buffer to memory <./figs/litmus_ppoca.p
+df>] [185pdfTeX warning (ext4): destination with the same identifier (name{figu
+re.A.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.322 \subsection
+                 {\nameref*{rvwmo:ax:prog}}]
+Overfull \hbox (15.14954pt too wide) in paragraph at lines 359--373
+[]|[]| 
+ []
+
+(figs/litmus_mp_fenceww_fri_rfi_addr.pdf_t
+<figs/litmus_mp_fenceww_fri_rfi_addr.pdf, id=2103, 224.84pt x 158.5925pt>
+File: figs/litmus_mp_fenceww_fri_rfi_addr.pdf Graphic file (type pdf)
+<use figs/litmus_mp_fenceww_fri_rfi_addr.pdf>
+Package pdftex.def Info: figs/litmus_mp_fenceww_fri_rfi_addr.pdf  used on input
+ line 2.
+(pdftex.def)             Requested size: 224.83945pt x 158.59209pt.
+)
+Overfull \hbox (36.56482pt too wide) in paragraph at lines 3--375
+[]|[][]| 
+ []
+
+[186]
+Overfull \hbox (15.14954pt too wide) in paragraph at lines 404--419
+[]|[]| 
+ []
+
+(figs/litmus_rsw.pdf_t
+<figs/litmus_rsw.pdf, id=2109, 252.945pt x 139.52126pt>
+File: figs/litmus_rsw.pdf Graphic file (type pdf)
+<use figs/litmus_rsw.pdf>
+Package pdftex.def Info: figs/litmus_rsw.pdf  used on input line 2.
+(pdftex.def)             Requested size: 252.94438pt x 139.5209pt.
+)
+Overfull \hbox (44.85007pt too wide) in paragraph at lines 401--422
+ [][] 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[187pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.430 
+       <./figs/litmus_mp_fenceww_fri_rfi_addr.pdf>] [188pdfTeX warning (ext4): 
+destination with the same identifier (name{figure.A.6}) has been already used, 
+duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.460 B
+       y default, the FENCE instruction ensures that all memory accesses fro...
+ <./figs/litmus_rsw.pdf>] [189] [190pdfTeX warning (ext4): destination with the
+ same identifier (name{figure.A.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.547 R
+       elease orderings work exactly the same as acquire orderings, just in ...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.A.8}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.547 R
+       elease orderings work exactly the same as acquire orderings, just in ...
+] [191] [192pdfTeX warning (ext4): destination with the same identifier (name{f
+igure.A.9}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.652 \end{figure}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{figure.A.10}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.652 \end{figure}
+                  pdfTeX warning (ext4): destination with the same identifier (
+name{figure.A.11}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.652 \end{figure}
+                  ]
+Overfull \hbox (25.64944pt too wide) in paragraph at lines 670--683
+[]|[]| 
+ []
+
+(figs/litmus_lb_lrsc.pdf_t
+<figs/litmus_lb_lrsc.pdf, id=2182, 187.70125pt x 168.63pt>
+File: figs/litmus_lb_lrsc.pdf Graphic file (type pdf)
+<use figs/litmus_lb_lrsc.pdf>
+Package pdftex.def Info: figs/litmus_lb_lrsc.pdf  used on input line 2.
+(pdftex.def)             Requested size: 187.70079pt x 168.62958pt.
+) [193pdfTeX warning (ext4): destination with the same identifier (name{figure.
+A.12}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.697 W
+       e also note that syntactic dependencies between instructions only hav...
+pdfTeX warning (ext4): destination with the same identifier (name{figure.A.13})
+ has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.697 W
+       e also note that syntactic dependencies between instructions only hav...
+ <./figs/litmus_lb_lrsc.pdf>]
+Overfull \hbox (15.14954pt too wide) in paragraph at lines 715--727
+[]|[]| 
+ []
+
+(figs/litmus_datarfi.pdf_t
+<figs/litmus_datarfi.pdf, id=2198, 234.8775pt x 168.63pt>
+File: figs/litmus_datarfi.pdf Graphic file (type pdf)
+<use figs/litmus_datarfi.pdf>
+Package pdftex.def Info: figs/litmus_datarfi.pdf  used on input line 2.
+(pdftex.def)             Requested size: 234.87692pt x 168.62958pt.
+)
+Overfull \hbox (46.14082pt too wide) in paragraph at lines 3--729
+[]|[][]| 
+ []
+
+
+Overfull \hbox (15.14954pt too wide) in paragraph at lines 746--761
+[]|[]| 
+ []
+
+(figs/litmus_datacoirfi.pdf_t
+<figs/litmus_datacoirfi.pdf, id=2205, 207.77625pt x 217.81375pt>
+File: figs/litmus_datacoirfi.pdf Graphic file (type pdf)
+<use figs/litmus_datacoirfi.pdf>
+Package pdftex.def Info: figs/litmus_datacoirfi.pdf  used on input line 2.
+(pdftex.def)             Requested size: 207.77573pt x 217.8132pt.
+)
+Overfull \hbox (19.70142pt too wide) in paragraph at lines 3--763
+[]|[][]| 
+ []
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[194pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+14}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.774 
+       <./figs/litmus_datarfi.pdf>]
+Overfull \hbox (15.14954pt too wide) in paragraph at lines 779--789
+[]|[]| 
+ []
+
+(figs/litmus_addrpo.pdf_t
+<figs/litmus_addrpo.pdf, id=2218, 218.8175pt x 120.45pt>
+File: figs/litmus_addrpo.pdf Graphic file (type pdf)
+<use figs/litmus_addrpo.pdf>
+Package pdftex.def Info: figs/litmus_addrpo.pdf  used on input line 2.
+(pdftex.def)             Requested size: 218.81696pt x 120.44969pt.
+)
+Overfull \hbox (30.6024pt too wide) in paragraph at lines 3--791
+[]|[][]| 
+ []
+
+[195pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+15}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.805 
+      pdfTeX warning (ext4): destination with the same identifier (name{figure.
+A.16}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.805 
+       <./figs/litmus_datacoirfi.pdf> <./figs/litmus_addrpo.pdf>] [196]
+[197pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+17}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.868 T
+       he ordering guarantees in this section may not apply beyond a platfor...
+]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[198pdfTeX warning (ext4): destination with the same identifier (name{table.A.2
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.977 
+      ]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[199pdfTeX warning (ext4): destination with the same identifier (name{table.A.3
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1045   \item
+               Always use FENCE~RW,W/FENCE~R,RW, and never use {\em aq}/{\em...
+pdfTeX warning (ext4): destination with the same identifier (name{table.A.4}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1045   \item
+               Always use FENCE~RW,W/FENCE~R,RW, and never use {\em aq}/{\em...
+]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[200pdfTeX warning (ext4): destination with the same identifier (name{table.A.5
+}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1227 
+       ] [201pdfTeX warning (ext4): destination with the same identifier (name{
+figure.A.18}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1228 A
+        ny AMO can be emulated by an LR/SC pair, but care must be taken to e...
+pdfTeX warning (ext4): destination with the same identifier (name{table.A.6}) h
+as been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1228 A
+        ny AMO can be emulated by an LR/SC pair, but care must be taken to e...
+] [202pdfTeX warning (ext4): destination with the same identifier (name{table.A
+.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1240 
+       ] [203]
+Underfull \hbox (badness 4254) in paragraph at lines 1269--1270
+[]\OT1/cmr/m/n/10.95 implement all fences with PW and SR as if they were FENCE 
+RW,RW (or
+ []
+
+[204]
+Overfull \hbox (9.89958pt too wide) in paragraph at lines 1296--1305
+[]|[]| 
+ []
+
+(figs/litmus_subsumption.pdf_t
+<figs/litmus_subsumption.pdf, id=2322, 207.77625pt x 120.45pt>
+File: figs/litmus_subsumption.pdf Graphic file (type pdf)
+<use figs/litmus_subsumption.pdf>
+Package pdftex.def Info: figs/litmus_subsumption.pdf  used on input line 2.
+(pdftex.def)             Requested size: 207.77573pt x 120.44969pt.
+)
+Overfull \hbox (19.70142pt too wide) in paragraph at lines 3--1307
+[]|[][]| 
+ []
+
+[205pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+19}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1331   \item A
+                 transactional memory subset of the `T' ISA extension <./figs/l
+itmus_subsumption.pdf>]
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+[206pdfTeX warning (ext4): destination with the same identifier (name{figure.A.
+20}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1414 \chapter
+               {Formal Memory Model Specifications, Version 0.1}pdfTeX warning 
+(ext4): destination with the same identifier (name{figure.A.21}) has been alrea
+dy used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1414 \chapter
+               {Formal Memory Model Specifications, Version 0.1}] [207pdfTeX wa
+rning (ext4): destination with the same identifier (name{figure.A.22}) has been
+ already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1414 \chapter
+               {Formal Memory Model Specifications, Version 0.1}] [208
+
+]
+Appendix B.
+[209] (memory-model-alloy.tex
+Underfull \hbox (badness 2726) in paragraph at lines 17--19
+\OT1/cmr/m/n/10.95 We present a for-mal spec-i-fi-ca-tion of the RVWMO mem-ory 
+model in Al-loy ([][]$\OT1/cmtt/m/n/10.95 http : / /
+ []
+
+
+Underfull \hbox (badness 1406) in paragraph at lines 17--19
+\OT1/cmtt/m/n/10.95 alloy . mit . edu$[][]\OT1/cmr/m/n/10.95 ). This model is a
+vail-able on-line at [][]$\OT1/cmtt/m/n/10.95 https : / / github . com / daniel
+lustig /
+ []
+
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <10.95> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 24.
+LaTeX Font Info:    Font shape `OT1/cmtt/bx/n' in size <9> not available
+(Font)              Font shape `OT1/cmtt/m/n' tried instead on input line 24.
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [210
+
+pdfTeX warning (ext4): destination with the same identifier (name{figure.B.1}) 
+has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1424 \clearpage
+                 ] [211pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.B.2}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1424 \clearpage
+                 ] [212pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.B.3}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1424 \clearpage
+                 ] [213pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.B.4}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1424 \clearpage
+                 ] [214pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.B.5}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1424 \clearpage
+                 ] (memory-model-herd.tex
+
+LaTeX Warning: Float too large for page by 43.60747pt on input line 77.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+
+LaTeX Warning: `!h' float specifier changed to `!ht'.
+
+) [215
+
+] [216pdfTeX warning (ext4): destination with the same identifier (name{figure.
+B.6}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1427 \clearpage
+                 ] [217pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.B.7}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1427 \clearpage
+                 ] [218pdfTeX warning (ext4): destination with the same identif
+ier (name{figure.B.8}) has been already used, duplicate ignored
+<argument> ...shipout:D \box_use:N \l_shipout_box 
+                                                  \__shipout_drop_firstpage_...
+l.1427 \clearpage
+                 ] (memory-model-operational.tex [219
+
+] [220] [221] [222]
+[223] [224] [225] [226] [227] [228]
+Underfull \hbox (badness 10000) in paragraph at lines 453--455
+ []\OT1/cmr/bx/n/10.95 Complete load op-er-a-tions[] \OT1/cmr/m/n/10.95 A load 
+in-struc-tion in-stance $\OML/cmm/m/it/10.95 i$ \OT1/cmr/m/n/10.95 in state \OT
+1/cmr/m/sc/10.95 Pend-
+ []
+
+
+Underfull \hbox (badness 4832) in paragraph at lines 468--471
+ []\OT1/cmr/bx/n/10.95 Initiate mem-ory store op-er-a-tion foot-prints[] \OT1/c
+mr/m/n/10.95 An in-struc-tion in-stance $\OML/cmm/m/it/10.95 i$ \OT1/cmr/m/n/10
+.95 in state
+ []
+
+[229]
+Underfull \hbox (badness 5161) in paragraph at lines 487--490
+ []\OT1/cmr/bx/n/10.95 Instantiate mem-ory store op-er-a-tion val-ues[] \OT1/cm
+r/m/n/10.95 An in-struc-tion in-stance $\OML/cmm/m/it/10.95 i$ \OT1/cmr/m/n/10.
+95 in state
+ []
+
+[230]
+Underfull \hbox (badness 2368) in paragraph at lines 520--522
+ []\OT1/cmr/bx/n/10.95 Propagate store op-er-a-tion[] \OT1/cmr/m/n/10.95 For a 
+com-mit-ted in-struc-tion in-stance $\OML/cmm/m/it/10.95 i$ \OT1/cmr/m/n/10.95 
+in state \OT1/cmr/m/sc/10.95 Pend-
+ []
+
+[231]
+Underfull \hbox (badness 10000) in paragraph at lines 569--571
+ []\OT1/cmr/bx/n/10.95 Complete store op-er-a-tions[] \OT1/cmr/m/n/10.95 A stor
+e in-struc-tion in-stance $\OML/cmm/m/it/10.95 i$ \OT1/cmr/m/n/10.95 in state \
+OT1/cmr/m/sc/10.95 Pend-
+ []
+
+[232] [233] [234])) (riscv-spec.bbl [235] [236
+
+] [237]) [238] (riscv-spec.aux)
+
+LaTeX Font Warning: Some font shapes were not available, defaults substituted.
+
+Package rerunfilecheck Info: File `riscv-spec.out' has not changed.
+(rerunfilecheck)             Checksum: 17F500D383790AB2D7FF39BB4280440A;35675.
+ ) 
+Here is how much of TeX's memory you used:
+ 14617 strings out of 478927
+ 213969 string characters out of 2853482
+ 804375 words of memory out of 3000000
+ 31082 multiletter control sequences out of 15000+600000
+ 419812 words of font info for 85 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 77i,21n,83p,750b,1285s stack positions out of 5000i,500n,10000p,200000b,80000s
+ <C:\Users\p15\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tcrm10
+00.pk> <C:\Users\p15\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\tc
+rm1095.pk><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfon
+ts/cm/cmbx10.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public
+/amsfonts/cm/cmbx12.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1
+/public/amsfonts/cm/cmbxti10.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fo
+nts/type1/public/amsfonts/cm/cmcsc10.pfb><C:/Users/p15/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmex10.pfb><C:/Users/p15/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmitt10.pfb><C:/Users/p15/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi10.pfb><C:/Users/p15/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users
+/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi8.pfb><C:
+/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi9.p
+fb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/c
+mr10.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfont
+s/cm/cmr12.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmr6.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/pub
+lic/amsfonts/cm/cmr7.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type
+1/public/amsfonts/cm/cmr8.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts
+/type1/public/amsfonts/cm/cmr9.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/
+fonts/type1/public/amsfonts/cm/cmsl10.pfb><C:/Users/p15/AppData/Local/Programs/
+MiKTeX/fonts/type1/public/amsfonts/cm/cmss10.pfb><C:/Users/p15/AppData/Local/Pr
+ograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmss12.pfb><C:/Users/p15/AppData/L
+ocal/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/p15/Ap
+pData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Users/
+p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb><C:/
+Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy8.pf
+b><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cm
+sy9.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts
+/cm/cmti10.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/public/a
+msfonts/cm/cmti12.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/type1/p
+ublic/amsfonts/cm/cmti7.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/fonts/t
+ype1/public/amsfonts/cm/cmti9.pfb><C:/Users/p15/AppData/Local/Programs/MiKTeX/f
+onts/type1/public/amsfonts/cm/cmtt10.pfb><C:/Users/p15/AppData/Local/Programs/M
+iKTeX/fonts/type1/public/amsfonts/cm/cmtt12.pfb><C:/Users/p15/AppData/Local/Pro
+grams/MiKTeX/fonts/type1/public/amsfonts/cm/cmtt9.pfb>
+Output written on riscv-spec.pdf (256 pages, 1450503 bytes).
+PDF statistics:
+ 3385 PDF objects out of 3580 (max. 8388607)
+ 1026 named destinations out of 1200 (max. 500000)
+ 1267 words of extra memory for PDF output out of 10000 (max. 10000000)
+

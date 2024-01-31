@@ -1,0 +1,153 @@
+<" cl_rv32i {
+    parameter XLEN = 32; 
+    reg [31:0] rf [15:0]; 
+    parameter PC_LEN = 32; 
+    reg [14 : 0] pc; 
+    d_pc_reset { pc = 0; } 
+	item [32] instr; 
+	    tr_rv32i_math { 
+	        tr_rv32i_addi; 
+	        //tr_rv32i_add; 
+	        //tr_rv32i_sub; 
+	        } 
+	    tr_rv32i { 
+	        tr_rv32i_math; 
+	        tr_rv32i_lui; 
+	        tr_rv32i_jal; 
+	        tr_rv32i_load; 
+	        tr_rv32i_store; } 
+    item [8] funct7i = instr[31:25]; 
+    item [3] funct3i = instr[14:12];
+    item [5] rs2i = instr[24:20];
+    item [5] rs1i = instr[19:15];
+    item [5] rdi = instr[11:7];
+    item [7] opcode_i = instr[6:0];
+    item [12] imm_11_0 = instr[31:20];
+    item [12] imm_11_5_4_0 = {instr[31:25], instr[11:7]};
+	    d_addi { dp_out = rs1_dato + instr[31:20]; }
+	    tr_rv32i_addi { unique @c_instr_i_addi { 
+	            d_rs1i_addr; 
+	            d_addi; 
+	            d_rd_dp_out; d_rdi_addr; c_rf_write;  
+	            d_pc4; } }
+	    d_lui { dp_out = {instr[31:12], 12'h000}; }
+	    tr_rv32i_lui { unique @c_instr_i_lui { 
+	            d_lui; 
+	            d_rd_dp_out; d_rdi_addr; c_rf_write;  
+	            d_pc4; } }
+	    item [19:0] imm_20_1 = {instr[31], instr[19:12], instr[20], instr[30:21]};
+        item [31:0] offset_20 = {{11{imm_20_1[19]}}, imm_20_1, 1'b0};
+	    d_jal { dp_out = pc + offset_20; }
+	    d_pc_jal { pc = dp_out; }
+	    tr_rv32i_jal { unique @c_instr_i_jal { 
+	            d_jal; 
+	            d_rd_dp_out; d_rdi_addr; c_rf_write;  
+	            d_pc_jal; } }
+    d_load { dp_out = dmem_load_data; }
+    d_dmem_load_addr {
+        dmem_load_addr = {{20{imm_11_0[11]}}, imm_11_0} + rs1_dato; }
+    d_dmem_load_width {
+        dmem_load_width = funct3i[2:0]; }
+    c_instr_i_load; 
+    tr_rv32i_load {
+        unique @c_instr_i_load { 
+            d_rs1i_addr; 
+            d_dmem_load_addr; 
+            d_dmem_load_width; 
+            c_dmem_load; 
+            d_load; d_rdi_addr; c_rf_write; 
+            d_pc4; } }
+    d_dmem_store_addr {
+         dmem_store_addr = {{20{imm_11_5_4_0[11]}}, imm_11_5_4_0} + rs1_dato; }
+    d_dmem_store_width {
+        dmem_store_width = funct3i[2:0]; }
+    d_dmem_store_data {
+        dmem_store_data = rs2_dato; }
+    tr_rv32i_store {
+        unique @c_instr_i_store { 
+            d_rs1i_addr; 
+            d_rs2i_addr; 
+            d_dmem_store_addr; 
+            d_dmem_store_data; 
+            d_dmem_store_width; 
+            c_dmem_store; 
+            d_pc4; } }
+    // read from rf; 
+    item [31:0] rs1_dato;
+    item [31:0] rs2_dato;
+    d_rs1_dato { rs1_dato = (rs1_addr == 0) ? 0 : rf[rs1_addr]; } 
+    d_rs2_dato { rs2_dato = (rs2_addr == 0) ? 0 : rf[rs2_addr]; } 
+    tr_rs_dato { d_rs2_dato; d_rs1_dato; } 
+    // write to rf; 
+    d_rf_write { rf[rd_addr] = rd_dati; } 
+    c_rf_write; 
+    tr_rf_write { @c_rf_write { d_rf_write; } } 
+    item [4:0] rs1_addr;
+    item [4:0] rs2_addr;
+    item [4:0] rd_addr;
+    item [31 : 0] rd_dati;
+    d_rd_dp_out { rd_dati = dp_out; } 
+    d_rs1i_addr { rs1_addr = rs1i; }
+    d_rs2i_addr { rs2_addr = rs2i; }
+    d_rdi_addr { rd_addr = rdi; }
+    //tr_rdi_addr { d_rdi_addr; } 
+    d_pc_rs1 { pc = d_rs1_dato; } 
+    d_pc4 { pc = pc + 4; } 
+    item [31:0] dp_out;
+    item [32:0] dmem_load_addr;
+    item [2:0] dmem_load_width;
+    item [31:0] dmem_load_data;
+    c_dmem_load;
+    item [32:0] dmem_store_addr;
+    item [2:0] dmem_store_width;
+    item [31:0] dmem_store_data;
+    c_dmem_store;
+
+    c_instr_i_addi { if (opcode_i == 7'b0010011 & funct3i == 3'b000) this;}
+    c_instr_i_lui { if (opcode_i == 7'b0110111) this;} 
+    c_instr_i_store { if (opcode_i == 7'b0100011) this;} 
+    c_instr_i_jal { if (opcode_i == 7'b1101111) this;} 
+    c_instr_dec_load { if (opcode_i == 7'b0000011) this;} 
+    c_instr_dec_op { if (opcode_i == 7'b0010011) this;} 
+    c_funct3_0 { if (funct3i == 3'b000) this;} 
+    c_funct7_0 { if (funct7i == 7'b0000000) this;} 
+    c_funct7_64 { if (funct7i == 7'b0100000) this;}
+    c_instr_i_sub;
+    c_instr_i_add; 
+	tr_decode {
+	   unique propagate {
+	  	  @c_instr_dec_op {
+		     @c_funct3_0 {
+				@c_funct7_0  { c_instr_i_add; }
+				@c_funct7_64 { c_instr_i_sub; }
+			 }
+		  }
+	   }
+	}
+	/*
+	unique if (c_isntr & funct3 & c_funct7_0) 		   merge:	unique: merge using sorted list
+	  else if (c_instr & funct3 & c_funct7_64)					priority: keep order
+
+	tr_decode {
+	   unique {
+ 	  	  @c_instr_dec_op {
+      	     unique {
+		        @c_funct3_0 {
+          	       unique {
+				      @c_funct7_0  { c_instr_i_add; }
+				      @c_funct7_64 { c_instr_i_sub; }
+				   }
+				}
+			 }
+		  }
+	   }
+	}
+	tr_decode_all {
+	   unique propagate {
+	      tr_decode_rv32i;
+	   }
+    }
+	*/
+    
+    
+} ">

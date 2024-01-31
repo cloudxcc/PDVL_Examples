@@ -1,0 +1,177 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Trivial UART with fixed baudrate, what a shame.
+   RS232 period: 8680 ns
+   FPGA period:    50 ns
+   cycles:        173,6 (173)
+
+<"
+//////////////////////////////////////////////////////
+// UART IP (most simple)
+//////////////////////////////////////////////////////
+cluster c_uart {
+
+   //////////////////////////////////////////////////////
+   // Master
+   //////////////////////////////////////////////////////
+   cluster c_uart_master {      
+
+      //////////////////////////////////////////////////////
+      // Output 
+      //////////////////////////////////////////////////////
+      reg uart_tx;
+
+      //////////////////////////////////////////////////////
+      // Data processing 
+      //////////////////////////////////////////////////////
+      item [8:0] uart_tx_data;
+      d_uart_tx_set_high { uart_tx = 1'b1; }
+      d_uart_tx_set { uart_tx = uart_tx_data[0]; }
+      d_uart_tx_data_shift { uart_tx_data = {1'b0, uart_tx_data[8:1]}; }
+
+      //////////////////////////////////////////////////////
+      // Baudrate and trigger signal
+      //////////////////////////////////////////////////////
+      reg [7:0] uart_tx_baud;
+      d_uart_tx_baud_reset { uart_tx_baud = 0; } 
+      d_uart_tx_baud_cnt { uart_tx_baud = uart_tx_baud + 1; } 
+      c_uart_tx_trig { if (uart_tx_baud == 173) this; }	
+
+      //////////////////////////////////////////////////////
+      // Communication
+      //////////////////////////////////////////////////////
+      c_byte_transmitted { if (uart_tx_data == 9'h001) this; }      
+      c_trans; 
+      c_uart_tx_valid;
+
+      //////////////////////////////////////////////////////
+      // Reset
+      //////////////////////////////////////////////////////
+      d_mst_reset { 
+         uart_tx = 1'b1;
+         tx_prot = TX_PROT_STATE_WAIT; } 
+
+      //////////////////////////////////////////////////////
+      // FSM
+      //////////////////////////////////////////////////////
+      tr_mst_prot { 
+         finite tx_prot {
+            wait :  { 
+               d_uart_tx_set_high;
+               @c_trans {
+                  d_uart_tx_set_high;
+                  d_uart_tx_baud_reset; 
+                  start; } }
+            start : { 
+               d_uart_tx_baud_cnt;
+               @c_uart_tx_trig { 
+                  d_uart_tx_baud_reset; 
+                  shift; } }
+            shift : { 
+               d_uart_tx_set;
+               d_uart_tx_baud_cnt;
+               @c_uart_tx_trig { 
+                  d_uart_tx_baud_reset; 
+                  d_uart_tx_data_shift; }
+               @c_byte_transmitted { stop; } } 
+            stop :  { 
+               d_uart_tx_set_high;
+               d_uart_tx_baud_cnt;
+               @c_uart_tx_trig { 
+                  c_uart_tx_valid; 
+                  wait; } } } }
+   }
+   //////////////////////////////////////////////////////
+   // Slave
+   //////////////////////////////////////////////////////
+   cluster c_uart_slave {
+
+      //////////////////////////////////////////////////////
+      // Input 
+      //////////////////////////////////////////////////////
+      item uart_rx;
+            
+      //////////////////////////////////////////////////////
+      // Input majority decoder and degedge detection
+      //////////////////////////////////////////////////////
+      reg [2:0] uart_nrx_filtered;
+      reg rx_maj_dec;
+      d_uart_nrx_filtered { uart_nrx_filtered = {uart_nrx_filtered[1:0], !uart_rx}; } 
+      d_uart_nrx_majority { rx_maj_dec = (uart_nrx_filtered == 3'h7) |
+                                         (uart_nrx_filtered == 3'h3) |
+                                         (uart_nrx_filtered == 3'h5) |
+                                         (uart_nrx_filtered == 3'h6); } 
+      tr_rx_delay { d_uart_nrx_filtered; 
+                    d_uart_nrx_majority; }
+      c_uart_rx_negedge { if (uart_nrx_filtered == 3'h7) this; }	
+                               
+      //////////////////////////////////////////////////////
+      // Baudrate and trigger signals
+      //////////////////////////////////////////////////////
+      reg [31:0] uart_rx_baud;
+      d_uart_rx_baud_reset { uart_rx_baud = 0; } 
+      d_uart_rx_baud_cnt { uart_rx_baud = uart_rx_baud + 1; } 
+      c_uart_rx_half { if (uart_rx_baud ==  89 ) this; }	
+      c_uart_rx_full { if (uart_rx_baud == 173) this; }	
+                      
+      //////////////////////////////////////////////////////
+      // Data processing 
+      //////////////////////////////////////////////////////
+      reg [7:0] uart_rx_data;
+      reg uart_byte_received;
+      d_rx_data_reset { uart_rx_data = 8'h80;
+                        uart_byte_received = 1'b0; }
+      d_rx_data_read { uart_rx_data = {!rx_maj_dec, uart_rx_data[7:1]}; 
+                       uart_byte_received = uart_rx_data[0]; }
+
+      //////////////////////////////////////////////////////
+      // Communication
+      //////////////////////////////////////////////////////
+      c_byte_received { if (uart_byte_received == 1'b1) this; }
+      c_uart_rx_valid;   
+      
+      //////////////////////////////////////////////////////
+      // Reset
+      //////////////////////////////////////////////////////
+      d_slv_reset { 
+         uart_nrx_filtered = 0;
+         rx_maj_dec = 1;
+         uart_rx_data = 0;
+         uart_byte_received = 0;
+         user_rst = 1;
+         uart_rx_baud = 0;
+         rx_prot = RX_PROT_STATE_WAIT; }
+            
+      //////////////////////////////////////////////////////
+      // FSM
+      //////////////////////////////////////////////////////
+      tr_slv_prot { 
+         finite rx_prot {
+            wait :  { 
+               d_uart_rx_baud_reset;
+               d_rx_data_reset;
+               @c_uart_rx_negedge { 
+                  start; } }
+            start : { 
+               d_uart_rx_baud_cnt;
+               @c_uart_rx_half { 
+                  d_uart_rx_baud_reset;
+                  shift; } }
+            shift : { 
+               d_uart_rx_baud_cnt;
+                  @c_uart_rx_full { 
+                     d_uart_rx_baud_reset;
+                     d_rx_data_read; }
+                  @c_byte_received { 
+                     stop; } } 
+            stop :  { 
+               d_uart_rx_baud_cnt;
+                  @c_uart_rx_full { 
+                     c_uart_rx_valid; 
+                     wait; } } } }
+   }
+}
+">

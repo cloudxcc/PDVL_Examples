@@ -1,0 +1,490 @@
+//
+// Copyright 2024 Tobias Strauch, Munich, Bavaria
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+//
+
+// RISC-V 32-bit IC implementation (no pipeline-stages)
+// based on executable RISC-V specification.
+
+<" 
+cl_rv32_imc {}
+
+build RV32IMC_1P {
+
+   //////////////////////////////////////////////
+   // Collect RISC-V I and C parts                               
+   //////////////////////////////////////////////
+   join cl_rv32i         cl_rv32_imc;
+   join cl_rv32i_rf      cl_rv32_imc;
+   join cl_rv32i_dec     cl_rv32_imc;
+   join cl_rv32c         cl_rv32_imc;
+   join cl_rv32c_list    cl_rv32_imc;
+   join cl_rv32m_syn     cl_rv32_imc;
+   join cl_rv32m_dec     cl_rv32_imc;
+   join cl_rv32c_dec_op0 cl_rv32_imc;
+   join cl_rv32c_dec_op1 cl_rv32_imc;
+   join cl_rv32c_dec_op2 cl_rv32_imc;
+   
+   join {
+      //////////////////////////////////////////////
+      // AXI master write interface                               
+      //////////////////////////////////////////////
+      item (* AXI_MST_AWADDR=DRIVER *) [31:0] mst_wr_addr;
+      item (* AXI_MST_AWDATA=DRIVER *) [31:0] mst_wr_data;
+      (* AXI_MST_AWVALID=DRIVER *) c_mst_wr;
+
+      //////////////////////////////////////////////
+      // AXI master read interface                               
+      //////////////////////////////////////////////
+      item (* AXI_MST_ARADDR=DRIVER *) [31:0] mst_rd_addr;
+      (* AXI_MST_ARVALID=DRIVER *) c_mst_rd;
+   
+      //////////////////////////////////////////////
+      // Connect memory write access
+      //////////////////////////////////////////////
+      d_mst_wr_addr { mst_wr_addr = dmem_store_addr; }
+      d_mst_wr_data { mst_wr_data = dmem_store_data; }
+      tr_store { 
+         @c_dmem_store { c_mst_wr; } 
+         d_mst_wr_addr;
+         d_mst_wr_data; }
+                   
+      //////////////////////////////////////////////
+      // Connect memory read access
+      //////////////////////////////////////////////
+      d_mst_rd_addr { mst_rd_addr = dmem_load_addr; }
+      tr_load { 
+         @c_dmem_load { c_mst_rd; }
+         d_mst_rd_addr; }
+                   
+      tr_empty { }
+      
+      //////////////////////////////////////////////
+      // Add reset and clocking structure to design
+      //////////////////////////////////////////////
+      e_clk posedge clk;  
+      
+      reg [5:0] mc;
+      
+	  tr_clocking { 
+	     @e_clk  { 
+            tr_rv32i;
+            tr_rv32m; 
+            tr_rv32c; 
+            tr_rf_write; } }
+
+      d_pc_stall { pc_next = pc; }
+      c_mc_0 { if (mc == 0) this; }
+      c_mc_1 { if (mc == 1) this; }
+      c_mc_2 { if (mc == 2) this; }
+      c_mc_3 { if (mc == 3) this; }
+      d_mc_reset { mc = 0; }
+      d_mc_1 { mc = 1; }
+      d_mc_2 { mc = 2; }
+      d_mc_3 { mc = 3; }
+      d_mc_div { mc = div_init_shift; }
+      d_mc_rem { mc = div_init_shift; }
+      d_mc_m1 { mc = mc - 1; }
+	  tr_clocking_pc { 
+	     @c_sys_rst { d_mc_reset;
+	                  d_pc_reset; }
+         else { @e_clk  { 
+               d_pc_next;
+            @c_mc_0 { 
+               unique {
+                  @c_instr_m_mul {
+                     d_mc_2;
+                  }
+                  @c_instr_m_mulh {
+                     d_mc_3;
+                  }
+                  @c_instr_m_mulhu {
+                     d_mc_3;
+                  }
+                  @c_instr_m_mulhsu {
+                     d_mc_3;
+                  }
+                  @c_instr_m_div {
+                     @c_cond_beq { }
+                     else @c_divident_lesser_divisor { }
+                     else { d_mc_div; }
+                  }
+                  @c_instr_m_divu {
+                     @c_cond_beq { }
+                     else @c_divident_lesser_divisor { }
+                     else { d_mc_div; }
+                  }
+                  @c_instr_m_rem {
+                     @c_cond_beq { }
+                     else @c_divident_lesser_divisor { }
+                     else { d_mc_rem; }
+                  }
+                  @c_instr_m_remu {
+                     @c_cond_beq { }
+                     else @c_divident_lesser_divisor { }
+                     else { d_mc_rem; }
+                  } } }
+               else {
+                d_mc_m1; } } } } } cl_rv32_imc;            
+   join cl_rv32_imc;
+
+   //////////////////////////////////////////////
+   // Push RF in submodule for custom IP                               
+   //////////////////////////////////////////////
+   place RV32IMC_1P_RF i_rf;
+   move rs1_dato, rs2_dato, rf i_rf;
+} 
+
+cl_rv32m_syn {
+   ///////////////////////////////////////////// 
+   // M transactions
+   ///////////////////////////////////////////// 
+   tr_rv32m { 
+      tr_rv32m_mul; 
+      tr_rv32m_div_rem; } 
+
+   ///////////////////////////////////////////// 
+   // New multiplication datapath
+   ///////////////////////////////////////////// 
+   reg [47:0] math_reg;
+   item [16:0] i_mul_a;
+   item [16:0] i_mul_b;
+   item [33:0] i_mul_out = $signed(i_mul_a) * $signed(i_mul_b); 
+
+   ///////////////////////////////////////////// 
+   // MUL 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mul = rs1_dato * rs2_dato; 
+   d_dp_out_mul { dp_out = {dp_add[15:0], math_reg[15:0]}; }
+   d_mul_0 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+             i_mul_b = {1'b0, rs2_dato[15: 0]};
+             i_add_a = 0;
+             i_add_b = i_mul_out; 
+             math_reg = {16'h000, dp_add}; }
+   d_mul_2 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+             i_mul_b = {1'b0, rs2_dato[31:16]};
+             i_add_a = math_reg[47:16];
+             i_add_b = i_mul_out; 
+             math_reg = {dp_add, math_reg[15:0]}; }
+   d_mul_1 { i_mul_a = {1'b0, rs1_dato[31:16]};
+             i_mul_b = {1'b0, rs2_dato[15: 0]};
+             i_add_b = i_mul_out; 
+             i_add_a = math_reg[47:16]; }
+
+   ///////////////////////////////////////////// 
+   // MULH 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mulh = $signed(rs1_dato) * $signed(rs2_dato); 
+   d_dp_out_mulh { dp_out = dp_add; }
+   d_mulh_3 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+              i_mul_b = {rs2_dato[31], rs2_dato[31:16]};
+              i_add_a = math_reg[47:16];
+              i_add_b = i_mul_out; 
+              math_reg = {dp_add, math_reg[15:0]}; }
+   d_mulh_2 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
+              i_mul_b = {1'b0, rs2_dato[15: 0]};
+              i_add_a = math_reg[47:16]; 
+              i_add_b = i_mul_out; 
+              math_reg = {dp_add, math_reg[15:0]}; }
+   d_mulh_1 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
+              i_mul_b = {rs2_dato[31], rs2_dato[31:16]};
+              i_add_a = {16'h0000, math_reg[47:32]};
+              i_add_b = i_mul_out; }
+
+   ///////////////////////////////////////////// 
+   // MULHU 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mulhu = rs1_dato * rs2_dato; 
+   d_dp_out_mulhu { dp_out = dp_add; }
+   d_mulhu_3 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+               i_mul_b = {1'b0, rs2_dato[31:16]};
+               i_add_a = math_reg[47:16];
+               i_add_b = i_mul_out; 
+               math_reg = {dp_add, math_reg[15:0]}; }
+   d_mulhu_2 { i_mul_a = {1'b0,  rs1_dato[31:16]};
+               i_mul_b = {1'b0, rs2_dato[15: 0]};
+               i_add_a = math_reg[47:16]; 
+               i_add_b = i_mul_out; 
+               math_reg = {dp_add, math_reg[15:0]}; }
+   d_mulhu_1 { i_mul_a = {1'b0, rs1_dato[31:16]};
+               i_mul_b = {1'b0, rs2_dato[31:16]};
+               i_add_a = {16'h0000, math_reg[47:32]};
+               i_add_b = i_mul_out; }
+
+   ///////////////////////////////////////////// 
+   // MULHSU 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mulhsu = {{32{rs1_dato[31]}}, rs1_dato} * {32'h00000000, rs2_dato};
+   d_dp_out_mulhsu { dp_out = dp_add; }
+   d_mulhsu_3 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+                i_mul_b = {1'b0, rs2_dato[31:16]};
+                i_add_a = math_reg[47:16];
+                i_add_b = i_mul_out; 
+                math_reg = {dp_add, math_reg[15:0]}; }
+   d_mulhsu_2 { i_mul_a = {rs1_dato[31],  rs1_dato[31:16]};
+                i_mul_b = {1'b0, rs2_dato[15: 0]};
+                i_add_a = math_reg[47:16]; 
+                i_add_b = i_mul_out; 
+                math_reg = {dp_add, math_reg[15:0]}; }
+   d_mulhsu_1 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
+                i_mul_b = {1'b0, rs2_dato[31:16]};
+                i_add_a = {16'h0000, math_reg[47:32]};
+                i_add_b = i_mul_out; }
+
+   c_mul;
+   tr_mul_dec { 
+      unique { 
+         @c_instr_m_mul { c_mul; } 
+         @c_instr_m_mulh { c_mul; } 
+         @c_instr_m_mulhu { c_mul; } 
+         @c_instr_m_mulhsu { c_mul; } } }
+
+   tr_rv32m_mul { 
+      unique @c_mul { 
+         unique {
+            @c_instr_m_mul { d_dp_out_mul; }
+            @c_instr_m_mulh { d_dp_out_mulh; }
+            @c_instr_m_mulhu { d_dp_out_mulhu; }
+            @c_instr_m_mulhsu { d_dp_out_mulhsu; } }
+         d_rs1i_addr; 
+         d_rs2i_addr; 
+         d_rd_dp_out; d_rdi_addr; 
+         unique { 
+            @c_mc_0 {
+               d_mul_0; 
+               d_pc_stall; }
+            @c_mc_3 {
+               unique {
+                  @c_instr_m_mulh { d_mulh_3; }
+                  @c_instr_m_mulhu { d_mulhu_3; }
+                  @c_instr_m_mulhsu { d_mulhsu_3; } }
+               d_pc_stall; }
+            @c_mc_2 {
+               unique {
+                  @c_instr_m_mul { d_mul_2; }
+                  @c_instr_m_mulh { d_mulh_2; }
+                  @c_instr_m_mulhu { d_mulhu_2; }
+                  @c_instr_m_mulhsu { d_mulhsu_2; } }
+               d_pc_stall; }
+            @c_mc_1 {
+               unique {
+                  @c_instr_m_mul { d_mul_1; }
+                  @c_instr_m_mulh { d_mulh_1; }
+                  @c_instr_m_mulhu { d_mulhu_1; }
+                  @c_instr_m_mulhsu { d_mulhsu_1; } }
+               c_rf_write;   
+               d_pc4; } } } }
+
+   ///////////////////////////////////////////// 
+   // New division datapath
+   // Generate positive divident and divisor
+   ///////////////////////////////////////////// 
+   item [31:0] divident = rs1_dato;
+   item [31:0] divisor = rs2_dato;
+   c_sign_differ { if (divident[31] != divisor[31]) this; }
+   
+   c_divident_neg { if (divident[31]) this; }
+   item [31:0] divident_pos;
+   d_divident_pos_rs1 { divident_pos = divident; }
+   d_divident_pos_rs1_compl { divident_pos = 0 - divident; }
+   
+   c_divisor_neg { if (divisor[31]) this; }
+   item [31:0] divisor_pos;
+   d_divisor_pos_rs1 { divisor_pos = divisor; }
+   d_divisor_pos_rs1_compl { divisor_pos = 0 - divisor; }
+   
+   tr_prepare_divident_and_divisor {
+      @c_instr_m_divu { d_divident_pos_rs1; }
+      else @c_instr_m_remu { d_divident_pos_rs1; }
+      else @c_divident_neg { d_divident_pos_rs1_compl; }
+      else { d_divident_pos_rs1; } 
+      @c_instr_m_divu { d_divisor_pos_rs1; } 
+      else @c_instr_m_remu { d_divisor_pos_rs1; }
+      else @c_divisor_neg { d_divisor_pos_rs1_compl; }
+      else { d_divisor_pos_rs1; } }
+
+   ///////////////////////////////////////////// 
+   // Determin cycles based on leading 'one' bit of divident and divisor
+   ///////////////////////////////////////////// 
+   item [4:0] leading_bit_divident_loc;
+   d_leading_bit_divident_loc {
+      leading_bit_divident_loc = 0;
+      for (int i = 31; i >= 0; i = i - 1)
+         if (divident_pos[i] == 1'b1)
+            if (leading_bit_divident_loc == 0)
+               leading_bit_divident_loc = i; }
+
+   item [4:0] leading_bit_divisor_loc;
+   d_leading_bit_divisor_loc {
+      leading_bit_divisor_loc = 0;
+      for (int i = 31; i >= 0; i = i - 1)
+         if (divisor_pos[i] == 1'b1)
+            if (leading_bit_divisor_loc == 0)
+               leading_bit_divisor_loc = i; }
+   
+   item [4:0] div_init_shift = leading_bit_divident_loc - leading_bit_divisor_loc;
+   c_div_init_shift_zero { if (div_init_shift == 5'h00) this; }
+
+   tr_leading_bit {
+      d_leading_bit_divident_loc;
+      d_leading_bit_divisor_loc; }
+
+   ///////////////////////////////////////////// 
+   // Get shifted divisor, share shl
+   /////////////////////////////////////////////
+   item [4:0] divisor_shift;
+   d_divisor_shift_init { divisor_shift = div_init_shift; }
+   d_divisor_shift_mc { divisor_shift = mc - 1; }
+
+   //item [31:0] divisor_shifted = divisor_pos << divisor_shift;
+   d_div_rem_shl { i_shl_data = divisor_pos;
+                   i_shl_shamt = divisor_shift; }
+   item [31:0] divisor_shifted = shl_result;
+   
+   ///////////////////////////////////////////// 
+   // Do accumulation divident_used|result +|- dividsor_shifted
+   /////////////////////////////////////////////
+   item [31:0] div_acc = dp_add;
+   d_div_divident_minus_divisor { i_add_a = divident_pos; 
+                                  i_add_b = d_sub_2compl;
+                                  i_sub_b = divisor_shifted; }
+   d_div_math_reg_minus_divisor { i_add_a = math_reg[31:0];
+                                  i_add_b = d_sub_2compl;
+                                  i_sub_b = divisor_shifted; }
+   c_div_result_neg { if (div_acc[31] == 1'b1) this; }
+
+   ///////////////////////////////////////////// 
+   // Detect special start conditions
+   /////////////////////////////////////////////
+   c_divident_lesser_divisor;
+   tr_divident_lesser_divisor {
+      unique { 
+         @c_instr_m_div { 
+            @c_sign_differ {} 
+            else { 
+               @c_less { 
+                  @c_divident_neg { } 
+                  else { c_divident_lesser_divisor; } } 
+               else { 
+                  @c_divident_neg { c_divident_lesser_divisor; } } } }
+         @c_instr_m_divu { @c_cond_bltu { c_divident_lesser_divisor; } }
+         @c_instr_m_rem { 
+            @c_sign_differ {} 
+            else { 
+               @c_less {
+                  @c_divident_neg { } 
+                  else { c_divident_lesser_divisor; } } 
+               else { 
+                  @c_divident_neg { c_divident_lesser_divisor; } } } }
+         @c_instr_m_remu { @c_cond_bltu { c_divident_lesser_divisor; } } } }
+   
+   ///////////////////////////////////////////// 
+   // Store temporary divident_used
+   ///////////////////////////////////////////// 
+   d_div_store_math_reg { math_reg[31:0] = div_acc; }
+
+   ///////////////////////////////////////////// 
+   // Decision making (divident_pos >= divisor_shifted)
+   /////////////////////////////////////////////
+   c_divident_ge_shifted { if (div_acc[31] == 1'b0) this; }
+   
+   ///////////////////////////////////////////// 
+   // Store division result and dp_out
+   /////////////////////////////////////////////
+   reg [31:0] div_result;
+   d_div_result_set { div_result = 32'h00000001; }
+   d_div_result_clr { div_result = 32'h00000000; }
+   d_div_result_shift_plus_1 { div_result = {div_result[30:0], 1'b1}; }
+   d_div_result_shift { div_result = {div_result[30:0], 1'b0}; }
+
+   item [31:0] dp_out_2Compl_in;
+   item [31:0] dp_out_2Compl = 0 - dp_out_2Compl_in;
+   d_dp_out_set { dp_out = 32'h00000001; }
+   d_dp_out_clr { dp_out = 32'h00000000; }
+   d_dp_out_shift_plus_1 { dp_out = {div_result[30:0], 1'b1}; }
+   d_dp_out_shift_plus_1_compl { dp_out_2Compl_in = {div_result[30:0], 1'b1};
+                                 dp_out = dp_out_2Compl; }
+   d_dp_out_result_shift { dp_out = {div_result[30:0], 1'b0}; }
+   d_dp_out_shift_compl { dp_out_2Compl_in = {div_result[30:0], 1'b0};
+                          dp_out = dp_out_2Compl; } 
+   d_dp_out_math_reg { dp_out = math_reg[31:0]; }
+   d_dp_out_math_reg_compl { dp_out_2Compl_in = math_reg[31:0];
+                             dp_out = dp_out_2Compl; }
+   d_dp_out_div_acc { dp_out = div_acc; }
+   d_dp_out_divident { dp_out = divident; }
+
+   ///////////////////////////////////////////// 
+   // DIV, DIVU, REM, REMU 
+   /////////////////////////////////////////////
+   c_div_rem;
+   tr_div_rem_dec { 
+      unique { 
+         @c_instr_m_div { c_div_rem; } 
+         @c_instr_m_divu { c_div_rem; } 
+         @c_instr_m_rem { c_div_rem; } 
+         @c_instr_m_remu { c_div_rem; } } }
+   
+   tr_rv32m_div_rem { 
+      unique @c_div_rem { 
+         d_rs1i_addr; 
+         d_rs2i_addr; 
+         d_div_rem_shl;
+         d_blt; 
+         d_rd_dp_out; d_rdi_addr;   
+         @c_mc_0 {
+            d_divisor_shift_init;
+            d_div_divident_minus_divisor; 
+            @c_cond_beq {
+               unique { 
+                   @c_instr_m_div { d_dp_out_set; }
+                   @c_instr_m_divu { d_dp_out_set; }
+                   @c_instr_m_rem { d_dp_out_clr; }
+                   @c_instr_m_remu { d_dp_out_clr; } }
+               c_rf_write;   
+               d_pc4; }
+            else @c_divident_lesser_divisor { 
+               unique { 
+                  @c_instr_m_div { d_dp_out_clr; }
+                  @c_instr_m_divu { d_dp_out_clr; }
+                  @c_instr_m_rem { d_dp_out_divident; }
+                  @c_instr_m_remu { d_dp_out_divident; } }
+               c_rf_write;   
+               d_pc4; }
+            else { d_div_store_math_reg;
+                   @c_div_result_neg { d_div_result_clr; }
+                   @c_divident_ge_shifted { d_div_result_set; }
+                   else { d_div_result_clr; }
+                   d_pc_stall; } 
+                   }
+         else @c_mc_1 {
+            d_divisor_shift_mc;
+            d_div_math_reg_minus_divisor;
+            @c_instr_m_rem  {
+               @c_sign_differ { d_dp_out_math_reg_compl; }
+               else { d_dp_out_math_reg; } }
+            else @c_instr_m_remu  {
+               d_dp_out_math_reg; }
+            else @c_div_result_neg {  d_dp_out_result_shift; }
+            else @c_divident_ge_shifted {
+               unique { 
+                  @c_instr_m_div { 
+                     @c_sign_differ { d_dp_out_shift_plus_1_compl; }
+                     else { d_dp_out_shift_plus_1; } }
+                  @c_instr_m_divu { 
+                     d_dp_out_shift_plus_1; } } }
+            else { 
+               @c_sign_differ { d_dp_out_shift_compl; }
+               else { d_dp_out_result_shift; } }
+            c_rf_write;   
+            d_pc4; } 
+         else {
+            d_divisor_shift_mc;
+            d_div_math_reg_minus_divisor;
+            @c_div_result_neg { d_div_result_shift;  }
+            else { d_div_store_math_reg;
+                   @c_divident_ge_shifted { d_div_result_shift_plus_1; }
+                   else { d_div_result_shift; } }
+            d_pc_stall; } } }
+} 
+">

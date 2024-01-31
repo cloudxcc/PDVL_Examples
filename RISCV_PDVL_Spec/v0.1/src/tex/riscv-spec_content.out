@@ -1,0 +1,152 @@
+\BOOKMARK [0][-]{chapter*.1}{Preface}{}% 1
+\BOOKMARK [0][-]{chapter.1}{Introduction}{}% 2
+\BOOKMARK [1][-]{section.1.1}{RISC-V Hardware Platform Terminology}{chapter.1}% 3
+\BOOKMARK [1][-]{section.1.2}{RISC-V Software Execution Environments and Harts}{chapter.1}% 4
+\BOOKMARK [1][-]{section.1.3}{RISC-V ISA Overview}{chapter.1}% 5
+\BOOKMARK [1][-]{section.1.4}{Memory}{chapter.1}% 6
+\BOOKMARK [1][-]{section.1.5}{Base Instruction-Length Encoding}{chapter.1}% 7
+\BOOKMARK [1][-]{section.1.6}{Exceptions, Traps, and Interrupts}{chapter.1}% 8
+\BOOKMARK [1][-]{section.1.7}{UNSPECIFIED Behaviors and Values}{chapter.1}% 9
+\BOOKMARK [0][-]{chapter.2}{RV32I Base Integer Instruction Set, Version 2.1}{}% 10
+\BOOKMARK [1][-]{section.2.1}{Programmers' Model for Base Integer ISA}{chapter.2}% 11
+\BOOKMARK [1][-]{section.2.2}{Base Instruction Formats}{chapter.2}% 12
+\BOOKMARK [1][-]{section.2.3}{Immediate Encoding Variants}{chapter.2}% 13
+\BOOKMARK [1][-]{section.2.4}{Integer Computational Instructions}{chapter.2}% 14
+\BOOKMARK [1][-]{section.2.5}{Control Transfer Instructions}{chapter.2}% 15
+\BOOKMARK [1][-]{section.2.6}{Load and Store Instructions}{chapter.2}% 16
+\BOOKMARK [1][-]{section.2.7}{Memory Ordering Instructions}{chapter.2}% 17
+\BOOKMARK [1][-]{section.2.8}{Environment Call and Breakpoints}{chapter.2}% 18
+\BOOKMARK [1][-]{section.2.9}{HINT Instructions}{chapter.2}% 19
+\BOOKMARK [1][-]{section.2.10}{RV32I Datapath and Data Memory Interface}{chapter.2}% 20
+\BOOKMARK [2][-]{subsection.2.10.1}{RV32I Registerfile}{section.2.10}% 21
+\BOOKMARK [2][-]{subsection.2.10.2}{RV32I PC}{section.2.10}% 22
+\BOOKMARK [2][-]{subsection.2.10.3}{RV32I Datapath}{section.2.10}% 23
+\BOOKMARK [2][-]{subsection.2.10.4}{RV32I Data Memory Interface}{section.2.10}% 24
+\BOOKMARK [0][-]{chapter.3}{``Zifencei'' Instruction-Fetch Fence, Version 2.0}{}% 25
+\BOOKMARK [0][-]{chapter.4}{RV32E Base Integer Instruction Set, Version 1.9}{}% 26
+\BOOKMARK [1][-]{section.4.1}{RV32E Programmers' Model}{chapter.4}% 27
+\BOOKMARK [1][-]{section.4.2}{RV32E Instruction Set}{chapter.4}% 28
+\BOOKMARK [0][-]{chapter.5}{RV64I Base Integer Instruction Set, Version 2.1}{}% 29
+\BOOKMARK [1][-]{section.5.1}{Register State}{chapter.5}% 30
+\BOOKMARK [1][-]{section.5.2}{Integer Computational Instructions}{chapter.5}% 31
+\BOOKMARK [1][-]{section.5.3}{Load and Store Instructions}{chapter.5}% 32
+\BOOKMARK [1][-]{section.5.4}{HINT Instructions}{chapter.5}% 33
+\BOOKMARK [0][-]{chapter.6}{RV128I Base Integer Instruction Set, Version 1.7}{}% 34
+\BOOKMARK [0][-]{chapter.7}{``M'' Standard Extension for Integer Multiplication and Division, Version 2.0}{}% 35
+\BOOKMARK [1][-]{section.7.1}{Multiplication Operations}{chapter.7}% 36
+\BOOKMARK [1][-]{section.7.2}{Division Operations}{chapter.7}% 37
+\BOOKMARK [0][-]{chapter.8}{``A'' Standard Extension for Atomic Instructions, Version 2.1}{}% 38
+\BOOKMARK [1][-]{section.8.1}{Specifying Ordering of Atomic Instructions}{chapter.8}% 39
+\BOOKMARK [1][-]{section.8.2}{Load-Reserved/Store-Conditional Instructions}{chapter.8}% 40
+\BOOKMARK [1][-]{section.8.3}{Eventual Success of Store-Conditional Instructions}{chapter.8}% 41
+\BOOKMARK [1][-]{section.8.4}{Atomic Memory Operations}{chapter.8}% 42
+\BOOKMARK [0][-]{chapter.9}{``Zicsr'', Control and Status Register \(CSR\) Instructions, Version 2.0}{}% 43
+\BOOKMARK [1][-]{section.9.1}{CSR Instructions}{chapter.9}% 44
+\BOOKMARK [0][-]{chapter.10}{Counters}{}% 45
+\BOOKMARK [1][-]{section.10.1}{Base Counters and Timers}{chapter.10}% 46
+\BOOKMARK [1][-]{section.10.2}{Hardware Performance Counters}{chapter.10}% 47
+\BOOKMARK [0][-]{chapter.11}{``F'' Standard Extension for Single-Precision Floating-Point, Version 2.2}{}% 48
+\BOOKMARK [1][-]{section.11.1}{F Register State}{chapter.11}% 49
+\BOOKMARK [1][-]{section.11.2}{Floating-Point Control and Status Register}{chapter.11}% 50
+\BOOKMARK [1][-]{section.11.3}{NaN Generation and Propagation}{chapter.11}% 51
+\BOOKMARK [1][-]{section.11.4}{Subnormal Arithmetic}{chapter.11}% 52
+\BOOKMARK [1][-]{section.11.5}{Single-Precision Load and Store Instructions}{chapter.11}% 53
+\BOOKMARK [1][-]{section.11.6}{Single-Precision Floating-Point Computational Instructions}{chapter.11}% 54
+\BOOKMARK [1][-]{section.11.7}{Single-Precision Floating-Point Conversion and Move Instructions}{chapter.11}% 55
+\BOOKMARK [1][-]{section.11.8}{Single-Precision Floating-Point Compare Instructions}{chapter.11}% 56
+\BOOKMARK [1][-]{section.11.9}{Single-Precision Floating-Point Classify Instruction}{chapter.11}% 57
+\BOOKMARK [0][-]{chapter.12}{``D'' Standard Extension for Double-Precision Floating-Point, Version 2.2}{}% 58
+\BOOKMARK [1][-]{section.12.1}{D Register State}{chapter.12}% 59
+\BOOKMARK [1][-]{section.12.2}{NaN Boxing of Narrower Values}{chapter.12}% 60
+\BOOKMARK [1][-]{section.12.3}{Double-Precision Load and Store Instructions}{chapter.12}% 61
+\BOOKMARK [1][-]{section.12.4}{Double-Precision Floating-Point Computational Instructions}{chapter.12}% 62
+\BOOKMARK [1][-]{section.12.5}{Double-Precision Floating-Point Conversion and Move Instructions}{chapter.12}% 63
+\BOOKMARK [1][-]{section.12.6}{Double-Precision Floating-Point Compare Instructions}{chapter.12}% 64
+\BOOKMARK [1][-]{section.12.7}{Double-Precision Floating-Point Classify Instruction}{chapter.12}% 65
+\BOOKMARK [0][-]{chapter.13}{``Q'' Standard Extension for Quad-Precision Floating-Point, Version 2.2}{}% 66
+\BOOKMARK [1][-]{section.13.1}{Quad-Precision Load and Store Instructions}{chapter.13}% 67
+\BOOKMARK [1][-]{section.13.2}{Quad-Precision Computational Instructions}{chapter.13}% 68
+\BOOKMARK [1][-]{section.13.3}{Quad-Precision Convert and Move Instructions}{chapter.13}% 69
+\BOOKMARK [1][-]{section.13.4}{Quad-Precision Floating-Point Compare Instructions}{chapter.13}% 70
+\BOOKMARK [1][-]{section.13.5}{Quad-Precision Floating-Point Classify Instruction}{chapter.13}% 71
+\BOOKMARK [0][-]{chapter.14}{RVWMO Memory Consistency Model, Version 0.1}{}% 72
+\BOOKMARK [1][-]{section.14.1}{Definition of the RVWMO Memory Model}{chapter.14}% 73
+\BOOKMARK [1][-]{section.14.2}{CSR Dependency Tracking Granularity}{chapter.14}% 74
+\BOOKMARK [1][-]{section.14.3}{Source and Destination Register Listings}{chapter.14}% 75
+\BOOKMARK [0][-]{chapter.15}{``L'' Standard Extension for Decimal Floating-Point, Version 0.0}{}% 76
+\BOOKMARK [1][-]{section.15.1}{Decimal Floating-Point Registers}{chapter.15}% 77
+\BOOKMARK [0][-]{chapter.16}{``C'' Standard Extension for Compressed Instructions, Version 2.0}{}% 78
+\BOOKMARK [1][-]{section.16.1}{Overview}{chapter.16}% 79
+\BOOKMARK [1][-]{section.16.2}{Compressed Instruction Formats}{chapter.16}% 80
+\BOOKMARK [1][-]{section.16.3}{Load and Store Instructions}{chapter.16}% 81
+\BOOKMARK [1][-]{section.16.4}{Control Transfer Instructions}{chapter.16}% 82
+\BOOKMARK [1][-]{section.16.5}{Integer Computational Instructions}{chapter.16}% 83
+\BOOKMARK [1][-]{section.16.6}{Usage of C Instructions in LR/SC Sequences}{chapter.16}% 84
+\BOOKMARK [1][-]{section.16.7}{HINT Instructions}{chapter.16}% 85
+\BOOKMARK [1][-]{section.16.8}{RVC Instruction Set Listings}{chapter.16}% 86
+\BOOKMARK [0][-]{chapter.17}{``B'' Standard Extension for Bit Manipulation, Version 0.0}{}% 87
+\BOOKMARK [0][-]{chapter.18}{``J'' Standard Extension for Dynamically Translated Languages, Version 0.0}{}% 88
+\BOOKMARK [0][-]{chapter.19}{``T'' Standard Extension for Transactional Memory, Version 0.0}{}% 89
+\BOOKMARK [0][-]{chapter.20}{``P'' Standard Extension for Packed-SIMD Instructions, Version 0.2}{}% 90
+\BOOKMARK [0][-]{chapter.21}{``V'' Standard Extension for Vector Operations, Version 0.7}{}% 91
+\BOOKMARK [0][-]{chapter.22}{``Zam'' Standard Extension for Misaligned Atomics, v0.1}{}% 92
+\BOOKMARK [0][-]{chapter.23}{``Ztso'' Standard Extension for Total Store Ordering, v0.1}{}% 93
+\BOOKMARK [0][-]{chapter.24}{RV32/64G Instruction Set Listings}{}% 94
+\BOOKMARK [0][-]{chapter.25}{RISC-V Assembly Programmer's Handbook}{}% 95
+\BOOKMARK [0][-]{chapter.26}{Extending RISC-V}{}% 96
+\BOOKMARK [1][-]{section.26.1}{Extension Terminology}{chapter.26}% 97
+\BOOKMARK [1][-]{section.26.2}{RISC-V Extension Design Philosophy}{chapter.26}% 98
+\BOOKMARK [1][-]{section.26.3}{Extensions within fixed-width 32-bit instruction format}{chapter.26}% 99
+\BOOKMARK [1][-]{section.26.4}{Adding aligned 64-bit instruction extensions}{chapter.26}% 100
+\BOOKMARK [1][-]{section.26.5}{Supporting VLIW encodings}{chapter.26}% 101
+\BOOKMARK [0][-]{chapter.27}{ISA Extension Naming Conventions}{}% 102
+\BOOKMARK [1][-]{section.27.1}{Case Sensitivity}{chapter.27}% 103
+\BOOKMARK [1][-]{section.27.2}{Base Integer ISA}{chapter.27}% 104
+\BOOKMARK [1][-]{section.27.3}{Instruction-Set Extension Names}{chapter.27}% 105
+\BOOKMARK [1][-]{section.27.4}{Version Numbers}{chapter.27}% 106
+\BOOKMARK [1][-]{section.27.5}{Underscores}{chapter.27}% 107
+\BOOKMARK [1][-]{section.27.6}{Additional Standard Extension Names}{chapter.27}% 108
+\BOOKMARK [1][-]{section.27.7}{Supervisor-level Instruction-Set Extensions}{chapter.27}% 109
+\BOOKMARK [1][-]{section.27.8}{Hypervisor-level Instruction-Set Extensions}{chapter.27}% 110
+\BOOKMARK [1][-]{section.27.9}{Machine-level Instruction-Set Extensions}{chapter.27}% 111
+\BOOKMARK [1][-]{section.27.10}{Non-Standard Extension Names}{chapter.27}% 112
+\BOOKMARK [1][-]{section.27.11}{Subset Naming Convention}{chapter.27}% 113
+\BOOKMARK [0][-]{chapter.28}{History and Acknowledgments}{}% 114
+\BOOKMARK [1][-]{section.28.1}{``Why Develop a new ISA?'' Rationale from Berkeley Group}{chapter.28}% 115
+\BOOKMARK [1][-]{section.28.2}{History from Revision 1.0 of ISA manual}{chapter.28}% 116
+\BOOKMARK [1][-]{section.28.3}{History from Revision 2.0 of ISA manual}{chapter.28}% 117
+\BOOKMARK [1][-]{section.28.4}{History from Revision 2.1}{chapter.28}% 118
+\BOOKMARK [1][-]{section.28.5}{History from Revision 2.2}{chapter.28}% 119
+\BOOKMARK [1][-]{section.28.6}{History for Revision 2.3}{chapter.28}% 120
+\BOOKMARK [1][-]{section.28.7}{Funding}{chapter.28}% 121
+\BOOKMARK [0][-]{appendix.A}{RVWMO Explanatory Material, Version 0.1}{}% 122
+\BOOKMARK [1][-]{section.A.1}{Why RVWMO?}{appendix.A}% 123
+\BOOKMARK [1][-]{section.A.2}{Litmus Tests}{appendix.A}% 124
+\BOOKMARK [1][-]{section.A.3}{Explaining the RVWMO Rules}{appendix.A}% 125
+\BOOKMARK [2][-]{subsection.A.3.1}{Preserved Program Order and Global Memory Order}{section.A.3}% 126
+\BOOKMARK [2][-]{subsection.A.3.2}{??}{section.A.3}% 127
+\BOOKMARK [2][-]{subsection.A.3.3}{??}{section.A.3}% 128
+\BOOKMARK [2][-]{subsection.A.3.4}{??}{section.A.3}% 129
+\BOOKMARK [2][-]{subsection.A.3.5}{Overlapping-Address Orderings \(Rules ??\205??\)}{section.A.3}% 130
+\BOOKMARK [2][-]{subsection.A.3.6}{Fences \(Rule ??\)}{section.A.3}% 131
+\BOOKMARK [2][-]{subsection.A.3.7}{Explicit Synchronization \(Rules ??\205??\)}{section.A.3}% 132
+\BOOKMARK [2][-]{subsection.A.3.8}{Syntactic Dependencies \(Rules ??\205??\)}{section.A.3}% 133
+\BOOKMARK [2][-]{subsection.A.3.9}{Pipeline Dependencies \(Rules ??\205??\)}{section.A.3}% 134
+\BOOKMARK [1][-]{section.A.4}{Beyond Main Memory}{appendix.A}% 135
+\BOOKMARK [2][-]{subsection.A.4.1}{Coherence and Cacheability}{section.A.4}% 136
+\BOOKMARK [2][-]{subsection.A.4.2}{I/O Ordering}{section.A.4}% 137
+\BOOKMARK [1][-]{section.A.5}{Code Porting and Mapping Guidelines}{appendix.A}% 138
+\BOOKMARK [1][-]{section.A.6}{Implementation Guidelines}{appendix.A}% 139
+\BOOKMARK [2][-]{subsection.A.6.1}{Possible Future Extensions}{section.A.6}% 140
+\BOOKMARK [1][-]{section.A.7}{Known Issues}{appendix.A}% 141
+\BOOKMARK [2][-]{subsection.A.7.1}{Mixed-size RSW}{section.A.7}% 142
+\BOOKMARK [0][-]{appendix.B}{Formal Memory Model Specifications, Version 0.1}{}% 143
+\BOOKMARK [1][-]{section.B.1}{Formal Axiomatic Specification in Alloy}{appendix.B}% 144
+\BOOKMARK [1][-]{section.B.2}{Formal Axiomatic Specification in Herd}{appendix.B}% 145
+\BOOKMARK [1][-]{section.B.3}{An Operational Memory Model}{appendix.B}% 146
+\BOOKMARK [2][-]{subsection.B.3.1}{Intra-instruction Pseudocode Execution}{section.B.3}% 147
+\BOOKMARK [2][-]{subsection.B.3.2}{Instruction Instance State}{section.B.3}% 148
+\BOOKMARK [2][-]{subsection.B.3.3}{Hart State}{section.B.3}% 149
+\BOOKMARK [2][-]{subsection.B.3.4}{Shared Memory State}{section.B.3}% 150
+\BOOKMARK [2][-]{subsection.B.3.5}{Transitions}{section.B.3}% 151
+\BOOKMARK [2][-]{subsection.B.3.6}{Limitations}{section.B.3}% 152

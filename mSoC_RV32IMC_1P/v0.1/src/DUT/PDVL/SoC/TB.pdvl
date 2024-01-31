@@ -1,0 +1,148 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+
+   Minimal testbench needed to route IOs. 	
+
+<"
+//////////////////////////////////////////
+// Clock driver
+//////////////////////////////////////////
+cl_clkgen {
+	item (* source *) clk_in;
+}
+    
+//////////////////////////////////////////
+// Reset driver
+//////////////////////////////////////////
+cl_rstgen {
+	item (* source *) arstn;
+}
+    
+//////////////////////////////////////////
+// GPIO trisate
+//////////////////////////////////////////
+cluster tri {
+   item [bw] data_io_out;
+   item [bw] data_tri;
+   item [bw] data_out;
+   item [bw] data_in;
+   d_tri {
+      for (b = 0; b < bw; b = b + 1) begin
+         // input
+         if (!data_io_in[b])
+            data_in[b] = 1'b0;
+         else
+            data_in[b] = 1'b1;
+      //end
+               
+      //for (b = 0; b < bw; b = b + 1) begin
+         // tristate output
+         if (data_tri[b]) begin
+            if (data_out[b])
+               data_io_out[b] = 1'bZ;
+            else
+               data_io_out[b] = 1'b0;
+         end else
+            data_io_out[b] = data_out[b];
+      end
+   } 
+   tr_tri { d_tri; }
+}
+
+//////////////////////////////////////////
+// GPIO trisate routing
+//////////////////////////////////////////
+cluster tri_route {
+   cluster dut {
+       item [bw] data_io; 
+       item [bw] data_io_in;
+       d_route {
+       		data_io = data_io_out;
+       		data_io_in = data_io;
+       }
+       tr_route { d_route; }
+   }
+   cluster tb {
+       item [bw] data_io; 
+       item [bw] tb_data_io_in;
+       d_route {
+       		data_io = tb_data_io_out;
+       		tb_data_io_in = data_io;
+       }
+       tr_route { d_route; }
+   }
+}
+
+//////////////////////////////////////////
+// Testbench
+//////////////////////////////////////////
+build testbench_soc {
+	
+	place FPGA_TOP i_fpga;
+	
+    ////////////////////////////////////////////
+    // GPIO testbench submodule
+    ////////////////////////////////////////////
+    place TB_GPIO i_tb_gpio;
+
+    ////////////////////////////////////////////
+    // GPIO tristate buffer "tri" in FPGA
+    ////////////////////////////////////////////
+    uniquify tri b0_;
+    join b0_tri i_fpga.i_soc.i_gpio_0;
+    
+    uniquify tri b1_;
+    join b1_tri i_fpga.i_soc.i_gpio_1;
+
+
+    ////////////////////////////////////////////
+    // GPIO routing TB <-> GPIOs inside FPGA
+    ////////////////////////////////////////////
+    uniquify tri_route b0_;
+    join { parameter b0_bw = 8; } i_fpga.i_soc.i_gpio_0;
+    join { parameter b0_bw = 8; } i_tb_gpio;
+    join { parameter b0_o_bw = 8; } i_tb_gpio;
+    join b0_tri_route { b0_dut i_fpga.i_soc.i_gpio_0;
+                        b0_tb i_tb_gpio; }
+
+    uniquify tri_route b1_;
+    join { parameter b1_bw = 8; } i_fpga.i_soc.i_gpio_1;
+    join { parameter b1_bw = 8; } i_tb_gpio;
+    join { parameter b1_o_bw = 8; } i_tb_gpio;
+    join b1_tri_route { b1_dut i_fpga.i_soc.i_gpio_1;
+                        b1_tb i_tb_gpio; }
+    
+    ////////////////////////////////////////////
+    // GPIO connect tristate buffer with regs
+    ////////////////////////////////////////////
+    join { 
+       d_con {
+          b0_data_tri = gpio_data_tri_reg;
+          b0_data_out = gpio_data_out_reg; }
+       d_data_cap_reg { gpio_data_in_reg = b0_data_in; } 
+       tr_con { d_con; } } i_fpga.i_soc.i_gpio_0;
+    
+    join { 
+       d_con {
+          b1_data_tri = gpio_data_tri_reg;
+          b1_data_out = gpio_data_out_reg; }
+       d_data_cap_reg { gpio_data_in_reg = b1_data_in; } 
+       tr_con { d_con; } } i_fpga.i_soc.i_gpio_1;
+    
+    ////////////////////////////////////////////
+    // UART routing
+    ////////////////////////////////////////////
+    join { item uart_rx = uart_tx; }                                 
+
+    ////////////////////////////////////////////
+    // clock and reset routing
+    ////////////////////////////////////////////
+    join cl_clkgen;
+    join cl_rstgen;  
+    join {
+       c_ex_rst { if (arstn == 0) this; } } i_fpga;  
+}
+">

@@ -1,0 +1,99 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Top level implementation
+   There is one clock used in the system.
+   There are 2 resets
+  	  c_ex_rst: global asynchron (external pin)
+	  sys_rst: sync. reset set\unset by UART
+
+<"
+////////////////////////////////////////////////////////////////////////
+// FPGA_TOP
+////////////////////////////////////////////////////////////////////////
+build FPGA_TOP {
+              
+   ////////////////////////////////////////////////////////////////////
+   // PLL
+   ////////////////////////////////////////////////////////////////////
+   place PLL i_pll;
+   join { item clk;
+          d_clk { clk = clk_in; }
+          tr_pll { d_clk; } } i_pll;
+
+   ////////////////////////////////////////////////////////////////////
+   // mSoC
+   ////////////////////////////////////////////////////////////////////
+   place mSoC i_soc;
+
+   ////////////////////////////////////////////////////////////////////
+   // UART
+   ////////////////////////////////////////////////////////////////////
+   place UART                i_uart;    
+   join c_uart.c_uart_slave  i_uart;
+   join c_uart.c_uart_master i_uart;    
+   join cl_uart_byte2bus     i_uart;
+   
+   join {
+      tr_clocking { 
+         @c_ex_rst { 
+            d_mst_reset; 
+            d_slv_reset; 
+            d_reset_byte2bus; }
+         else { 
+         @e_clk { 
+            tr_rx_delay; 
+            tr_byte2bus;
+            tr_mst_prot; 
+            tr_slv_prot;
+            tr_tx; } } } } i_uart;
+                                    
+   ////////////////////////////////////////////////////////////////////
+   // AXI (ic0_) connecting UART ...
+   ////////////////////////////////////////////////////////////////////
+   uniquify axi ic0_;
+   join { parameter ic0_axi_masters = 1; 
+          parameter ic0_axi_slaves = 4; } ic0_axi;
+   join ic0_axi;
+   join ic0_axi.ic0_axi_mst_wr i_soc.i_rv;
+   //join ic0_axi.ic0_axi_mst_rd i_soc.i_rv;
+   join ic0_axi.ic0_axi_slv_wr_0 i_soc.i_gpio_0;
+   join ic0_axi.ic0_axi_slv_wr_1 i_soc.i_gpio_1;
+   join ic0_axi.ic0_axi_slv_wr_2 i_soc.i_dmem;
+   join ic0_axi.ic0_axi_slv_wr_3 i_uart;
+   join ic0_axi.ic0_axi_mst_rd i_soc.i_rv;
+   join ic0_axi.ic0_axi_mst_rd_0 i_soc.i_rv;
+   join ic0_axi.ic0_axi_mst_rd_1 i_soc.i_rv;
+   join ic0_axi.ic0_axi_mst_rd_2 i_soc.i_rv;
+   join ic0_axi.ic0_axi_mst_rd_3 i_soc.i_rv;
+   join ic0_axi.ic0_axi_slv_rd_0 i_soc.i_gpio_0;
+   join ic0_axi.ic0_axi_slv_rd_1 i_soc.i_gpio_1;
+   join ic0_axi.ic0_axi_slv_rd_2 i_soc.i_dmem;
+   join ic0_axi.ic0_axi_slv_rd_3 i_uart;
+
+   ////////////////////////////////////////////////////////////////////
+   // AXI (ic1_) connecting UART and PMEM
+   ////////////////////////////////////////////////////////////////////
+   uniquify axi ic1_;
+   join { parameter ic1_axi_masters = 1; 
+          parameter ic1_axi_slaves = 1; } ic1_axi;
+   join ic1_axi;
+   join ic1_axi.ic1_axi_mst_wr i_uart;
+   join ic1_axi.ic1_axi_slv_wr_0 i_soc.i_pmem;
+
+   ////////////////////////////////////////////////////////////////////
+   // Top level reset
+   ////////////////////////////////////////////////////////////////////
+   join {
+      reg sys_rst;
+      c_sys_rst { if (sys_rst == 1) this; }
+      d_sys_rst_set { sys_rst = 1; }
+      d_sys_rst_clr { sys_rst = 0; }
+      tr_sys_rst { 
+         @c_ex_rst { d_sys_rst_set; }
+         else { @e_clk { d_sys_rst_clr;
+            @c_user_rst { d_sys_rst_set; } } } } }; 
+}
+">
