@@ -18,4 +18,12 @@ The executable spec version is not timing optimized. This project now is a manua
 
 The core from the RV32IMC_1P is taken and embedded in a minimalistic SoC completely written in PDVL. 
 
+## RV32IMC_3P:
+
+The executable spec version is not timing optimized. This project now is a manually optimized 3-stage RV32IMC core.
+
+## mSoC_RV32IMC_3P:
+
+The core from the RV32IMC_3P is taken and embedded in a minimalistic SoC completely written in PDVL. 
+
 
