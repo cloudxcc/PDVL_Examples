@@ -42,7 +42,7 @@ complement signed binary integers or unsigned binary integers.\\
 \\
 \textcolor{blue}{
 \noindent \textless" cl\_rv32i\_rf \{\\%pdvlrvi
-\indent reg [31:0] rf [15:0]; \\%pdvlrvi
+\indent reg [31:0] rf [31:0]; \\%pdvlrvi
 \} "\textgreater\\%pdvlrvi
 }
 
@@ -553,7 +553,7 @@ I-immediate[11:0] & src & ANDI/ORI/XORI & dest & OP-IMM \\
 %   // ADDI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_addi \{ dp\_out = rs1\_dato + i\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_addi \{ unique @c\_instr\_i\_addi \{ \\%pdvlrvi
+\indent tr\_rv32i\_addi \{ @c\_instr\_i\_addi \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_addi; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -563,7 +563,7 @@ I-immediate[11:0] & src & ANDI/ORI/XORI & dest & OP-IMM \\
 %   // SLTI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_slti \{ dp\_out = \$signed(rs1\_dato) $<$ \$signed(i\_immediate); \}\\%pdvlrvi
-\indent tr\_rv32i\_slti \{ unique @c\_instr\_i\_slti \{ \\%pdvlrvi
+\indent tr\_rv32i\_slti \{ @c\_instr\_i\_slti \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_slti; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -573,7 +573,7 @@ I-immediate[11:0] & src & ANDI/ORI/XORI & dest & OP-IMM \\
 %   // SLTIU \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_sltiu \{ dp\_out = rs1\_dato $<$ i\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_sltiu \{ unique @c\_instr\_i\_sltiu \{ \\%pdvlrvi
+\indent tr\_rv32i\_sltiu \{ @c\_instr\_i\_sltiu \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_sltiu; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -583,7 +583,7 @@ I-immediate[11:0] & src & ANDI/ORI/XORI & dest & OP-IMM \\
 %   // ANDI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_andi \{ dp\_out = rs1\_dato \& i\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_andi \{ unique @c\_instr\_i\_andi \{ \\%pdvlrvi
+\indent tr\_rv32i\_andi \{ @c\_instr\_i\_andi \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_andi; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -593,7 +593,7 @@ I-immediate[11:0] & src & ANDI/ORI/XORI & dest & OP-IMM \\
 %   // ORI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_ori \{ dp\_out = rs1\_dato $\vert$ i\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_ori \{ unique @c\_instr\_i\_ori \{ \\%pdvlrvi
+\indent tr\_rv32i\_ori \{ @c\_instr\_i\_ori \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_ori; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -603,7 +603,7 @@ I-immediate[11:0] & src & ANDI/ORI/XORI & dest & OP-IMM \\
 %   // XORI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_xori \{ dp\_out = rs1\_dato $\wedge$ i\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_xori \{ unique @c\_instr\_i\_xori \{ \\%pdvlrvi
+\indent tr\_rv32i\_xori \{ @c\_instr\_i\_xori \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_xori; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -661,7 +661,7 @@ pseudoinstruction NOT {\em rd, rs}).
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent item [4:0] shamt = instr[24:20];\\%pdvlrvi
 \indent d\_slli \{ dp\_out = rs1\_dato $<<$ shamt; \}\\%pdvlrvi
-\indent tr\_rv32i\_slli \{ unique @c\_instr\_i\_slli \{ \\%pdvlrvi
+\indent tr\_rv32i\_slli \{ @c\_instr\_i\_slli \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_slli; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -671,7 +671,7 @@ pseudoinstruction NOT {\em rd, rs}).
 %   // SRLI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_srli \{ dp\_out = rs1\_dato $>>$ shamt; \}\\%pdvlrvi
-\indent tr\_rv32i\_srli \{ unique @c\_instr\_i\_srli \{ \\%pdvlrvi
+\indent tr\_rv32i\_srli \{ @c\_instr\_i\_srli \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_srli; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -681,7 +681,7 @@ pseudoinstruction NOT {\em rd, rs}).
 %   // SRAI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_srai \{ dp\_out = \$signed(rs1\_dato) $>>>$ shamt; \}\\%pdvlrvi
-\indent tr\_rv32i\_srai \{ unique @c\_instr\_i\_srai \{ \\%pdvlrvi
+\indent tr\_rv32i\_srai \{ @c\_instr\_i\_srai \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_srai; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -720,7 +720,7 @@ U-immediate[31:12] & dest & AUIPC
 %   // LUI \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_lui \{ dp\_out = u\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_lui \{ unique @c\_instr\_i\_lui \{ \\%pdvlrvi
+\indent tr\_rv32i\_lui \{ @c\_instr\_i\_lui \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_lui; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc4; \} \} \\%pdvlrvi
@@ -729,7 +729,7 @@ U-immediate[31:12] & dest & AUIPC
 %   // AUIPC \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_auipc \{ dp\_out = pc + u\_immediate; \}\\%pdvlrvi
-\indent tr\_rv32i\_auipc \{ unique @c\_instr\_i\_auipc \{ \\%pdvlrvi
+\indent tr\_rv32i\_auipc \{ @c\_instr\_i\_auipc \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_auipc; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc4; \} \} \\%pdvlrvi
@@ -798,7 +798,7 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   // ADD \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_add \{ dp\_out = rs1\_dato + rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_add \{ unique @c\_instr\_i\_add \{ \\%pdvlrvi
+\indent tr\_rv32i\_add \{ @c\_instr\_i\_add \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_add; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -808,7 +808,7 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   // SLT \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_slt \{ dp\_out = \$signed(rs1\_dato) $<$ \$signed(rs2\_dato); \}\\%pdvlrvi
-\indent tr\_rv32i\_slt \{ unique @c\_instr\_i\_slt \{ \\%pdvlrvi
+\indent tr\_rv32i\_slt \{ @c\_instr\_i\_slt \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_slt; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -817,8 +817,8 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   ///////////////////////////////////////////// \\%pdvlrvi
 %   // SLTU \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
-\indent d\_sltu \{ dp\_out = rs1\_dato < rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_sltu \{ unique @c\_instr\_i\_sltu \{ \\%pdvlrvi
+\indent d\_sltu \{ dp\_out = rs1\_dato $<$ rs2\_dato; \}\\%pdvlrvi
+\indent tr\_rv32i\_sltu \{ @c\_instr\_i\_sltu \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_sltu; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -828,7 +828,7 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   // SUB \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_sub \{ dp\_out = rs1\_dato - rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_sub \{ unique @c\_instr\_i\_sub \{ \\%pdvlrvi
+\indent tr\_rv32i\_sub \{ @c\_instr\_i\_sub \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_sub; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -838,7 +838,7 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   // AND \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_and \{ dp\_out = rs1\_dato \& rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_and \{ unique @c\_instr\_i\_and \{ \\%pdvlrvi
+\indent tr\_rv32i\_and \{ @c\_instr\_i\_and \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_and; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -848,7 +848,7 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   // OR \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_or \{ dp\_out = rs1\_dato $\vert$ rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_or \{ unique @c\_instr\_i\_or \{ \\%pdvlrvi
+\indent tr\_rv32i\_or \{ @c\_instr\_i\_or \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_or; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -858,7 +858,7 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   // XOR \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent d\_xor \{ dp\_out = rs1\_dato $\wedge$ rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_xor \{ unique @c\_instr\_i\_xor \{ \\%pdvlrvi
+\indent tr\_rv32i\_xor \{ @c\_instr\_i\_xor \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_xor; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -867,8 +867,8 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   ///////////////////////////////////////////// \\%pdvlrvi
 %   // SLL \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
-\indent d\_sll \{ dp\_out = rs1\_dato << rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_sll \{ unique @c\_instr\_i\_sll \{ \\%pdvlrvi
+\indent d\_sll \{ dp\_out = rs1\_dato $<<$ rs2\_dato[4:0]; \}\\%pdvlrvi
+\indent tr\_rv32i\_sll \{ @c\_instr\_i\_sll \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_sll; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -877,8 +877,8 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   ///////////////////////////////////////////// \\%pdvlrvi
 %   // SRL \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
-\indent d\_srl \{ dp\_out = rs1\_dato >> rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_srl \{ unique @c\_instr\_i\_srl \{ \\%pdvlrvi
+\indent d\_srl \{ dp\_out = rs1\_dato $>>$ rs2\_dato[4:0]; \}\\%pdvlrvi
+\indent tr\_rv32i\_srl \{ @c\_instr\_i\_srl \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_srl; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -887,8 +887,8 @@ write the result into register {\em rd}.  The {\em funct7} and {\em
 %   ///////////////////////////////////////////// \\%pdvlrvi
 %   // SRA \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
-\indent d\_sra \{ dp\_out = \$signed(rs1\_dato) >>> rs2\_dato; \}\\%pdvlrvi
-\indent tr\_rv32i\_sra \{ unique @c\_instr\_i\_sra \{ \\%pdvlrvi
+\indent d\_sra \{ dp\_out = \$signed(rs1\_dato) $>>>$ rs2\_dato[4:0]; \}\\%pdvlrvi
+\indent tr\_rv32i\_sra \{ @c\_instr\_i\_sra \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_sra; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -1021,7 +1021,7 @@ with {\em rd}={\tt x0}.
 \indent item [31:0] offset\_20 = \{\{11\{j\_type[19]\}\}, j\_type, 1'b0\};\\%pdvlrvi
 \indent d\_jal \{ dp\_out = pc + 4; \}\\%pdvlrvi
 \indent d\_pc\_jal \{ pc\_next = pc + offset\_20; \}\\%pdvlrvi
-\indent tr\_rv32i\_jal \{ unique @c\_instr\_i\_jal \{ \\%pdvlrvi
+\indent tr\_rv32i\_jal \{ @c\_instr\_i\_jal \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_jal; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc\_jal; \} \} \\%pdvlrvi
@@ -1061,7 +1061,7 @@ offset[11:0] & base & 0 & dest & JALR \\
 \indent item [11:0] imm\_11 = \{\{20\{instr[31]\}\}, instr[31:20]\};\\%pdvlrvi
 \indent d\_jalr \{ dp\_out = pc + 4; \}\\%pdvlrvi
 \indent d\_pc\_jalr \{ pc\_next = rs1\_dato + imm\_11; \}\\%pdvlrvi
-\indent tr\_rv32i\_jalr \{ unique @c\_instr\_i\_jalr \{ \\%pdvlrvi
+\indent tr\_rv32i\_jalr \{ @c\_instr\_i\_jalr \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_jalr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -1194,7 +1194,7 @@ conditional branch range is $\pm$\wunits{4}{KiB}.
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent c\_cond\_beq \{ if (rs1\_dato == rs2\_dato) this; \}\\%pdvlrvi
 \indent d\_pc\_branch \{ pc\_next = pc + \{b\_type, 1'b0\}; \}\\%pdvlrvi
-\indent tr\_rv32i\_beq \{ unique @c\_instr\_i\_beq \{ \\%pdvlrvi
+\indent tr\_rv32i\_beq \{ @c\_instr\_i\_beq \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} @c\_cond\_beq \{ d\_pc\_branch; \}  else \{ d\_pc4; \} \} \} \\%pdvlrvi
 \\
@@ -1202,7 +1202,7 @@ conditional branch range is $\pm$\wunits{4}{KiB}.
 %   // BNE \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent c\_cond\_bne \{ if (rs1\_dato != rs2\_dato) this; \}\\%pdvlrvi
-\indent tr\_rv32i\_bne \{ unique @c\_instr\_i\_bne \{ \\%pdvlrvi
+\indent tr\_rv32i\_bne \{ @c\_instr\_i\_bne \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} @c\_cond\_bne \{ d\_pc\_branch; \}  else \{ d\_pc4; \} \} \} \\%pdvlrvi
 \\
@@ -1210,7 +1210,7 @@ conditional branch range is $\pm$\wunits{4}{KiB}.
 %   // BLT \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent c\_cond\_blt \{ if (\$signed(rs1\_dato) $<$ \$signed(rs2\_dato)) this; \}\\%pdvlrvi
-\indent tr\_rv32i\_blt \{ unique @c\_instr\_i\_blt \{ \\%pdvlrvi
+\indent tr\_rv32i\_blt \{ @c\_instr\_i\_blt \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} @c\_cond\_blt \{ d\_pc\_branch; \}  else \{ d\_pc4; \} \} \} \\%pdvlrvi
 \\
@@ -1218,7 +1218,7 @@ conditional branch range is $\pm$\wunits{4}{KiB}.
 %   // BGE \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent c\_cond\_bge \{ if (\$signed(rs1\_dato) $>=$ \$signed(rs2\_dato)) this; \}\\%pdvlrvi
-\indent tr\_rv32i\_bge \{ unique @c\_instr\_i\_bge \{ \\%pdvlrvi
+\indent tr\_rv32i\_bge \{ @c\_instr\_i\_bge \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} @c\_cond\_bge \{ d\_pc\_branch; \}  	else \{ d\_pc4; \} \} \} \\%pdvlrvi
 \\
@@ -1226,7 +1226,7 @@ conditional branch range is $\pm$\wunits{4}{KiB}.
 %   // BLTU \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent c\_cond\_bltu \{ if (rs1\_dato $<$ rs2\_dato) this; \}\\%pdvlrvi
-\indent tr\_rv32i\_bltu \{ unique @c\_instr\_i\_bltu \{ \\%pdvlrvi
+\indent tr\_rv32i\_bltu \{ @c\_instr\_i\_bltu \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} @c\_cond\_bltu \{ d\_pc\_branch; \}  	else \{ d\_pc4; \} \} \} \\%pdvlrvi
@@ -1235,7 +1235,7 @@ conditional branch range is $\pm$\wunits{4}{KiB}.
 %   // BGEU \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
 \indent c\_cond\_bgeu \{ if (rs1\_dato $>=$ rs2\_dato) this; \}\\%pdvlrvi
-\indent tr\_rv32i\_bgeu \{ unique @c\_instr\_i\_bgeu \{ \\%pdvlrvi
+\indent tr\_rv32i\_bgeu \{ @c\_instr\_i\_bgeu \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; d\_rs2i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} @c\_cond\_bgeu \{ d\_pc\_branch; \}  	else \{ d\_pc4; \} \} \} \\%pdvlrvi
 }
@@ -1409,11 +1409,11 @@ offset[11:0] & base & width & dest & LOAD \\
 \indent \hspace{\parindent} c\_dmem\_load; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write; \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc4; \} \\%pdvlrvi
-\indent tr\_rv32i\_lw \{ unique @c\_instr\_i\_lw \{ tr\_rv32i\_load; d\_load\_lw; \} \} \\%pdvlrvi
-\indent tr\_rv32i\_lh \{ unique @c\_instr\_i\_lh \{ tr\_rv32i\_load; d\_load\_lh; \} \} \\%pdvlrvi
-\indent tr\_rv32i\_lhu \{ unique @c\_instr\_i\_lhu \{ tr\_rv32i\_load; d\_load\_lhu; \} \} \\%pdvlrvi
-\indent tr\_rv32i\_lb \{ unique @c\_instr\_i\_lb \{ tr\_rv32i\_load; d\_load\_lb; \} \} \\%pdvlrvi
-\indent tr\_rv32i\_lbu \{ unique @c\_instr\_i\_lbu \{ tr\_rv32i\_load; d\_load\_lbu; \} \} \\%pdvlrvi
+\indent tr\_rv32i\_lw \{ @c\_instr\_i\_lw \{ tr\_rv32i\_load; d\_load\_lw; \} \} \\%pdvlrvi
+\indent tr\_rv32i\_lh \{ @c\_instr\_i\_lh \{ tr\_rv32i\_load; d\_load\_lh; \} \} \\%pdvlrvi
+\indent tr\_rv32i\_lhu \{ @c\_instr\_i\_lhu \{ tr\_rv32i\_load; d\_load\_lhu; \} \} \\%pdvlrvi
+\indent tr\_rv32i\_lb \{ @c\_instr\_i\_lb \{ tr\_rv32i\_load; d\_load\_lb; \} \} \\%pdvlrvi
+\indent tr\_rv32i\_lbu \{ @c\_instr\_i\_lbu \{ tr\_rv32i\_load; d\_load\_lbu; \} \} \\%pdvlrvi
 }
 
 \vspace{-0.2in}
@@ -1471,9 +1471,9 @@ store 32-bit, 16-bit, and 8-bit values from the low bits of register
 \indent \hspace{\parindent} d\_dmem\_store\_width; \\%pdvlrvi
 \indent \hspace{\parindent} c\_dmem\_store; \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc4; \} \\%pdvlrvi
-\indent tr\_rv32i\_sw \{ unique @c\_instr\_i\_sw \{ tr\_rv32i\_store;  d\_dmem\_store\_data; \} \}\\%pdvlrvi
-\indent tr\_rv32i\_sb \{ unique @c\_instr\_i\_sb \{ tr\_rv32i\_store;  d\_dmem\_store\_data; \} \}\\%pdvlrvi
-\indent tr\_rv32i\_sh \{ unique @c\_instr\_i\_sh \{ tr\_rv32i\_store;  d\_dmem\_store\_data; \} \}\\%pdvlrvi
+\indent tr\_rv32i\_sw \{ @c\_instr\_i\_sw \{ tr\_rv32i\_store;  d\_dmem\_store\_data; \} \}\\%pdvlrvi
+\indent tr\_rv32i\_sb \{ @c\_instr\_i\_sb \{ tr\_rv32i\_store;  d\_dmem\_store\_data; \} \}\\%pdvlrvi
+\indent tr\_rv32i\_sh \{ @c\_instr\_i\_sh \{ tr\_rv32i\_store;  d\_dmem\_store\_data; \} \}\\%pdvlrvi
 }
 
 
@@ -1596,7 +1596,7 @@ FM & \multicolumn{4}{c}{predecessor} & \multicolumn{4}{c}{successor} & 0 & FENCE
 \indent item [3:0] pred;\\%pdvlrvi
 \indent item [3:0] succ;\\%pdvlrvi
 \indent d\_fence \{ fm = instr[31:28]; pred = instr[27:24]; succ = instr[23:20]; \}\\%pdvlrvi
-\indent tr\_rv32i\_fence \{ unique @c\_instr\_i\_fence \{ \\%pdvlrvi
+\indent tr\_rv32i\_fence \{ @c\_instr\_i\_fence \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_rs1i\_addr; \\%pdvlrvi
 \indent \hspace{\parindent} d\_fence; \\%pdvlrvi
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rdi\_addr; c\_rf\_write;  \\%pdvlrvi
@@ -1728,9 +1728,9 @@ EBREAK  & 0 & PRIV & 0 & SYSTEM \\
 %   ///////////////////////////////////////////// \\%pdvlrvi
 %   // ECALL \\%pdvlrvi
 %   ///////////////////////////////////////////// %pdvlrvi
-   tr\_rv32i\_ecall \{ unique @c\_instr\_i\_ecall \{ \\%pdvlrvi
+   tr\_rv32i\_ecall \{ @c\_instr\_i\_ecall \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc4; \} \} \\%pdvlrvi
-\indent tr\_rv32i\_ebreak \{ unique @c\_instr\_i\_ebreak \{ \\%pdvlrvi
+\indent tr\_rv32i\_ebreak \{ @c\_instr\_i\_ebreak \{ \\%pdvlrvi
 \indent \hspace{\parindent} d\_pc4; \} \} \\%pdvlrvi
 }
 

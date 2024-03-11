@@ -5,11 +5,9 @@
 
 <"
 
-build TB_RV32IMC_1P {
-   place RV32IMC_1P i_rv;
-   join cl_ios;
-}
-
+///////////////////////////////////////////// 
+// Routing signals as DUT toplevel IOs
+///////////////////////////////////////////// 
 cl_ios {
    c_arst; 
    item (* source *) clk; 
@@ -25,5 +23,17 @@ cl_ios {
    tr_dummy { @c_dmem_store { d_dummy; } 
               @c_dmem_load { d_dummy; } }
 }
+
+///////////////////////////////////////////// 
+// Basic testbench to instantiate the RISCV
+///////////////////////////////////////////// 
+build TB_RV32IMC_1P {
+   ///////////////////////////////////////////// 
+   // Instantiate DUT and join cl_ios
+   ///////////////////////////////////////////// 
+   place RV32IMC_1P i_rv;
+   join cl_ios;
+}
+
 
 ">

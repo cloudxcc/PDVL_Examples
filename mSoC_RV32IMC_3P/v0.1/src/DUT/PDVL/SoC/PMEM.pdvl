@@ -1,0 +1,48 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   An already customized version of program memory.
+   Demonstrates route by name (instr, pc).
+
+<"        
+cluster c_pmem {      
+
+   //////////////////////////////////////////////
+   // AXI slave write interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_AWADDR *) [31:0] slv_wr_addr;
+   item (* AXI_SLV_AWDATA *) [31:0] slv_wr_data;
+   (* AXI_SLV_AWVALID *) c_slv_wr;
+
+   //////////////////////////////////////////////
+   // Split memory                               
+   //////////////////////////////////////////////
+   reg [16] pmemh [512]; //[2**9[;
+   reg [16] pmeml [512]; //[2**9[;
+
+   //////////////////////////////////////////////
+   // Async read                             
+   //////////////////////////////////////////////
+
+   item [12:0] pcl = pc[1] ? (pc[14:2] + 1) : pc[14:2];
+   item [14:0] pch = pc[14:2];
+
+   item [15:0] instrl = pmeml[pcl];
+   item [15:0] instrh = pmemh[pch];
+   item [31:0] instr = pc[1] ? {instrl, instrh} : {instrh, instrl};
+
+   //////////////////////////////////////////////
+   // Sync write                              
+   //////////////////////////////////////////////
+   d_pmem_wr { pmeml[slv_wr_addr] = slv_wr_data[15: 0]; 
+               pmemh[slv_wr_addr] = slv_wr_data[31:16]; }
+
+   tr_clocking { 
+      @e_clk { 
+	     @c_slv_wr { 
+	        d_pmem_wr; } } } 
+	                    
+}
+">

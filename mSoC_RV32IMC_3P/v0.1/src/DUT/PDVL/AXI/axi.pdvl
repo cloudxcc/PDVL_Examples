@@ -1,0 +1,69 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   First code to implement an AXI compatible IP n the future.
+
+<"
+cluster axi {      
+
+   //parameter axi_masters; 
+   //parameter axi_slaves; 
+
+   ////////////////////////////////////////////////////////////////////
+   // AXI master write
+   ////////////////////////////////////////////////////////////////////
+   cluster axi_mst_wr {
+      item (* AXI_MST_AWADDR *) [31:0]   axi_mst_wr_addr;
+      item (* AXI_MST_AWDATA *) [31:0]   axi_mst_wr_data;
+      (* AXI_MST_AWVALID *)            c_axi_mst_wr_valid;
+   }
+   ////////////////////////////////////////////////////////////////////
+   // AXI master read
+   ////////////////////////////////////////////////////////////////////
+   cluster axi_mst_rd {
+      item (* AXI_MST_ARADDR *)        [31:0]   axi_mst_rd_addr;
+      item (* AXI_MST_ARDATA=DRIVER *) [31:0]   axi_mst_rd_data;
+      (* AXI_MST_ARVALID *)                   c_axi_mst_rd_valid;
+   }
+                      
+   ////////////////////////////////////////////////////////////////////
+   // Foreach slave
+   ////////////////////////////////////////////////////////////////////
+   foreach i in axi_slaves {
+
+      ////////////////////////////////////////////////////////////////////
+      // AXI slave write
+      ////////////////////////////////////////////////////////////////////
+      cluster axi_slv_wr_i {
+         item (* AXI_SLV_AWADDR=DRIVER *) [31:0]   axi_mst_wr_addr;
+         item (* AXI_SLV_AWDATA=DRIVER *) [31:0]   axi_mst_wr_data;
+         (* AXI_SLV_AWVALID=DRIVER *)            c_axi_slv_wr_valid;
+         tr_c_axi_wr { @c_axi_mst_wr_valid { c_axi_slv_wr_valid; } }
+      } 
+      ////////////////////////////////////////////////////////////////////
+      // AXI master read
+      ////////////////////////////////////////////////////////////////////
+      cluster axi_mst_rd_i {
+         d_slv_data_rd_i { axi_mst_rd_data = axi_slv_rd_data_i; }
+         tr_axi_rd_i { @c_axi_slv_rd_ready_i { d_slv_data_rd_i; } }
+      } 
+      ////////////////////////////////////////////////////////////////////
+      // AXI slave read
+      ////////////////////////////////////////////////////////////////////
+      cluster axi_slv_rd_i {
+         item (* AXI_SLV_ARADDR=DRIVER *) [31:0]   axi_slv_rd_addr;
+         item (* AXI_SLV_ARDATA *)        [31:0]   axi_slv_rd_data_i;
+         (* AXI_SLV_ARVALID=DRIVER *)            c_axi_slv_rd_valid;
+         tr_c_axi_rd_i { @c_axi_mst_rd_valid { c_axi_slv_rd_valid; } }
+
+         (* AXI_SLV_ARREADY *) c_axi_slv_rd_ready_i;
+         d_axi_slv_addr { axi_slv_rd_addr = axi_mst_rd_addr; }
+         tr_axi_slv_addr { d_axi_slv_addr; } 
+      } 
+   }
+
+}
+">
+

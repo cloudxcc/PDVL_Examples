@@ -1,11 +1,11 @@
-//
-// Copyright 2024 Tobias Strauch, Munich, Bavaria
-// Licensed under the Apache License, Version 2.0, see LICENSE for details.
-// SPDX-License-Identifier: Apache-2.0
-//
 
-// RISC-V 32-bit IC implementation (no pipeline-stages)
-// based on executable RISC-V specification.
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+
+   RISC-V 32-bit IC implementation (signle pipeline-stage)
+   based on an executable RISC-V specification.
 
 <" 
 cl_rv32_imc {}
@@ -85,8 +85,6 @@ build RV32IMC_1P {
       d_mc_1 { mc = 1; }
       d_mc_2 { mc = 2; }
       d_mc_3 { mc = 3; }
-      //d_mc_div { mc = div_init_shift; }
-      //d_mc_rem { mc = div_init_shift; }
       d_mc_m1 { mc = mc - 1; }
 	  tr_clocking_pc { 
 	     @c_sys_rst { d_mc_reset;

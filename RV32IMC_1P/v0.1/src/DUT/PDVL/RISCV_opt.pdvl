@@ -4,7 +4,7 @@
    SPDX-License-Identifier: Apache-2.0
 
 <" cl_rv32i_rf {
-   reg [31:0] rf [15:0]; 
+   reg [31:0] rf [31:0]; 
 } ">
 <" cl_rv32i {
    ///////////////////////////////////////////// 
@@ -46,7 +46,7 @@
    d_addi { i_add_a = rs1_dato;
             i_add_b = i_immediate;
             dp_out = dp_add; }
-   tr_rv32i_addi { unique @c_instr_i_addi { 
+   tr_rv32i_addi { @c_instr_i_addi { 
       d_rs1i_addr; 
       d_addi; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -61,7 +61,7 @@
    d_slti { i_less_a = {rs1_dato[31], rs1_dato};
             i_less_b = {i_immediate[31], i_immediate};
             dp_out = less_result; }
-   tr_rv32i_slti { unique @c_instr_i_slti { 
+   tr_rv32i_slti { @c_instr_i_slti { 
       d_rs1i_addr; 
       d_slti; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -73,7 +73,7 @@
    d_sltiu { i_less_a = {1'b0, rs1_dato};
              i_less_b = {1'b0, i_immediate};
              dp_out = less_result; }
-   tr_rv32i_sltiu { unique @c_instr_i_sltiu { 
+   tr_rv32i_sltiu { @c_instr_i_sltiu { 
       d_rs1i_addr; 
       d_sltiu; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -82,7 +82,7 @@
    // ANDI 
    ///////////////////////////////////////////// 
    d_andi { dp_out = rs1_dato & i_immediate; }
-   tr_rv32i_andi { unique @c_instr_i_andi { 
+   tr_rv32i_andi { @c_instr_i_andi { 
       d_rs1i_addr; 
       d_andi; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -91,7 +91,7 @@
    // ORI 
    ///////////////////////////////////////////// 
    d_ori { dp_out = rs1_dato | i_immediate; }
-   tr_rv32i_ori { unique @c_instr_i_ori { 
+   tr_rv32i_ori { @c_instr_i_ori { 
       d_rs1i_addr; 
       d_ori; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -100,7 +100,7 @@
    // XORI 
    ///////////////////////////////////////////// 
    d_xori { dp_out = rs1_dato ^ i_immediate; }
-   tr_rv32i_xori { unique @c_instr_i_xori { 
+   tr_rv32i_xori { @c_instr_i_xori { 
       d_rs1i_addr; 
       d_xori; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -116,7 +116,7 @@
    d_slli { i_shl_data = rs1_dato;
             i_shl_shamt = shamt;
             dp_out = shl_result; }
-   tr_rv32i_slli { unique @c_instr_i_slli { 
+   tr_rv32i_slli { @c_instr_i_slli { 
       d_rs1i_addr; 
       d_slli;
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -128,7 +128,7 @@
    d_srli { i_sra_data = {1'b0, rs1_dato};
             i_sra_shamt = shamt;
             dp_out = sra_result[31:0]; }
-   tr_rv32i_srli { unique @c_instr_i_srli { 
+   tr_rv32i_srli { @c_instr_i_srli { 
       d_rs1i_addr; 
       d_srli; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -143,7 +143,7 @@
    d_srai { i_sra_data = {rs1_dato[31], rs1_dato};
             i_sra_shamt = shamt;
             dp_out = sra_result[31:0]; }
-   tr_rv32i_srai { unique @c_instr_i_srai { 
+   tr_rv32i_srai { @c_instr_i_srai { 
       d_rs1i_addr; 
       d_srai; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -152,7 +152,7 @@
    // LUI 
    ///////////////////////////////////////////// 
    d_lui { dp_out = u_immediate; }
-   tr_rv32i_lui { unique @c_instr_i_lui { 
+   tr_rv32i_lui { @c_instr_i_lui { 
       d_lui; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
       d_pc4; } } 
@@ -163,7 +163,7 @@
    d_auipc { i_add_a = pc;
              i_add_b = u_immediate;
              dp_out = dp_add; }
-   tr_rv32i_auipc { unique @c_instr_i_auipc { 
+   tr_rv32i_auipc { @c_instr_i_auipc { 
       d_auipc; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
       d_pc4; } } 
@@ -174,7 +174,7 @@
    d_add { i_add_a = rs1_dato;
            i_add_b = rs2_dato;
            dp_out = dp_add; }
-   tr_rv32i_add { unique @c_instr_i_add { 
+   tr_rv32i_add { @c_instr_i_add { 
       d_rs1i_addr; d_rs2i_addr; 
       d_add; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -186,7 +186,7 @@
    d_slt { i_less_a = {rs1_dato[31], rs1_dato};
            i_less_b = {rs2_dato[31], rs2_dato};
            dp_out = less_result; }
-   tr_rv32i_slt { unique @c_instr_i_slt { 
+   tr_rv32i_slt { @c_instr_i_slt { 
       d_rs1i_addr; d_rs2i_addr; 
       d_slt; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -198,7 +198,7 @@
    d_sltu { i_less_a = {1'b0, rs1_dato};
             i_less_b = {1'b0, rs2_dato};
             dp_out = less_result; }
-   tr_rv32i_sltu { unique @c_instr_i_sltu { 
+   tr_rv32i_sltu { @c_instr_i_sltu { 
       d_rs1i_addr; d_rs2i_addr; 
       d_sltu; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -213,7 +213,7 @@
            i_add_b = d_sub_2compl;
            i_sub_b = rs2_dato;
            dp_out = dp_add; }
-   tr_rv32i_sub { unique @c_instr_i_sub { 
+   tr_rv32i_sub { @c_instr_i_sub { 
       d_rs1i_addr; d_rs2i_addr; 
       d_sub; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -222,7 +222,7 @@
    // AND 
    ///////////////////////////////////////////// 
    d_and { dp_out = rs1_dato & rs2_dato; }
-   tr_rv32i_and { unique @c_instr_i_and { 
+   tr_rv32i_and { @c_instr_i_and { 
       d_rs1i_addr; d_rs2i_addr; 
       d_and; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -231,7 +231,7 @@
    // OR 
    ///////////////////////////////////////////// 
    d_or { dp_out = rs1_dato | rs2_dato; }
-   tr_rv32i_or { unique @c_instr_i_or { 
+   tr_rv32i_or { @c_instr_i_or { 
       d_rs1i_addr; d_rs2i_addr; 
       d_or; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -240,7 +240,7 @@
    // XOR 
    ///////////////////////////////////////////// 
    d_xor { dp_out = rs1_dato ^ rs2_dato; }
-   tr_rv32i_xor { unique @c_instr_i_xor { 
+   tr_rv32i_xor { @c_instr_i_xor { 
       d_rs1i_addr; d_rs2i_addr; 
       d_xor; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -250,9 +250,9 @@
    ///////////////////////////////////////////// 
    //d_sll { dp_out = rs1_dato << rs2_dato; }
    d_sll { i_shl_data = rs1_dato;
-           i_shl_shamt = rs2_dato;
+           i_shl_shamt = rs2_dato[4:0];
            dp_out = shl_result; }
-   tr_rv32i_sll { unique @c_instr_i_sll { 
+   tr_rv32i_sll { @c_instr_i_sll { 
       d_rs1i_addr; d_rs2i_addr; 
       d_sll; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -262,9 +262,9 @@
    ///////////////////////////////////////////// 
    //d_srl { dp_out = rs1_dato >> rs2_dato; }
    d_srl { i_sra_data = {1'b0, rs1_dato};
-           i_sra_shamt = rs2_dato;
+           i_sra_shamt = rs2_dato[4:0];
            dp_out = sra_result[31:0]; }
-   tr_rv32i_srl { unique @c_instr_i_srl { 
+   tr_rv32i_srl { @c_instr_i_srl { 
       d_rs1i_addr; d_rs2i_addr; 
       d_srl; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -274,9 +274,9 @@
    ///////////////////////////////////////////// 
    //d_sra { dp_out = $signed(rs1_dato) >>> rs2_dato; }
    d_sra { i_sra_data = {rs1_dato[31], rs1_dato};
-           i_sra_shamt = rs2_dato;
+           i_sra_shamt = rs2_dato[4:0];
            dp_out = sra_result[31:0]; }
-   tr_rv32i_sra { unique @c_instr_i_sra { 
+   tr_rv32i_sra { @c_instr_i_sra { 
       d_rs1i_addr; d_rs2i_addr; 
       d_sra; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -290,7 +290,7 @@
    d_pc_jal { i_add_a = pc;
               i_add_b = offset_20;
               pc_next = dp_add; }
-   tr_rv32i_jal { unique @c_instr_i_jal { 
+   tr_rv32i_jal { @c_instr_i_jal { 
       d_jal; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
       d_pc_jal; } } 
@@ -303,7 +303,7 @@
    d_pc_jalr { i_add_a = rs1_dato;
               i_add_b = imm_11;
               pc_next = dp_add; }
-   tr_rv32i_jalr { unique @c_instr_i_jalr { 
+   tr_rv32i_jalr { @c_instr_i_jalr { 
       d_rs1i_addr; 
       d_jalr; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -314,19 +314,17 @@
    c_cond_beq { if (rs1_dato == rs2_dato) this; }
    //d_pc_branch { pc_next = pc + {b_type, 1'b0}; }
    d_pc_branch { i_add_a = pc;
-                 i_add_b = {b_type, 1'b0}; 
+                 i_add_b = {{19{b_type[11]}}, b_type, 1'b0}; 
                  pc_next = dp_add; }
-   tr_rv32i_beq { unique @c_instr_i_beq { 
+   tr_rv32i_beq { @c_instr_i_beq { 
       d_rs1i_addr; d_rs2i_addr; 
       @c_cond_beq { d_pc_branch; }  else { d_pc4; } } } 
    ///////////////////////////////////////////// 
    // BNE 
    ///////////////////////////////////////////// 
    //c_cond_bne { if (rs1_dato != rs2_dato) this; }
-   tr_rv32i_bne { unique @c_instr_i_bne { 
+   tr_rv32i_bne { @c_instr_i_bne { 
       d_rs1i_addr; d_rs2i_addr; 
-      //@c_cond_bne { d_pc_branch; }
-      //else { d_pc4; } } } 
       @c_cond_beq { d_pc4; }
       else { d_pc_branch; } } } 
    ///////////////////////////////////////////// 
@@ -337,7 +335,7 @@
            i_less_b = {rs2_dato[31], rs2_dato};
            dp_out = less_result; }
    c_less { if (less_result[0] == 1'b1) this; }
-   tr_rv32i_blt { unique @c_instr_i_blt { 
+   tr_rv32i_blt { @c_instr_i_blt { 
       d_rs1i_addr; d_rs2i_addr;
       d_blt; 
       @c_less { d_pc_branch; }  
@@ -346,10 +344,8 @@
    // BGE 
    ///////////////////////////////////////////// 
    //c_cond_bge { if ($signed(rs1_dato) >= $signed(rs2_dato)) this; }
-   tr_rv32i_bge { unique @c_instr_i_bge { 
+   tr_rv32i_bge { @c_instr_i_bge { 
       d_rs1i_addr; d_rs2i_addr; 
-      //@c_cond_bge { d_pc_branch; }
-      //else { d_pc4; } } } 
       d_blt; 
       @c_less { d_pc4; }
       else { d_pc_branch; } } } 
@@ -360,7 +356,7 @@
    d_bltu { i_less_a = {1'b0, rs1_dato};
             i_less_b = {1'b0, rs2_dato};
             dp_out = less_result; }
-   tr_rv32i_bltu { unique @c_instr_i_bltu { 
+   tr_rv32i_bltu { @c_instr_i_bltu { 
       d_rs1i_addr; 
       d_rs2i_addr;
       d_bltu; 
@@ -370,7 +366,7 @@
    // BGEU 
    ///////////////////////////////////////////// 
    //c_cond_bgeu { if (rs1_dato >= rs2_dato) this; }
-   tr_rv32i_bgeu { unique @c_instr_i_bgeu { 
+   tr_rv32i_bgeu { @c_instr_i_bgeu { 
       d_rs1i_addr; d_rs2i_addr; 
       d_bltu; 
       @c_less { d_pc4; }
@@ -394,11 +390,11 @@
       c_dmem_load; 
       d_rd_dp_out; d_rdi_addr; c_rf_write; 
       d_pc4; } 
-   tr_rv32i_lw { unique @c_instr_i_lw { tr_rv32i_load; d_load_lw; } } 
-   tr_rv32i_lh { unique @c_instr_i_lh { tr_rv32i_load; d_load_lh; } } 
-   tr_rv32i_lhu { unique @c_instr_i_lhu { tr_rv32i_load; d_load_lhu; } } 
-   tr_rv32i_lb { unique @c_instr_i_lb { tr_rv32i_load; d_load_lb; } } 
-   tr_rv32i_lbu { unique @c_instr_i_lbu { tr_rv32i_load; d_load_lbu; } } 
+   tr_rv32i_lw { @c_instr_i_lw { tr_rv32i_load; d_load_lw; } } 
+   tr_rv32i_lh { @c_instr_i_lh { tr_rv32i_load; d_load_lh; } } 
+   tr_rv32i_lhu { @c_instr_i_lhu { tr_rv32i_load; d_load_lhu; } } 
+   tr_rv32i_lb { @c_instr_i_lb { tr_rv32i_load; d_load_lb; } } 
+   tr_rv32i_lbu { @c_instr_i_lbu { tr_rv32i_load; d_load_lbu; } } 
    ///////////////////////////////////////////// 
    // SW, SB, SH 
    ///////////////////////////////////////////// 
@@ -415,9 +411,9 @@
       d_dmem_store_width; 
       c_dmem_store; 
       d_pc4; } 
-   tr_rv32i_sw { unique @c_instr_i_sw { tr_rv32i_store;  d_dmem_store_data; } }
-   tr_rv32i_sb { unique @c_instr_i_sb { tr_rv32i_store;  d_dmem_store_data; } }
-   tr_rv32i_sh { unique @c_instr_i_sh { tr_rv32i_store;  d_dmem_store_data; } }
+   tr_rv32i_sw { @c_instr_i_sw { tr_rv32i_store;  d_dmem_store_data; } }
+   tr_rv32i_sb { @c_instr_i_sb { tr_rv32i_store;  d_dmem_store_data; } }
+   tr_rv32i_sh { @c_instr_i_sh { tr_rv32i_store;  d_dmem_store_data; } }
    ///////////////////////////////////////////// 
    // FENCE 
    ///////////////////////////////////////////// 
@@ -425,7 +421,7 @@
    item [3:0] pred;
    item [3:0] succ;
    d_fence { fm = instr[31:28]; pred = instr[27:24]; succ = instr[23:20]; }
-   tr_rv32i_fence { unique @c_instr_i_fence { 
+   tr_rv32i_fence { @c_instr_i_fence { 
       d_rs1i_addr; 
       d_fence; 
       d_rd_dp_out; d_rdi_addr; c_rf_write;  
@@ -433,9 +429,9 @@
    ///////////////////////////////////////////// 
    // ECALL 
    ///////////////////////////////////////////// 
-   tr_rv32i_ecall { unique @c_instr_i_ecall { 
+   tr_rv32i_ecall { @c_instr_i_ecall { 
       d_pc4; } } 
-   tr_rv32i_ebreak { unique @c_instr_i_ebreak { 
+   tr_rv32i_ebreak { @c_instr_i_ebreak { 
       d_pc4; } } 
    ///////////////////////////////////////////// 
    // Registerfile 
@@ -620,7 +616,7 @@
    ///////////////////////////////////////////// 
    item [63:0] i_m_mul = rs1_dato * rs2_dato; 
    d_mul { dp_out = i_m_mul[31:0]; }
-   tr_rv32m_mul { unique @c_instr_m_mul { 
+   tr_rv32m_mul { @c_instr_m_mul { 
       d_mul; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
@@ -628,7 +624,7 @@
    ///////////////////////////////////////////// 
    item [63:0] i_m_mulh = $signed(rs1_dato) * $signed(rs2_dato); 
    d_mulh { dp_out = i_m_mulh[63:32]; }
-   tr_rv32m_mulh { unique @c_instr_m_mulh { 
+   tr_rv32m_mulh { @c_instr_m_mulh { 
       d_mulh; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
@@ -636,7 +632,7 @@
    ///////////////////////////////////////////// 
    item [63:0] i_m_mulhu = rs1_dato * rs2_dato; 
    d_mulhu { dp_out = i_m_mulhu[63:32]; }
-   tr_rv32m_mulhu { unique @c_instr_m_mulhu { 
+   tr_rv32m_mulhu { @c_instr_m_mulhu { 
       d_mulhu; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
@@ -644,35 +640,35 @@
    ///////////////////////////////////////////// 
    item [63:0] i_m_mulhsu = {{32{rs1_dato[31]}}, rs1_dato} * {32'h00000000, rs2_dato};
    d_mulhsu { dp_out = i_m_mulhsu[63:32]; }
-   tr_rv32m_mulhsu { unique @c_instr_m_mulhsu { 
+   tr_rv32m_mulhsu { @c_instr_m_mulhsu { 
       d_mulhsu; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
    // DIV 
    ///////////////////////////////////////////// 
    d_div { dp_out = $signed(rs1_dato) / $signed(rs2_dato); }
-   tr_rv32m_div { unique @c_instr_m_div { 
+   tr_rv32m_div { @c_instr_m_div { 
       d_div; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
    // DIVU 
    ///////////////////////////////////////////// 
    d_divu { dp_out = rs1_dato / rs2_dato; }
-   tr_rv32m_divu { unique @c_instr_m_divu { 
+   tr_rv32m_divu { @c_instr_m_divu { 
       d_divu; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
    // REM 
    ///////////////////////////////////////////// 
    d_rem { dp_out = $signed(rs1_dato) % $signed(rs2_dato); }
-   tr_rv32m_rem { unique @c_instr_m_rem { 
+   tr_rv32m_rem { @c_instr_m_rem { 
       d_rem; 
       tr_rv32m_math; } } 
    ///////////////////////////////////////////// 
    // REMU 
    ///////////////////////////////////////////// 
    d_remu { dp_out = rs1_dato % rs2_dato; }
-   tr_rv32m_remu { unique @c_instr_m_remu { 
+   tr_rv32m_remu { @c_instr_m_remu { 
       d_remu; 
       tr_rv32m_math; } } 
 } ">
@@ -747,7 +743,7 @@
    d_dmem_load_addr_lwsp_c { i_add_a = rs1_dato;
                              i_add_b = offset_lwsp_c; 
                              dmem_load_addr = dp_add; }
-   tr_rv32c_lwsp { unique @c_instr_c_lwsp {
+   tr_rv32c_lwsp { @c_instr_c_lwsp {
       d_rs1sp_c_addr; 
       d_dmem_load_addr_lwsp_c; 
       d_rd_c_addr; 
@@ -774,7 +770,7 @@
    d_dmem_store_addr_sp_c { i_add_a = rs1_dato;
                             i_add_b = offset_swsp_c; 
                             dmem_store_addr = dp_add; }
-   tr_rv32c_swsp { unique @c_instr_c_swsp { 
+   tr_rv32c_swsp { @c_instr_c_swsp { 
       d_rs1sp_c_addr; 
       d_rs2_c_addr; 
       d_dmem_store_addr_sp_c; 
@@ -782,7 +778,7 @@
    ///////////////////////////////////////////// 
    // C.LW 
    ///////////////////////////////////////////// 
-   tr_rv32c_lw { unique @c_instr_c_lw {
+   tr_rv32c_lw { @c_instr_c_lw {
       d_rs1a1_c_addr; 
       d_dmem_load_addr_c; 
       d_rda1_c_addr;
@@ -790,7 +786,7 @@
    ///////////////////////////////////////////// 
    // C.SW 
    ///////////////////////////////////////////// 
-   tr_rv32c_sw { unique @c_instr_c_sw { 
+   tr_rv32c_sw { @c_instr_c_sw { 
       d_rs1a1_c_addr; 
       d_rs2a1_c_addr; 
       d_dmem_store_addr_c; 
@@ -804,7 +800,7 @@
    d_pc_j_c { i_add_a = pc;
               i_add_b = imm_j_c; 
               pc_next = dp_add; }
-   tr_rv32c_j { unique @c_instr_c_j {
+   tr_rv32c_j { @c_instr_c_j {
       d_pc_j_c; } } 
    ///////////////////////////////////////////// 
    // C.JAL 
@@ -813,7 +809,7 @@
             instr[10:9], instr[6], instr[7], instr[2], instr[11], instr[5:3], 1'b0};
    d_jal_c { dp_out = pc + 2; }
    d_rd_link_c_addr { rd_addr = 1; }
-   tr_rv32c_jal { unique @c_instr_c_jal {
+   tr_rv32c_jal { @c_instr_c_jal {
       d_jal_c; 
       d_rd_dp_out; d_rd_link_c_addr; c_rf_write;  
       d_pc_j_c; } } 
@@ -821,7 +817,7 @@
    // C.JR 
    ///////////////////////////////////////////// 
    d_pc_jr_c { pc_next = rs1_dato; }
-   tr_rv32c_jr { unique @c_instr_c_jr { 
+   tr_rv32c_jr { @c_instr_c_jr { 
       d_rs1_c_addr; 
       d_pc_jr_c; } } 
    ///////////////////////////////////////////// 
@@ -832,7 +828,7 @@
    d_jalr_c { i_add_a = pc;
               i_add_b = 2; 
               dp_out = dp_add; }
-   tr_rv32c_jalr { unique @c_instr_c_jalr { 
+   tr_rv32c_jalr { @c_instr_c_jalr { 
       d_rs1_c_addr; 
       d_jalr_c; 
       d_rd_dp_out; d_rd_link_c_addr; c_rf_write;  
@@ -847,7 +843,7 @@
                    i_add_b = sign_ext_imm8_c; 
                    pc_next = dp_add; }
    c_cond_beqz_c { if (rs1_dato == 0) this; }
-   tr_rv32c_beqz { unique @c_instr_c_beqz { 
+   tr_rv32c_beqz { @c_instr_c_beqz { 
       d_rs1a1_c_addr;
       @c_cond_beqz_c { d_pc_branch_c; }
       else { d_pc2; } } } 
@@ -855,7 +851,7 @@
    // C.BNEZ 
    ///////////////////////////////////////////// 
    c_cond_bnez_c { if (rs1_dato != 0) this; }
-   tr_rv32c_bnez { unique @c_instr_c_bnez { 
+   tr_rv32c_bnez { @c_instr_c_bnez { 
       d_rs1a1_c_addr; 
       @c_cond_bnez_c { d_pc_branch_c; }
       else { d_pc2; } } } 
@@ -863,7 +859,7 @@
    // C.LI
    ///////////////////////////////////////////// 
    d_li_c { dp_out = {{26{instr[12]}}, instr[12], instr[6:2]}; }
-   tr_rv32c_li { unique @c_instr_c_li { 
+   tr_rv32c_li { @c_instr_c_li { 
       d_li_c; 
       d_rd_dp_out; d_rd_c_addr; c_rf_write;  
       d_pc2; } } 
@@ -871,7 +867,7 @@
    // C.LUI 
    ///////////////////////////////////////////// 
    d_lui_c { dp_out = {{14{instr[12]}}, instr[12], instr[6:2], 12'h000}; }
-   tr_rv32c_lui { unique @c_instr_c_lui { 
+   tr_rv32c_lui { @c_instr_c_lui { 
       d_lui_c; 
       d_rd_dp_out; d_rd_c_addr; c_rf_write;  
       d_pc2; } } 
@@ -891,7 +887,7 @@
    d_c_addi { i_add_a = rs1_dato;
               i_add_b = sign_ext_imm6;
               dp_out = dp_add; }
-   tr_rv32c_addi { unique @c_instr_c_addi {
+   tr_rv32c_addi { @c_instr_c_addi {
       d_rs1_c_addr; 
       d_c_addi; 
       d_rd_c_addr;
@@ -903,7 +899,7 @@
    d_c_addi16sp { i_add_a = rs1_dato;
                   i_add_b = sign_ext_imm6_sp;
                   dp_out = dp_add; }
-   tr_rv32c_addi16sp { unique @c_instr_c_addi16sp { 
+   tr_rv32c_addi16sp { @c_instr_c_addi16sp { 
       d_rs1_c_addr; 
       d_c_addi16sp; 
       d_rd_c_addr;
@@ -917,7 +913,7 @@
    d_c_addi4sp { i_add_a = rs1_dato;
                  i_add_b = sign_ext_imm8;
                  dp_out = dp_add; }
-   tr_rv32c_addi4sp { unique @c_instr_c_addi4sp { 
+   tr_rv32c_addi4sp { @c_instr_c_addi4sp { 
       d_rs1sp_c_addr; 
       d_c_addi4sp; 
       d_rda1_c_addr; 
@@ -930,7 +926,7 @@
    d_c_slli { i_shl_data = rs1_dato;
               i_shl_shamt = i_shamt_c;
               dp_out = shl_result; }
-   tr_rv32c_slli { unique @c_instr_c_slli { 
+   tr_rv32c_slli { @c_instr_c_slli { 
       d_rs1_c_addr; 
       d_c_slli; 
       d_rd_c_addr; 
@@ -942,7 +938,7 @@
    d_c_srli { i_sra_data = {1'b0, rs1_dato};
               i_sra_shamt = i_shamt_c;
               dp_out = sra_result[31:0]; }
-   tr_rv32c_srli { unique @c_instr_c_srli { 
+   tr_rv32c_srli { @c_instr_c_srli { 
       d_rs1a1_c_addr; 
       d_c_srli; 
       d_rda2_c_addr;
@@ -954,7 +950,7 @@
    d_c_srai { i_sra_data = {rs1_dato[31], rs1_dato};
               i_sra_shamt = i_shamt_c;
               dp_out = sra_result[31:0]; }
-   tr_rv32c_srai { unique @c_instr_c_srai { 
+   tr_rv32c_srai { @c_instr_c_srai { 
       d_rs1a1_c_addr; 
       d_c_srai; 
       d_rda2_c_addr;
@@ -963,7 +959,7 @@
    // C.ANDI 
    ///////////////////////////////////////////// 
    d_c_andi { dp_out = rs1_dato & sign_ext_imm6; }
-   tr_rv32c_andi { unique @c_instr_c_andi { 
+   tr_rv32c_andi { @c_instr_c_andi { 
       d_rs1a1_c_addr; 
       d_c_andi; 
       d_rda2_c_addr;
@@ -975,7 +971,7 @@
    d_c_add { i_add_a = rs1_dato;
              i_add_b = rs2_dato;
              dp_out = dp_add; }
-   tr_rv32c_add { unique @c_instr_c_add { 
+   tr_rv32c_add { @c_instr_c_add { 
       d_rs1_c_addr; 
       d_rs2_c_addr; 
       d_c_add; 
@@ -985,7 +981,7 @@
    // C.MV 
    ///////////////////////////////////////////// 
    d_c_mv { dp_out = rs2_dato; }
-   tr_rv32c_mv { unique @c_instr_c_mv { 
+   tr_rv32c_mv { @c_instr_c_mv { 
       d_rs2_c_addr; 
       d_c_mv; 
       d_rd_c_addr;
@@ -994,7 +990,7 @@
    // C.AND 
    ///////////////////////////////////////////// 
    //d_c_and { dp_out = rs1_dato & rs2_dato; }
-   tr_rv32c_and { unique @c_instr_c_and { 
+   tr_rv32c_and { @c_instr_c_and { 
       d_rs1a1_c_addr; 
       d_rs2a1_c_addr; 
       d_and; 
@@ -1004,7 +1000,7 @@
    // C.OR 
    ///////////////////////////////////////////// 
    //d_c_or { dp_out = rs1_dato | rs2_dato; }
-   tr_rv32c_or { unique @c_instr_c_or { 
+   tr_rv32c_or { @c_instr_c_or { 
       d_rs1a1_c_addr; 
       d_rs2a1_c_addr; 
       d_or; 
@@ -1014,7 +1010,7 @@
    // C.XOR 
    ///////////////////////////////////////////// 
    //d_c_xor { dp_out = rs1_dato ^ rs2_dato; }
-   tr_rv32c_xor { unique @c_instr_c_xor { 
+   tr_rv32c_xor { @c_instr_c_xor { 
       d_rs1a1_c_addr; 
       d_rs2a1_c_addr; 
       d_xor; 
@@ -1028,7 +1024,7 @@
              i_add_b = d_sub_2compl;
              i_sub_b = rs2_dato;
              dp_out = dp_add; }
-   tr_rv32c_sub { unique @c_instr_c_sub { 
+   tr_rv32c_sub { @c_instr_c_sub { 
       d_rs1a1_c_addr; 
       d_rs2a1_c_addr; 
       d_c_sub; 
@@ -1037,12 +1033,12 @@
    ///////////////////////////////////////////// 
    // C.NOP 
    ///////////////////////////////////////////// 
-   tr_rv32c_nop { unique @c_instr_c_nop { 
+   tr_rv32c_nop { @c_instr_c_nop { 
       d_pc2; } } 
    ///////////////////////////////////////////// 
    // C.EBREAK 
    ///////////////////////////////////////////// 
-   tr_rv32c_ebreak { unique @c_instr_c_ebreak { 
+   tr_rv32c_ebreak { @c_instr_c_ebreak { 
       d_pc2; } } 
 } ">
 <" cl_rv32c_list { 

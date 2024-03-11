@@ -3,6 +3,8 @@
    Licensed under the Apache License, Version 2.0, see LICENSE for details.
    SPDX-License-Identifier: Apache-2.0
 
+   RISC-V M implementation with a reasonable low area.
+   
 <" 
 
 cl_rv32m_syn {
@@ -117,53 +119,46 @@ cl_rv32m_syn {
                 math_reg1[15:0] = dp_add[31:16]; }
    d_mulhsu_1 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
                 i_mul_b = {1'b0, rs2_dato[31:16]};
-                //i_add_a = {16'h0000, math_reg0[47:32]};
                 i_add_a = {16'h0000, math_reg1[15:0]};
                 i_add_b = i_mul_out; }
 
    c_mul;
    tr_mul_dec { 
-      unique { 
-         @c_instr_m_mul { c_mul; } 
-         @c_instr_m_mulh { c_mul; } 
-         @c_instr_m_mulhu { c_mul; } 
-         @c_instr_m_mulhsu { c_mul; } } }
+      @c_instr_m_mul { c_mul; } 
+      @c_instr_m_mulh { c_mul; } 
+      @c_instr_m_mulhu { c_mul; } 
+      @c_instr_m_mulhsu { c_mul; } }
 
    tr_rv32m_mul { 
-      unique @c_mul { 
-         unique {
-            @c_instr_m_mul { d_dp_out_mul; }
-            @c_instr_m_mulh { d_dp_out_mulh; }
-            @c_instr_m_mulhu { d_dp_out_mulhu; }
-            @c_instr_m_mulhsu { d_dp_out_mulhsu; } }
+      @c_mul { 
+         @c_instr_m_mul { d_dp_out_mul; }
+         @c_instr_m_mulh { d_dp_out_mulh; }
+         @c_instr_m_mulhu { d_dp_out_mulhu; }
+         @c_instr_m_mulhsu { d_dp_out_mulhsu; }
          d_rs1i_addr; 
          d_rs2i_addr; 
          d_rd_dp_out; d_rdi_addr; 
-         unique { 
-            @c_mc_0 {
-               d_mul_0; 
-               d_pc_stall; }
-            @c_mc_3 {
-               unique {
-                  @c_instr_m_mulh { d_mulh_3; }
-                  @c_instr_m_mulhu { d_mulhu_3; }
-                  @c_instr_m_mulhsu { d_mulhsu_3; } }
-               d_pc_stall; }
-            @c_mc_2 {
-               unique {
-                  @c_instr_m_mul { d_mul_2; }
-                  @c_instr_m_mulh { d_mulh_2; }
-                  @c_instr_m_mulhu { d_mulhu_2; }
-                  @c_instr_m_mulhsu { d_mulhsu_2; } }
-               d_pc_stall; }
-            @c_mc_1 {
-               unique {
-                  @c_instr_m_mul { d_mul_1; }
-                  @c_instr_m_mulh { d_mulh_1; }
-                  @c_instr_m_mulhu { d_mulhu_1; }
-                  @c_instr_m_mulhsu { d_mulhsu_1; } }
-               c_rf_write;   
-               d_pc4; } } } }
+         @c_mc_0 {
+            d_mul_0; 
+            d_pc_stall; }
+         @c_mc_3 {
+            @c_instr_m_mulh { d_mulh_3; }
+            @c_instr_m_mulhu { d_mulhu_3; }
+            @c_instr_m_mulhsu { d_mulhsu_3; }
+            d_pc_stall; }
+         @c_mc_2 {
+            @c_instr_m_mul { d_mul_2; }
+            @c_instr_m_mulh { d_mulh_2; }
+            @c_instr_m_mulhu { d_mulhu_2; }
+            @c_instr_m_mulhsu { d_mulhsu_2; } 
+            d_pc_stall; }
+         @c_mc_1 {
+            @c_instr_m_mul { d_mul_1; }
+            @c_instr_m_mulh { d_mulh_1; }
+            @c_instr_m_mulhu { d_mulhu_1; }
+            @c_instr_m_mulhsu { d_mulhsu_1; }
+            c_rf_write;   
+            d_pc4; } } }
 
    ///////////////////////////////////////////// 
    // New division datapath
@@ -178,26 +173,25 @@ cl_rv32m_syn {
    /////////////////////////////////////////////
    c_divident_lesser_divisor;
    tr_divident_lesser_divisor {
-      unique { 
-         @c_instr_m_div { 
-            @c_sign_differ {} 
+      @c_instr_m_div { 
+         @c_sign_differ {} 
+         else { 
+            @c_less { 
+               @c_divident_neg { } 
+               else { c_divident_lesser_divisor; } } 
             else { 
-               @c_less { 
-                  @c_divident_neg { } 
-                  else { c_divident_lesser_divisor; } } 
-               else { 
-                  @c_divident_neg { c_divident_lesser_divisor; } } } }
-         @c_instr_m_divu { @c_less { c_divident_lesser_divisor; } }
-         @c_instr_m_rem { 
-            @c_sign_differ {} 
+               @c_divident_neg { c_divident_lesser_divisor; } } } }
+      @c_instr_m_divu { @c_less { c_divident_lesser_divisor; } }
+      @c_instr_m_rem { 
+         @c_sign_differ {} 
+         else { 
+            @c_less {
+               @c_divident_neg { } 
+               else { c_divident_lesser_divisor; } } 
             else { 
-               @c_less {
-                  @c_divident_neg { } 
-                  else { c_divident_lesser_divisor; } } 
-               else { 
-                  @c_divident_neg { c_divident_lesser_divisor; } } } }
-         @c_instr_m_remu { @c_less { c_divident_lesser_divisor; } } } }
-   
+               @c_divident_neg { c_divident_lesser_divisor; } } } }
+      @c_instr_m_remu { @c_less { c_divident_lesser_divisor; } } }
+
    ///////////////////////////////////////////// 
    // Determin cycles based on leading 'one' bit of divident and divisor
    ///////////////////////////////////////////// 
@@ -267,7 +261,6 @@ cl_rv32m_syn {
    c_div_result_neg { if (dp_add[31] == 1'b1) this; }
 
    reg [31:0] math_reg2;
-   //d_div_result_set { math_reg2 = 32'h00000001; }
    d_div_result_clr { math_reg2 = 32'h00000000; }
    d_div_result_shift_plus_1 { math_reg2 = {math_reg2[30:0], 1'b1}; }
    d_div_result_shift { math_reg2 = {math_reg2[30:0], 1'b0}; }
@@ -286,18 +279,24 @@ cl_rv32m_syn {
    d_dp_out_result_shift_plus_1 { dp_out = {math_reg2[30:0], 1'b1}; }
    d_dp_out_result_shift_plus_1_compl { dp_out = 0 - {math_reg2[30:0], 1'b1}; }
    d_dp_out_remainder { dp_out = math_reg0[31:0]; }
+   d_dp_out_dp_add { dp_out = dp_add[31:0]; }
    d_dp_out_remainder_compl { dp_out = 0 - math_reg0[31:0]; }
 
+   ///////////////////////////////////////////// 
+   // Generate c_div_rem
+   /////////////////////////////////////////////
    c_div_rem;
    tr_div_rem_dec { 
-      unique { 
-         @c_instr_m_div { c_div_rem; } 
-         @c_instr_m_divu { c_div_rem; } 
-         @c_instr_m_rem { c_div_rem; } 
-         @c_instr_m_remu { c_div_rem; } } }
+      @c_instr_m_div { c_div_rem; } 
+      @c_instr_m_divu { c_div_rem; } 
+      @c_instr_m_rem { c_div_rem; } 
+      @c_instr_m_remu { c_div_rem; } }
    
+   ///////////////////////////////////////////// 
+   // M transsactions
+   /////////////////////////////////////////////
    tr_rv32m_div_rem { 
-      unique @c_div_rem { 
+      @c_div_rem { 
          d_rs1i_addr; 
          d_rs2i_addr; 
          @c_instr_m_div { d_blt; } 
@@ -309,65 +308,62 @@ cl_rv32m_syn {
             d_div_rem_shl;
             d_divisor_shifted_mc;
             @c_cond_beq {
-               unique { 
-                   @c_instr_m_div { d_dp_out_set; }
-                   @c_instr_m_divu { d_dp_out_set; }
-                   @c_instr_m_rem { d_dp_out_clr; }
-                   @c_instr_m_remu { d_dp_out_clr; } }
+               @c_instr_m_div { d_dp_out_set; }
+               @c_instr_m_divu { d_dp_out_set; }
+               @c_instr_m_rem { d_dp_out_clr; }
+               @c_instr_m_remu { d_dp_out_clr; }
                c_rf_write;   
                d_pc4; }
             else @c_divident_lesser_divisor { 
-               unique { 
-                  @c_instr_m_div { d_dp_out_clr; }
-                  @c_instr_m_divu { d_dp_out_clr; }
-                  @c_instr_m_rem { d_dp_out_divident; }
-                  @c_instr_m_remu { d_dp_out_divident; } }
+               @c_instr_m_div { d_dp_out_clr; }
+               @c_instr_m_divu { d_dp_out_clr; }
+               @c_instr_m_rem { d_dp_out_divident; }
+               @c_instr_m_remu { d_dp_out_divident; }
                c_rf_write;   
                d_pc4; }
             else { 
-               unique { 
-                  @c_instr_m_div { 
-                     @c_sign_differ { d_divident_rs1_compl; }
-                     else { d_divident_rs1; } }
-                  @c_instr_m_divu { d_divident_rs1; }
-                  @c_instr_m_rem { 
-                     @c_sign_differ { d_divident_rs1_compl; }
-                     else { d_divident_rs1; } }
-                  @c_instr_m_remu { d_divident_rs1; } }
+               @c_instr_m_div { 
+                  @c_sign_differ { d_divident_rs1_compl; }
+                  else { d_divident_rs1; } }
+               @c_instr_m_divu { d_divident_rs1; }
+               @c_instr_m_rem { 
+                  @c_sign_differ { d_divident_rs1_compl; }
+                  else { d_divident_rs1; } }
+               @c_instr_m_remu { d_divident_rs1; }
                d_div_result_clr;
                d_pc_stall; } }
          else @c_mc_1 {
             d_div_mathreg0_minus_mathreg1;
-            unique { 
-               @c_instr_m_div { 
-                  @c_sign_differ { d_dp_out_result_shift_plus_1_compl; }
-                  else @c_divisor_neg { 
-                     @c_div_result_neg {d_dp_out_result_shift_plus_1; }
-                     else {d_dp_out_result_shift; } }
-                  else { 
-                     @c_div_result_neg {d_dp_out_result_shift; }
-                     else {d_dp_out_result_shift_plus_1; } } }
-               @c_instr_m_divu {
+            @c_instr_m_div { 
+               @c_sign_differ { d_dp_out_result_shift_plus_1_compl; }
+               else @c_divisor_neg { 
+                  @c_div_result_neg {d_dp_out_result_shift_plus_1; }
+                  else {d_dp_out_result_shift; } }
+               else { 
                   @c_div_result_neg {d_dp_out_result_shift; }
-                  else {d_dp_out_result_shift_plus_1; } }
-               @c_instr_m_rem  {
-                  @c_sign_differ {
-                     @c_divisor_neg { d_dp_out_remainder; }
-                     else { d_dp_out_remainder_compl; } }
-                  else { 
-                     @c_divisor_neg { d_dp_out_remainder_compl; }
-                     else { d_dp_out_remainder; } } }
-               @c_instr_m_remu  {
-                  d_dp_out_remainder; } }
+                  else {d_dp_out_result_shift_plus_1; } } }
+            @c_instr_m_divu {
+               @c_div_result_neg {d_dp_out_result_shift; }
+               else {d_dp_out_result_shift_plus_1; } }
+            @c_instr_m_rem  {
+               @c_sign_differ {
+                  @c_divisor_neg { d_dp_out_remainder; }
+                  else { d_dp_out_remainder_compl; } }
+               else { 
+                  @c_divisor_neg { d_dp_out_remainder_compl; }
+                  else @c_div_result_neg { d_dp_out_remainder; } 
+                  else { d_dp_out_dp_add; } } }
+            @c_instr_m_remu  {
+               @c_div_result_neg { d_dp_out_remainder; } 
+                  else { d_dp_out_dp_add; } }
             c_rf_write;   
             d_pc4; }
          else {
             d_div_mathreg0_minus_mathreg1;
-            unique { 
-               @c_instr_m_div { d_divisor_shifted_1_sgn; }
-               @c_instr_m_divu { d_divisor_shifted_1; }
-               @c_instr_m_rem { d_divisor_shifted_1_sgn; }
-               @c_instr_m_remu { d_divisor_shifted_1; } }
+            @c_instr_m_div { d_divisor_shifted_1_sgn; }
+            @c_instr_m_divu { d_divisor_shifted_1; }
+            @c_instr_m_rem { d_divisor_shifted_1_sgn; }
+            @c_instr_m_remu { d_divisor_shifted_1; }
             @c_instr_m_divu {
                @c_div_result_neg { d_div_result_shift;  }
                else { d_divident_add;
@@ -382,48 +378,43 @@ cl_rv32m_syn {
                       d_div_result_shift_plus_1; } }
             d_pc_stall; } } }
 
+   ///////////////////////////////////////////// 
+   // Handling multi-cycle logic
+   /////////////////////////////////////////////
    d_mc_div { mc = div_init_shift + 1; }
    d_mc_rem { mc = div_init_shift + 1; }
    tr_mc_mul {
-      unique {
-         @c_instr_m_mul {
-            d_mc_2; } } }
+      @c_instr_m_mul {
+         d_mc_2; } }
    tr_mc_mulh {
-      unique {
-         @c_instr_m_mulh {
-            d_mc_3; } } }
+      @c_instr_m_mulh {
+         d_mc_3; } }
    tr_mc_mulhu {
-      unique {
-         @c_instr_m_mulhu {
-            d_mc_3; } } }
+      @c_instr_m_mulhu {
+         d_mc_3; } }
    tr_mc_mulhsu {
-      unique {
-         @c_instr_m_mulhsu {
-            d_mc_3; } } }
+      @c_instr_m_mulhsu {
+         d_mc_3; } }
    tr_mc_div {
-      unique {
-         @c_instr_m_div {
-            @c_cond_beq { }
-            else @c_divident_lesser_divisor { }
-            else { d_mc_div; } } } }
-   tr_mc_divu {
-      unique {
-         @c_instr_m_divu {
-            @c_cond_beq { }
-            else @c_divident_lesser_divisor { }
-            else { d_mc_div; } } } }
-   tr_mc_rem {
-      unique {
-         @c_instr_m_rem {
-            @c_cond_beq { }
-            else @c_divident_lesser_divisor { }
-            else { d_mc_rem; } } } }
-   tr_mc_remu {
-      unique {
-         @c_instr_m_remu {
+      @c_instr_m_div {
          @c_cond_beq { }
          else @c_divident_lesser_divisor { }
-         else { d_mc_rem; } } } }
+         else { d_mc_div; } } }
+   tr_mc_divu {
+      @c_instr_m_divu {
+         @c_cond_beq { }
+         else @c_divident_lesser_divisor { }
+         else { d_mc_div; } } }
+   tr_mc_rem {
+      @c_instr_m_rem {
+         @c_cond_beq { }
+         else @c_divident_lesser_divisor { }
+         else { d_mc_rem; } } }
+   tr_mc_remu {
+      @c_instr_m_remu {
+      @c_cond_beq { }
+      else @c_divident_lesser_divisor { }
+      else { d_mc_rem; } } }
 } 
 
 ">

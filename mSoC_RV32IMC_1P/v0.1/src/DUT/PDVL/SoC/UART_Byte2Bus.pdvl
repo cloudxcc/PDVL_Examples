@@ -74,16 +74,15 @@ cl_uart_byte2bus {
    d_rx_com { slv_rd_data = {{31{1'b0}}, uart_rx_com}; }
    reg uart_tx_com;
    tr_async_read { 
-      unique {
-         @c_tx_com_rd { 
-            c_slv_rd_ready;
-            d_tx_com; } 
-         @c_rx_com_rd { 
-            c_slv_rd_ready;
-            d_rx_com; }
-         @c_rx_rec_rd {
-            c_slv_rd_ready;
-            d_rx_rec; } } }
+      @c_tx_com_rd { 
+         c_slv_rd_ready;
+         d_tx_com; } 
+      @c_rx_com_rd { 
+         c_slv_rd_ready;
+         d_rx_com; }
+      @c_rx_rec_rd {
+         c_slv_rd_ready;
+         d_rx_rec; } }
 
    //////////////////////////////////////////////
    // Communication TX
@@ -121,11 +120,10 @@ cl_uart_byte2bus {
          exec :  { 
             d_add_b0;
             @c_uart_rx_valid {
-               unique { 
-                 @c_user_rst_set_val { d_user_rst_set; }
-                 @c_user_rst_clr_val { d_user_rst_clr; }
-                 @c_prog_mem { add_b0; } 
-                 @c_user_com_mode { com_mode; } } } }
+               @c_user_rst_set_val { d_user_rst_set; }
+               @c_user_rst_clr_val { d_user_rst_clr; }
+               @c_prog_mem { add_b0; } 
+               @c_user_com_mode { com_mode; } } }
          add_b0 : { 
             d_add_b0;
             @c_uart_rx_valid { 

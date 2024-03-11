@@ -1,0 +1,159 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Design controls the UART and 
+      - sets or resets the design reset,
+      - writes data to the program memory and
+      - passes standard RX\TX communication with the core
+
+<"
+cl_uart_byte2bus {
+   //////////////////////////////////////////////
+   // AXI master interface                               
+   //////////////////////////////////////////////
+   reg (* AXI_MST_AWADDR=DRIVER *) [15:0] mst_wr_add;
+   reg (* AXI_MST_AWDATA=DRIVER *) [31:0] mst_wr_data;
+   (* AXI_MST_AWVALID=DRIVER *) c_mst_wr; 
+   
+   //////////////////////////////////////////////
+   // AXI slave write interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_AWADDR *) [31:0] slv_wr_addr;
+   item (* AXI_SLV_AWDATA *) [31:0] slv_wr_data;
+   (* AXI_SLV_AWVALID *) c_slv_wr;
+
+   //////////////////////////////////////////////
+   // AXI slave read interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_ARADDR *) [31:0] slv_rd_addr;
+   item (* AXI_SLV_ARDATA=DRIVER *) [31:0] slv_rd_data;
+   (* AXI_SLV_ARVALID *) c_slv_rd_valid;
+   (* AXI_SLV_ARREADY=DRIVER *) c_slv_rd_ready;
+
+   //////////////////////////////////////////////
+   // Control conditions
+   //////////////////////////////////////////////
+   c_user_rst_set_val { if (uart_rx_data == 8'h11) this; }
+   c_user_rst_clr_val { if (uart_rx_data == 8'h10) this; }
+   c_prog_mem         { if (uart_rx_data == 8'h30) this; }
+   c_user_com_mode    { if (uart_rx_data == 8'h50) this; }
+
+   //////////////////////////////////////////////
+   // User reset
+   //////////////////////////////////////////////
+   reg user_rst;
+   d_user_rst_set { user_rst = 1'b1; }
+   d_user_rst_clr { user_rst = 1'b0; }
+   c_user_rst { if (user_rst == 1'b1) this; }
+
+   //////////////////////////////////////////////
+   // Collecting address and data for PMEM write
+   //////////////////////////////////////////////
+   d_add_b0 { mst_wr_add[ 7:0] = uart_rx_data; }
+   d_add_b1 { mst_wr_add[15:8] = uart_rx_data; }
+   d_data_b0 { mst_wr_data[ 7: 0] = uart_rx_data; }
+   d_data_b1 { mst_wr_data[15: 8] = uart_rx_data; }
+   d_data_b2 { mst_wr_data[23:16] = uart_rx_data; }
+   d_data_b3 { mst_wr_data[31:24] = uart_rx_data; }
+
+   //////////////////////////////////////////////
+   // Communication RX
+   //////////////////////////////////////////////
+   reg uart_rx_com;
+   d_uart_rx_com_set { uart_rx_com = 1'b1; }
+   d_uart_rx_com_clr { uart_rx_com = 1'b0; }
+   reg [7:0] uart_rx_rec;
+   d_uart_rx_rec_cap { uart_rx_rec = uart_rx_data; } 
+   c_tx_com_rd { if (c_slv_rd_valid & (slv_rd_addr[31:0] == 32'h80020010)) this; }
+   c_rx_rec_rd { if (c_slv_rd_valid & (slv_rd_addr[31:0] == 32'h80020020)) this; }
+   c_rx_com_rd { if (c_slv_rd_valid & (slv_rd_addr[31:0] == 32'h80020030)) this; }
+   d_tx_com { slv_rd_data = {{31{1'b0}}, uart_tx_com}; }
+   d_rx_rec { slv_rd_data = {{24{1'b0}}, uart_rx_rec}; }
+   d_rx_com { slv_rd_data = {{31{1'b0}}, uart_rx_com}; }
+   reg uart_tx_com;
+   tr_async_read { 
+      @c_tx_com_rd { 
+         c_slv_rd_ready;
+         d_tx_com; } 
+      @c_rx_com_rd { 
+         c_slv_rd_ready;
+         d_rx_com; }
+      @c_rx_rec_rd {
+         c_slv_rd_ready;
+         d_rx_rec; } }
+
+   //////////////////////////////////////////////
+   // Communication TX
+   //////////////////////////////////////////////
+   c_tx_send { if (slv_wr_addr[31:0] == 32'h80020000) this; }
+   tr_tx { 
+       @c_slv_wr {
+         @c_tx_send {
+            d_uart_tx_com_set;
+            d_uart_tx_data;
+            c_trans; } } 
+       @c_uart_tx_valid {
+          d_uart_tx_com_clr; } }
+   reg [8:0] uart_tx_data;
+   d_uart_tx_data { uart_tx_data = { 1'b1, slv_wr_data[7:0] }; } 
+   d_uart_tx_com_set { uart_tx_com = 1'b1; }
+   d_uart_tx_com_clr { uart_tx_com = 1'b0; }
+   
+   //////////////////////////////////////////////
+   // register reset conditions                               
+   //////////////////////////////////////////////
+   d_reset_byte2bus { 
+      byte2bus = BYTE2BUS_STATE_EXEC; 
+      mst_wr_add = 0; 
+      mst_wr_data = 0;
+      uart_rx_com = 0; 
+      uart_rx_rec = 0;
+      uart_tx_com = 0; }
+             
+   //////////////////////////////////////////////
+   // Control FSM
+   //////////////////////////////////////////////
+   tr_byte2bus { 
+      finite byte2bus {
+         exec :  { 
+            d_add_b0;
+            @c_uart_rx_valid {
+              @c_user_rst_set_val { d_user_rst_set; }
+              @c_user_rst_clr_val { d_user_rst_clr; }
+              @c_prog_mem { add_b0; } 
+              @c_user_com_mode { com_mode; } } }
+         add_b0 : { 
+            d_add_b0;
+            @c_uart_rx_valid { 
+               add_b1; } }     
+         add_b1 : { 
+            d_add_b1;
+            @c_uart_rx_valid { 
+               dat_b0; } } 
+         dat_b0 : { 
+            d_data_b0;
+            @c_uart_rx_valid { 
+               dat_b1; } }    
+         dat_b1 : { 
+            d_data_b1;
+            @c_uart_rx_valid { 
+               dat_b2; } }    
+         dat_b2 : { 
+            d_data_b2;
+            @c_uart_rx_valid { 
+               dat_b3; } }     
+         dat_b3 : { 
+            d_data_b3;
+            @c_uart_rx_valid { 
+               c_mst_wr;
+               exec; } } 
+         com_mode: { 
+            @c_uart_rx_valid { 
+               d_uart_rx_com_set; 
+               d_uart_rx_rec_cap; } 
+            @c_rx_rec_rd {
+               d_uart_rx_com_clr; } } } }
+}
+">

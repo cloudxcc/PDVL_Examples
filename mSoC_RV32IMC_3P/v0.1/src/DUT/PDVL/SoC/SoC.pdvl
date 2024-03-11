@@ -1,0 +1,59 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   SoC implementation (RISC-V, program memory, data memory, GPIO)
+
+<"
+///////////////////////////////////////////////////////////////////////
+// SoC
+///////////////////////////////////////////////////////////////////////
+build mSoC {              
+                
+   ////////////////////////////////////////////////////////////////////
+   // Program ROM
+   ////////////////////////////////////////////////////////////////////
+   place PMEM i_pmem; 
+   join c_pmem i_pmem;                   
+
+   ////////////////////////////////////////////////////////////////////
+   // Data RAM
+   ////////////////////////////////////////////////////////////////////
+   place DMEM i_dmem;
+   join { 
+      c_mem_store { if (c_slv_wr & (slv_wr_addr[31:16] == 16'h0000)) this; }
+      c_slv_rd_ready { if (c_slv_rd_valid & (slv_rd_addr[31:16] == 16'h0000)) this; } } cl_mem;
+   join cl_mem i_dmem;                   
+             
+   ////////////////////////////////////////////////////////////////////
+   // GPIOs
+   ////////////////////////////////////////////////////////////////////
+   join {
+      parameter BASE = 32'h80030000; 
+      tr_clocking { 
+         @c_sys_rst { d_reset; }
+         else { @e_clk  { tr_rd; tr_wr; } } } } c_gpio;
+   for (int n = 0; n < 2; n ++) { 
+      place GPIO_n i_gpio_n;
+      join c_gpio i_gpio_n;
+      join { 
+         parameter OFFSET = 32'h00000100 * n; 
+         d_axi_dato { slv_rd_data = gpio_data_in_reg; }
+         tr_rd_glue { 
+            @c_data_in_rd { 
+             c_slv_rd_ready; 
+             d_axi_dato; } }
+      } i_gpio_n;
+   }
+   
+   ////////////////////////////////////////////////////////////////////
+   // ic0 rv
+   ////////////////////////////////////////////////////////////////////
+   place RV32IMC_3P i_rv;
+   join {
+      item (* AXI_MST_ARDATA *) [31:0] axi_mst_rd_data; 
+      d_load_slv { dmem_load_data = axi_mst_rd_data; } 
+      tr_d_load_slv { d_load_slv; } } i_rv;
+}
+">

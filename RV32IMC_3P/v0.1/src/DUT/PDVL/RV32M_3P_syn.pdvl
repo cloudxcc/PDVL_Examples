@@ -1,0 +1,423 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+<" 
+
+cl_rv32m_syn {
+   ///////////////////////////////////////////// 
+   // M transactions
+   ///////////////////////////////////////////// 
+   tr_rv32m { 
+      tr_rv32m_mul; 
+      tr_rv32m_div_rem; } 
+
+   ///////////////////////////////////////////// 
+   // New multiplication datapath
+   ///////////////////////////////////////////// 
+   //reg [47:0] math_reg;
+   reg [31:0] math_reg0;
+   reg [31:0] math_reg1;
+   item [16:0] i_mul_a;
+   item [16:0] i_mul_b;
+   item [33:0] i_mul_out = $signed(i_mul_a) * $signed(i_mul_b); 
+
+   ///////////////////////////////////////////// 
+   // MUL 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mul = rs1_dato * rs2_dato; 
+   d_dp_out_mul { dp_out = {dp_add[15:0], math_reg0[15:0]}; }
+   d_mul_0 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+             i_mul_b = {1'b0, rs2_dato[15: 0]};
+             i_add_a = 0;
+             i_add_b = i_mul_out; 
+             math_reg0 = dp_add;
+             math_reg1[15:0] = 16'h000; }
+   d_mul_2 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+             i_mul_b = {1'b0, rs2_dato[31:16]};
+             i_add_a = {math_reg1[15:0], math_reg0[31:16]};
+             i_add_b = i_mul_out; 
+             math_reg0[31:16] = dp_add[15:0];
+             math_reg1[15:0] = dp_add[31:16]; }
+   d_mul_1 { i_mul_a = {1'b0, rs1_dato[31:16]};
+             i_mul_b = {1'b0, rs2_dato[15: 0]};
+             i_add_b = i_mul_out; 
+             i_add_a[15:0] = math_reg0[31:16];
+             i_add_a[31:16] = math_reg1[15:0]; }
+
+   ///////////////////////////////////////////// 
+   // MULH 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mulh = $signed(rs1_dato) * $signed(rs2_dato); 
+   d_dp_out_mulh { dp_out = dp_add; }
+   d_mulh_3 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+              i_mul_b = {rs2_dato[31], rs2_dato[31:16]};
+              i_add_a[15:0] = math_reg0[31:16];
+              i_add_a[31:16] = math_reg1[15:0];
+              i_add_b = i_mul_out; 
+              math_reg0[31:16] = dp_add[15:0];
+              math_reg1[15:0] = dp_add[31:16]; }
+   d_mulh_2 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
+              i_mul_b = {1'b0, rs2_dato[15: 0]};
+              i_add_a[15:0] = math_reg0[31:16];
+              i_add_a[31:16] = math_reg1[15:0];
+              i_add_b = i_mul_out; 
+              //math_reg0 = {dp_add, math_reg0[15:0]}; }
+              math_reg0[31:16] = dp_add[15:0];
+              math_reg1[15:0] = dp_add[31:16]; }
+   d_mulh_1 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
+              i_mul_b = {rs2_dato[31], rs2_dato[31:16]};
+              i_add_a = {16'h0000, math_reg1[15:0]};
+              i_add_b = i_mul_out; }
+
+   ///////////////////////////////////////////// 
+   // MULHU 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mulhu = rs1_dato * rs2_dato; 
+   d_dp_out_mulhu { dp_out = dp_add; }
+   d_mulhu_3 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+               i_mul_b = {1'b0, rs2_dato[31:16]};
+               i_add_a[15:0] = math_reg0[31:16];
+               i_add_a[31:16] = math_reg1[15:0];
+               i_add_b = i_mul_out; 
+               math_reg0[31:16] = dp_add[15:0];
+               math_reg1[15:0] = dp_add[31:16]; }
+   d_mulhu_2 { i_mul_a = {1'b0,  rs1_dato[31:16]};
+               i_mul_b = {1'b0, rs2_dato[15: 0]};
+               i_add_a[15:0] = math_reg0[31:16];
+               i_add_a[31:16] = math_reg1[15:0];
+               i_add_b = i_mul_out; 
+               math_reg0[31:16] = dp_add[15:0];
+               math_reg1[15:0] = dp_add[31:16]; }
+   d_mulhu_1 { i_mul_a = {1'b0, rs1_dato[31:16]};
+               i_mul_b = {1'b0, rs2_dato[31:16]};
+               i_add_a = {16'h0000, math_reg1[15:0]};
+               i_add_b = i_mul_out; }
+
+   ///////////////////////////////////////////// 
+   // MULHSU 
+   ///////////////////////////////////////////// 
+   //item [63:0] i_m_mulhsu = {{32{rs1_dato[31]}}, rs1_dato} * {32'h00000000, rs2_dato};
+   d_dp_out_mulhsu { dp_out = dp_add; }
+   d_mulhsu_3 { i_mul_a = {1'b0, rs1_dato[15: 0]};
+                i_mul_b = {1'b0, rs2_dato[31:16]};
+                i_add_a[15:0] = math_reg0[31:16];
+                i_add_a[31:16] = math_reg1[15:0];
+                i_add_b = i_mul_out; 
+                math_reg0[31:16] = dp_add[15:0];
+                math_reg1[15:0] = dp_add[31:16]; }
+   d_mulhsu_2 { i_mul_a = {rs1_dato[31],  rs1_dato[31:16]};
+                i_mul_b = {1'b0, rs2_dato[15: 0]};
+                i_add_a[15:0] = math_reg0[31:16];
+                i_add_a[31:16] = math_reg1[15:0];
+                i_add_b = i_mul_out; 
+                math_reg0[31:16] = dp_add[15:0];
+                math_reg1[15:0] = dp_add[31:16]; }
+   d_mulhsu_1 { i_mul_a = {rs1_dato[31], rs1_dato[31:16]};
+                i_mul_b = {1'b0, rs2_dato[31:16]};
+                //i_add_a = {16'h0000, math_reg0[47:32]};
+                i_add_a = {16'h0000, math_reg1[15:0]};
+                i_add_b = i_mul_out; }
+
+   c_mul_s1;
+   c_mul_s2;
+   tr_mul_dec { 
+      @c_instr_m_mul_s1 { c_mul_s1; } 
+      @c_instr_m_mulh_s1 { c_mul_s1; } 
+      @c_instr_m_mulhu_s1 { c_mul_s1; } 
+      @c_instr_m_mulhsu_s1 { c_mul_s1; }
+      @c_instr_m_mul_s2 { c_mul_s2; } 
+      @c_instr_m_mulh_s2 { c_mul_s2; } 
+      @c_instr_m_mulhu_s2 { c_mul_s2; } 
+      @c_instr_m_mulhsu_s2 { c_mul_s2; } }
+
+   tr_rv32m_mul { 
+      @c_mul_s1 { 
+         d_rs1i_addr; 
+         d_rs2i_addr; }
+      @c_mul_s2 { 
+         @c_instr_m_mul_s2 { d_dp_out_mul; }
+         @c_instr_m_mulh_s2 { d_dp_out_mulh; }
+         @c_instr_m_mulhu_s2 { d_dp_out_mulhu; }
+         @c_instr_m_mulhsu_s2 { d_dp_out_mulhsu; }
+         d_rd_dp_out; d_rdi_addr; 
+         @c_mc_0 {
+            d_mul_0; }
+         @c_mc_3 {
+            @c_instr_m_mulh_s2 { d_mulh_3; }
+            @c_instr_m_mulhu_s2 { d_mulhu_3; }
+            @c_instr_m_mulhsu_s2 { d_mulhsu_3; } }
+         @c_mc_2 {
+            @c_instr_m_mul_s2 { d_mul_2; }
+            @c_instr_m_mulh_s2 { d_mulh_2; }
+            @c_instr_m_mulhu_s2 { d_mulhu_2; }
+            @c_instr_m_mulhsu_s2 { d_mulhsu_2; } }
+         @c_mc_1 {
+            @c_instr_m_mul_s2 { d_mul_1; }
+            @c_instr_m_mulh_s2 { d_mulh_1; }
+            @c_instr_m_mulhu_s2 { d_mulhu_1; }
+            @c_instr_m_mulhsu_s2 { d_mulhsu_1; }
+            c_rf_write; } } }
+
+   ///////////////////////////////////////////// 
+   // New division datapath
+   // Generate divident and divisor
+   ///////////////////////////////////////////// 
+   item [31:0] divident = rs1_dato;
+   item [31:0] divisor = rs2_dato;
+   c_sign_differ { if (rs1_dato[31] != rs2_dato[31]) this; }
+
+   ///////////////////////////////////////////// 
+   // Detect special start conditions
+   /////////////////////////////////////////////
+   c_divident_lesser_divisor;
+   tr_divident_lesser_divisor {
+      @c_instr_m_div_s2 { 
+         @c_sign_differ {} 
+         else { 
+            @c_less { 
+               @c_divident_neg { } 
+               else { c_divident_lesser_divisor; } } 
+            else { 
+               @c_divident_neg { c_divident_lesser_divisor; } } } }
+      @c_instr_m_divu_s2 { @c_less { c_divident_lesser_divisor; } }
+      @c_instr_m_rem_s2 { 
+         @c_sign_differ {} 
+         else { 
+            @c_less {
+               @c_divident_neg { } 
+               else { c_divident_lesser_divisor; } } 
+            else { 
+               @c_divident_neg { c_divident_lesser_divisor; } } } }
+      @c_instr_m_remu_s2 { @c_less { c_divident_lesser_divisor; } } }
+   
+   ///////////////////////////////////////////// 
+   // Determin cycles based on leading 'one' bit of divident and divisor
+   ///////////////////////////////////////////// 
+   c_divident_neg { if (rs1_dato[31] == 1'b1) this; }
+   c_divisor_neg { if (rs2_dato[31] == 1'b1) this; }
+
+   item leading_bit_divident_val;
+   d_leading_bit_divident_0 { leading_bit_divident_val = 1'b0; }
+   d_leading_bit_divident_1 { leading_bit_divident_val = 1'b1; }
+   item leading_bit_divisor_val;
+   d_leading_bit_divisor_0 { leading_bit_divisor_val = 1'b0; }
+   d_leading_bit_divisor_1 { leading_bit_divisor_val = 1'b1; }
+
+   tr_prepare_divident_and_divisor {
+      @c_instr_m_divu_s2 { d_leading_bit_divident_1; }
+      else @c_instr_m_remu_s2 { d_leading_bit_divident_1; }
+      else @c_divident_neg { d_leading_bit_divident_0; }
+      else { d_leading_bit_divident_1; } 
+      @c_instr_m_divu_s2 { d_leading_bit_divisor_1; } 
+      else @c_instr_m_remu_s2 { d_leading_bit_divisor_1; }
+      else @c_divisor_neg { d_leading_bit_divisor_0; }
+      else { d_leading_bit_divisor_1; } }
+
+   item [4:0] leading_bit_divident_loc;
+   d_leading_bit_divident_loc {
+      leading_bit_divident_loc = 0;
+      for (int i = 31; i >= 0; i = i - 1)
+         if (divident[i] == leading_bit_divident_val)
+            if (leading_bit_divident_loc == 0)
+               leading_bit_divident_loc = i; }
+
+   item [4:0] leading_bit_divisor_loc;
+   d_leading_bit_divisor_loc {
+      leading_bit_divisor_loc = 0;
+      for (int i = 31; i >= 0; i = i - 1)
+         if (divisor[i] == leading_bit_divisor_val)
+            if (leading_bit_divisor_loc == 0)
+               leading_bit_divisor_loc = i; }
+   
+   item [4:0] div_init_shift = leading_bit_divident_loc - leading_bit_divisor_loc;
+
+   tr_leading_bit {
+      d_leading_bit_divident_loc;
+      d_leading_bit_divisor_loc; }
+      
+   ///////////////////////////////////////////// 
+   // Get shifted divisor, share shl
+   /////////////////////////////////////////////
+   d_div_rem_shl { i_shl_data = rs2_dato;
+                   i_shl_shamt = div_init_shift; }
+   item [31:0] divisor_shifted = shl_result;
+   
+   ///////////////////////////////////////////// 
+   // Do accumulation divident_used|result +|- dividsor_shifted
+   /////////////////////////////////////////////
+   d_div_mathreg0_minus_mathreg1 { i_add_a = math_reg0;
+                                   i_add_b = d_sub_2compl;
+                                   i_sub_b = math_reg1; }
+   d_divident_rs1 { math_reg0 = rs1_dato; }
+   d_divident_rs1_compl { math_reg0 = 0 - rs1_dato; }
+   d_divident_add { math_reg0 = dp_add; }
+
+   ///////////////////////////////////////////// 
+   // Decision making (divident >= divisor)
+   /////////////////////////////////////////////
+   c_div_result_pos { if (dp_add[31] == 1'b0) this; }
+   c_div_result_neg { if (dp_add[31] == 1'b1) this; }
+
+   reg [31:0] math_reg2;
+   //d_div_result_set { math_reg2 = 32'h00000001; }
+   d_div_result_clr { math_reg2 = 32'h00000000; }
+   d_div_result_shift_plus_1 { math_reg2 = {math_reg2[30:0], 1'b1}; }
+   d_div_result_shift { math_reg2 = {math_reg2[30:0], 1'b0}; }
+   
+   ///////////////////////////////////////////// 
+   // Store division result and define dp_out
+   /////////////////////////////////////////////
+   d_divisor_shifted_mc { math_reg1 = divisor_shifted; }
+   d_divisor_shifted_1_sgn { math_reg1 = {math_reg1[31], math_reg1[31:1]}; }
+   d_divisor_shifted_1 { math_reg1 = {1'b0, math_reg1[31:1]}; }
+   
+   d_dp_out_set { dp_out = 32'h00000001; }
+   d_dp_out_clr { dp_out = 32'h00000000; }
+   d_dp_out_divident { dp_out = divident; }
+   d_dp_out_result_shift { dp_out = {math_reg2[30:0], 1'b0}; }
+   d_dp_out_result_shift_plus_1 { dp_out = {math_reg2[30:0], 1'b1}; }
+   d_dp_out_result_shift_plus_1_compl { dp_out = 0 - {math_reg2[30:0], 1'b1}; }
+   d_dp_out_remainder { dp_out = math_reg0[31:0]; }
+   d_dp_out_remainder_compl { dp_out = 0 - math_reg0[31:0]; } 
+   d_dp_out_dp_add { dp_out = dp_add[31:0]; }
+   
+   ///////////////////////////////////////////// 
+   // Generate c_div_rem_s1, c_div_rem_s2
+   /////////////////////////////////////////////
+   c_div_rem_s1;
+   c_div_rem_s2;
+   tr_div_rem_dec { 
+      @c_instr_m_div_s1 { c_div_rem_s1; } 
+      @c_instr_m_divu_s1 { c_div_rem_s1; } 
+      @c_instr_m_rem_s1 { c_div_rem_s1; } 
+      @c_instr_m_remu_s1 { c_div_rem_s1; }
+      @c_instr_m_div_s2 { c_div_rem_s2; } 
+      @c_instr_m_divu_s2 { c_div_rem_s2; } 
+      @c_instr_m_rem_s2 { c_div_rem_s2; } 
+      @c_instr_m_remu_s2 { c_div_rem_s2; } }
+   
+   ///////////////////////////////////////////// 
+   // M transsactions
+   /////////////////////////////////////////////
+   tr_rv32m_div_rem { 
+      @c_div_rem_s1 { 
+         d_rs1i_addr; 
+         d_rs2i_addr; }
+      @c_div_rem_s2 { 
+         @c_instr_m_div_s2 { d_blt; } 
+         @c_instr_m_divu_s2 { d_bltu; } 
+         @c_instr_m_rem_s2 { d_blt; } 
+         @c_instr_m_remu_s2 { d_bltu; }
+         d_rd_dp_out; d_rdi_addr;  
+         @c_mc_0 {
+            d_div_rem_shl;
+            d_divisor_shifted_mc;
+            @c_cond_beq {
+               @c_instr_m_div_s2 { d_dp_out_set; }
+               @c_instr_m_divu_s2 { d_dp_out_set; }
+               @c_instr_m_rem_s2 { d_dp_out_clr; }
+               @c_instr_m_remu_s2 { d_dp_out_clr; }
+               c_rf_write;   
+               /* d_pc4; */ }
+            else @c_divident_lesser_divisor { 
+               @c_instr_m_div_s2 { d_dp_out_clr; }
+               @c_instr_m_divu_s2 { d_dp_out_clr; }
+               @c_instr_m_rem_s2 { d_dp_out_divident; }
+               @c_instr_m_remu_s2 { d_dp_out_divident; }
+               c_rf_write; }
+            else { 
+               @c_instr_m_div_s2 { 
+                  @c_sign_differ { d_divident_rs1_compl; }
+                  else { d_divident_rs1; } }
+               @c_instr_m_divu_s2 { d_divident_rs1; }
+               @c_instr_m_rem_s2 { 
+                  @c_sign_differ { d_divident_rs1_compl; }
+                  else { d_divident_rs1; } }
+               @c_instr_m_remu_s2 { d_divident_rs1; }
+               d_div_result_clr; } }
+         else @c_mc_1 {
+            d_div_mathreg0_minus_mathreg1;
+            @c_instr_m_div_s2 { 
+               @c_sign_differ { d_dp_out_result_shift_plus_1_compl; }
+               else @c_divisor_neg { 
+                  @c_div_result_neg {d_dp_out_result_shift_plus_1; }
+                  else {d_dp_out_result_shift; } }
+               else { 
+                  @c_div_result_neg {d_dp_out_result_shift; }
+                  else {d_dp_out_result_shift_plus_1; } } }
+            @c_instr_m_divu_s2 {
+               @c_div_result_neg {d_dp_out_result_shift; }
+               else {d_dp_out_result_shift_plus_1; } }
+            @c_instr_m_rem_s2  {
+               @c_sign_differ {
+                  @c_divisor_neg { d_dp_out_remainder; }
+                  else { d_dp_out_remainder_compl; } }
+               else { 
+                  @c_divisor_neg { d_dp_out_remainder_compl; }
+                  else @c_div_result_neg { d_dp_out_remainder; } 
+                  else { d_dp_out_dp_add; } } }
+            @c_instr_m_remu_s2  {
+               @c_div_result_neg { d_dp_out_remainder; } 
+                  else { d_dp_out_dp_add; } }
+            c_rf_write; }
+         else {
+            d_div_mathreg0_minus_mathreg1;
+            @c_instr_m_div_s2 { d_divisor_shifted_1_sgn; }
+            @c_instr_m_divu_s2 { d_divisor_shifted_1; }
+            @c_instr_m_rem_s2 { d_divisor_shifted_1_sgn; }
+            @c_instr_m_remu_s2 { d_divisor_shifted_1; }
+            @c_instr_m_divu_s2 {
+               @c_div_result_neg { d_div_result_shift;  }
+               else { d_divident_add;
+                      d_div_result_shift_plus_1; } }
+            else @c_divisor_neg { 
+               @c_div_result_pos { d_div_result_shift;  }
+               else { d_divident_add;
+                      d_div_result_shift_plus_1; } }
+            else {
+               @c_div_result_neg { d_div_result_shift;  }
+               else { d_divident_add;
+                      d_div_result_shift_plus_1; } } } } }
+
+   ///////////////////////////////////////////// 
+   // Handling multi-cycle logic
+   /////////////////////////////////////////////
+   d_mc_div { mc = div_init_shift + 1; }
+   d_mc_rem { mc = div_init_shift + 1; }
+   tr_mc_mul {
+      @c_instr_m_mul_s2 {
+         d_mc_2; } }
+   tr_mc_mulh {
+      @c_instr_m_mulh_s2 {
+         d_mc_3; } }
+   tr_mc_mulhu {
+      @c_instr_m_mulhu_s2 {
+         d_mc_3; } }
+   tr_mc_mulhsu {
+      @c_instr_m_mulhsu_s2 {
+         d_mc_3; } }
+   tr_mc_div {
+      @c_instr_m_div_s2 {
+         @c_cond_beq { }
+         else @c_divident_lesser_divisor { }
+         else { d_mc_div; } } }
+   tr_mc_divu {
+      @c_instr_m_divu_s2 {
+         @c_cond_beq { }
+         else @c_divident_lesser_divisor { }
+         else { d_mc_div; } } }
+   tr_mc_rem {
+      @c_instr_m_rem_s2 {
+         @c_cond_beq { }
+         else @c_divident_lesser_divisor { }
+         else { d_mc_rem; } } }
+   tr_mc_remu {
+      @c_instr_m_remu_s2 {
+      @c_cond_beq { }
+      else @c_divident_lesser_divisor { }
+      else { d_mc_rem; } } }
+} 
+
+">

@@ -3,7 +3,7 @@
    Licensed under the Apache License, Version 2.0, see LICENSE for details.
    SPDX-License-Identifier: Apache-2.0
 
-   First code to implement an AXI compatible IP n the future.
+   First code to implement an AXI compatible IP in the future.
 
 <"
 cluster axi {      

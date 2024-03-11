@@ -74,7 +74,7 @@ MULDIV & multiplier & multiplicand & MULW           & dest & OP-32 \\
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent item [63:0] i\_m\_mul = rs1\_dato * rs2\_dato; \\%pdvlrvm
 \indent d\_mul \{ dp\_out = i\_m\_mul[31:0]; \}\\%pdvlrvm
-\indent tr\_rv32m\_mul \{ unique @c\_instr\_m\_mul \{ \\%pdvlrvm
+\indent tr\_rv32m\_mul \{ @c\_instr\_m\_mul \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_mul; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 \\
@@ -83,7 +83,7 @@ MULDIV & multiplier & multiplicand & MULW           & dest & OP-32 \\
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent item [63:0] i\_m\_mulh = \$signed(rs1\_dato) * \$signed(rs2\_dato); \\%pdvlrvm
 \indent d\_mulh \{ dp\_out = i\_m\_mulh[63:32]; \}\\%pdvlrvm
-\indent tr\_rv32m\_mulh \{ unique @c\_instr\_m\_mulh \{ \\%pdvlrvm
+\indent tr\_rv32m\_mulh \{ @c\_instr\_m\_mulh \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_mulh; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 \\
@@ -92,7 +92,7 @@ MULDIV & multiplier & multiplicand & MULW           & dest & OP-32 \\
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent item [63:0] i\_m\_mulhu = rs1\_dato * rs2\_dato; \\%pdvlrvm
 \indent d\_mulhu \{ dp\_out = i\_m\_mulhu[63:32]; \}\\%pdvlrvm
-\indent tr\_rv32m\_mulhu \{ unique @c\_instr\_m\_mulhu \{ \\%pdvlrvm
+\indent tr\_rv32m\_mulhu \{ @c\_instr\_m\_mulhu \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_mulhu; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 \\
@@ -101,7 +101,7 @@ MULDIV & multiplier & multiplicand & MULW           & dest & OP-32 \\
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent item [63:0] i\_m\_mulhsu = \{\{32\{rs1\_dato[31]\}\}, rs1\_dato\} * \{32'h00000000, rs2\_dato\};\\%pdvlrvm
 \indent d\_mulhsu \{ dp\_out = i\_m\_mulhsu[63:32]; \}\\%pdvlrvm
-\indent tr\_rv32m\_mulhsu \{ unique @c\_instr\_m\_mulhsu \{ \\%pdvlrvm
+\indent tr\_rv32m\_mulhsu \{ @c\_instr\_m\_mulhsu \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_mulhsu; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 }
@@ -167,7 +167,7 @@ MULDIV & divisor & dividend & DIV[U]W/REM[U]W & dest & OP-32 \\
 %   // DIV \\%pdvlrvm
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent d\_div \{ dp\_out = \$signed(rs1\_dato) / \$signed(rs2\_dato); \}\\%pdvlrvm
-\indent tr\_rv32m\_div \{ unique @c\_instr\_m\_div \{ \\%pdvlrvm
+\indent tr\_rv32m\_div \{ @c\_instr\_m\_div \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_div; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 \\
@@ -175,7 +175,7 @@ MULDIV & divisor & dividend & DIV[U]W/REM[U]W & dest & OP-32 \\
 %   // DIVU \\%pdvlrvm
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent d\_divu \{ dp\_out = rs1\_dato / rs2\_dato; \}\\%pdvlrvm
-\indent tr\_rv32m\_divu \{ unique @c\_instr\_m\_divu \{ \\%pdvlrvm
+\indent tr\_rv32m\_divu \{ @c\_instr\_m\_divu \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_divu; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 \\
@@ -183,7 +183,7 @@ MULDIV & divisor & dividend & DIV[U]W/REM[U]W & dest & OP-32 \\
 %   // REM \\%pdvlrvm
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent d\_rem \{ dp\_out = \$signed(rs1\_dato) \% \$signed(rs2\_dato); \}\\%pdvlrvm
-\indent tr\_rv32m\_rem \{ unique @c\_instr\_m\_rem \{ \\%pdvlrvm
+\indent tr\_rv32m\_rem \{ @c\_instr\_m\_rem \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_rem; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 \\
@@ -191,7 +191,7 @@ MULDIV & divisor & dividend & DIV[U]W/REM[U]W & dest & OP-32 \\
 %   // REMU \\%pdvlrvm
 %   ///////////////////////////////////////////// %pdvlrvm
 \indent d\_remu \{ dp\_out = rs1\_dato \% rs2\_dato; \}\\%pdvlrvm
-\indent tr\_rv32m\_remu \{ unique @c\_instr\_m\_remu \{ \\%pdvlrvm
+\indent tr\_rv32m\_remu \{ @c\_instr\_m\_remu \{ \\%pdvlrvm
 \indent \hspace{\parindent} d\_remu; \\%pdvlrvm
 \indent \hspace{\parindent} tr\_rv32m\_math; \} \} \\%pdvlrvm
 }

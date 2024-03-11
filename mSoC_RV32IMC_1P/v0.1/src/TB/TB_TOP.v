@@ -113,27 +113,19 @@ initial begin
    $display("Clear reset.");
    uart_send(8'h10);               // 0x10 clear reset
 
-   ///////////////////////////////////////////////////// communication
-   //$display("UART communication.");
-   //uart_send(8'h50);               // 0x50 communication
-   //uart_send(8'h8e);               // 0x8e data
-
-   //#100;
-   //$finish;
-   //wait (uart_tx_out == 1'b0);
-   //wait (uart_tx_out == 1'b1);
-   wait (b0_data_io == 8'hAA);
-   wait (b1_data_io == 8'hAA);
-   wait (b0_data_io == 8'h00);
-   wait (b1_data_io == 8'h00);
-   wait (b0_data_io == 8'h55);
-   wait (b1_data_io == 8'h55);
-   wait (b0_data_io == 8'h00);
-   wait (b1_data_io == 8'h00);
-   wait (b0_data_io_pu == 8'hAA);
-   wait (b1_data_io_pu == 8'hAA);
+   ///////////////////////////////////////////////////// check IO
+   
+   wait (b1_data_io == 8'h01);
+   //wait (b1_data_io == 8'hAA);
    //wait (b0_data_io == 8'h00);
    //wait (b1_data_io == 8'h00);
+   //wait (b0_data_io == 8'h55);
+   //wait (b1_data_io == 8'h55);
+   //wait (b0_data_io == 8'h00);
+   //wait (b1_data_io == 8'h00);
+   //wait (b0_data_io_pu == 8'hAA);
+   //wait (b1_data_io_pu == 8'hAA);
+
    #10;
    $display("Test passed."); 
    $finish;
@@ -142,8 +134,10 @@ $finish;
 end
 
 always begin       
-   // 33 MHz
-   #15;
+   // 30 MHz
+   #16;
+   clk <= ~clk;
+   #17;
    clk <= ~clk;
 end
 

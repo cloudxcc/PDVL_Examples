@@ -152,16 +152,10 @@ always_ff @ (posedge clk or posedge c_ex_rst) begin
    else begin
       unique if (byte2bus == BYTE2BUS_STATE_EXEC) begin
          if (c_uart_rx_valid) begin
-            unique if (c_user_rst_set_val) begin
-              ;
-            end
-            else if (c_user_rst_clr_val) begin
-              ;
-            end
-            else if (c_prog_mem) begin
+            if (c_prog_mem) begin
                byte2bus <= BYTE2BUS_STATE_ADD_B0;
             end
-            else if (c_user_com_mode) begin
+            if (c_user_com_mode) begin
                byte2bus <= BYTE2BUS_STATE_COM_MODE;
             end
          end
@@ -279,10 +273,10 @@ always_ff @ (posedge clk or posedge c_ex_rst) begin
    else begin
       unique if (byte2bus == BYTE2BUS_STATE_EXEC) begin
          if (c_uart_rx_valid) begin
-            unique if (c_user_rst_set_val) begin
+            if (c_user_rst_set_val) begin
                user_rst <= 1'b1;
             end
-            else if (c_user_rst_clr_val) begin
+            if (c_user_rst_clr_val) begin
                user_rst <= 1'b0;
             end
          end
@@ -463,13 +457,13 @@ end
 //------------------- Item assignment(s):
 always_comb begin
    slv_rd_data = 32'hxxxxxxxx;
-   unique if (c_tx_com_rd) begin
+   if (c_tx_com_rd) begin
       slv_rd_data = {{31 {1'b0}}, uart_tx_com};
    end
-   else if (c_rx_com_rd) begin
+   if (c_rx_com_rd) begin
       slv_rd_data = {{31 {1'b0}}, uart_rx_com};
    end
-   else if (c_rx_rec_rd) begin
+   if (c_rx_rec_rd) begin
       slv_rd_data = {{24 {1'b0}}, uart_rx_rec};
    end
 end
@@ -493,13 +487,13 @@ assign c_user_rst_clr_val = (uart_rx_data == 8'h10);
 assign c_user_rst_set_val = (uart_rx_data == 8'h11);
 always_comb begin
    c_slv_rd_ready = 1'b0;
-   unique if (c_tx_com_rd) begin
+   if (c_tx_com_rd) begin
       c_slv_rd_ready = 1'b1;
    end
-   else if (c_rx_com_rd) begin
+   if (c_rx_com_rd) begin
       c_slv_rd_ready = 1'b1;
    end
-   else if (c_rx_rec_rd) begin
+   if (c_rx_rec_rd) begin
       c_slv_rd_ready = 1'b1;
    end
 end
@@ -532,8 +526,8 @@ always_comb begin
    end
 end
 assign c_byte_received = (uart_byte_received == 1'b1);
-assign c_uart_rx_full = (uart_rx_baud == 290);
-assign c_uart_rx_half = (uart_rx_baud == 145);
+assign c_uart_rx_full = (uart_rx_baud == 263);
+assign c_uart_rx_half = (uart_rx_baud == 131);
 assign c_uart_rx_negedge = (uart_nrx_filtered == 3'h7);
 always_comb begin
    c_uart_tx_valid = 1'b0;
@@ -548,7 +542,7 @@ always_comb begin
 end
 assign c_trans = ((c_slv_wr) & (c_tx_send));
 assign c_byte_transmitted = (uart_tx_data == 9'h001);
-assign c_uart_tx_trig = (uart_tx_baud == 290);
+assign c_uart_tx_trig = (uart_tx_baud == 263);
 assign ic1_c_axi_mst_wr_valid = c_mst_wr;
 assign ic0_c_axi_slv_wr_valid = (ic0_c_axi_mst_wr_valid);
 assign ic0_c_axi_slv_rd_ready_3 = c_slv_rd_ready;

@@ -1,0 +1,220 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+
+   RISC-V 32-bit IC implementation (no pipeline-stages)
+   based on executable RISC-V specification.
+
+<" 
+cl_rv32_imc {}
+
+build RV32IMC_3P {
+
+   //////////////////////////////////////////////
+   // Collect RISC-V I and C parts                               
+   //////////////////////////////////////////////
+   join cl_rv32i         cl_rv32_imc;
+   join cl_rv32i_rf      cl_rv32_imc;
+   join cl_rv32i_dec     cl_rv32_imc;
+   join cl_rv32c         cl_rv32_imc;
+   join cl_rv32c_list    cl_rv32_imc;
+   join cl_rv32m_syn     cl_rv32_imc;
+   join cl_rv32m_dec     cl_rv32_imc;
+   join cl_rv32c_dec_op0 cl_rv32_imc;
+   join cl_rv32c_dec_op1 cl_rv32_imc;
+   join cl_rv32c_dec_op2 cl_rv32_imc;
+   
+   join {
+      //////////////////////////////////////////////
+      // AXI master write interface                               
+      //////////////////////////////////////////////
+      item (* AXI_MST_AWADDR=DRIVER *) [31:0] mst_wr_addr;
+      item (* AXI_MST_AWDATA=DRIVER *) [31:0] mst_wr_data;
+      (* AXI_MST_AWVALID=DRIVER *) c_mst_wr;
+
+      //////////////////////////////////////////////
+      // AXI master read interface                               
+      //////////////////////////////////////////////
+      item (* AXI_MST_ARADDR=DRIVER *) [31:0] mst_rd_addr;
+      (* AXI_MST_ARVALID=DRIVER *) c_mst_rd;
+   
+      //////////////////////////////////////////////
+      // Connect memory write access
+      //////////////////////////////////////////////
+      d_mst_wr_addr { mst_wr_addr = dmem_store_addr; }
+      d_mst_wr_data { mst_wr_data = dmem_store_data; }
+      tr_store { 
+         @c_dmem_store { c_mst_wr; } 
+         d_mst_wr_addr;
+         d_mst_wr_data; }
+                   
+      //////////////////////////////////////////////
+      // Connect memory read access
+      //////////////////////////////////////////////
+      d_mst_rd_addr { mst_rd_addr = dmem_load_addr; }
+      tr_load { 
+         @c_dmem_load { c_mst_rd; }
+         d_mst_rd_addr; }
+                   
+      tr_empty { }
+      
+      //////////////////////////////////////////////
+      // Add reset and clocking structure to design
+      //////////////////////////////////////////////
+      parameter PC_LEN = 32; 
+      e_clk posedge clk;  
+      tr_rf_write { @c_rf_write { d_rf_write; } } 
+      
+      reg [5:0] mc;
+      reg [1:0] pv;
+      reg pc4_s1;
+      reg pc4_s2;
+      
+	  tr_clocking { 
+	     @e_clk  { 
+            tr_rv32i;
+            tr_rv32m; 
+            tr_rv32c; 
+            tr_rf_write; } }
+
+      d_pc_step_2 { pc = pc + 2; }
+      d_pc_step_4 { pc = pc + 4; }
+      d_pc4_s1_set { pc4_s1 = 1'b1; }
+      d_pc4_s1_clr { pc4_s1 = 1'b0; }
+      d_pc4_s2 { pc4_s2 = pc4_s1; }
+      d_pc4_s2_set { pc4_s2 = 1'b1; }
+      item [31:0] pc_clear = (pc4_s1 & pc4_s2) ? 8 :
+                             (!pc4_s1 & !pc4_s2) ? 4 : 6;
+
+      c_instr_i { if( instr[1:0] == 2'b11) this; }
+      d_pv_reset { pv = 0; }
+      d_pv_m1 { pv = pv - 1; }
+      d_pv_set { pv = 2; }
+      c_pv_0 { if (pv == 0) this; }
+      c_pv_1 { if (pv == 1) this; }
+      c_pv_2 { if (pv == 2) this; }
+      d_instr_s1_instr { instr_s1 = instr; }
+      d_instr_s1_nop { instr_s1 = 32'h00000013; }
+      d_instr_s2_instr_s1 { instr_s2 = instr_s1; }
+      d_instr_s2_nop { instr_s2 = 32'h00000013; }
+
+      c_wrth_rs1 { if ( (rd_addr == rs1_addr) &
+                        (rd_addr != 0)        ) this; }
+      c_wrth_rs2 { if ( (rd_addr == rs2_addr) &
+                        (rd_addr != 0)        ) this; }
+      d_pc_stall { pc_next = pc; }
+      c_mc_0 { if (mc == 0) this; }
+      c_mc_1 { if (mc == 1) this; }
+      c_mc_2 { if (mc == 2) this; }
+      c_mc_3 { if (mc == 3) this; }
+      d_mc_reset { mc = 0; }
+      d_mc_1 { mc = 1; }
+      d_mc_2 { mc = 2; }
+      d_mc_3 { mc = 3; }
+      d_mc_m1 { mc = mc - 1; }
+
+      c_div_rem_non_trivial;
+      tr_div_rem_non_trivial {
+         @c_cond_beq { }
+         else @c_divident_lesser_divisor { }
+         else @c_instr_m_div_s2 { c_div_rem_non_trivial; }
+         else @c_instr_m_divu_s2 { c_div_rem_non_trivial; }
+         else @c_instr_m_rem_s2 { c_div_rem_non_trivial; }
+         else @c_instr_m_remu_s2 { c_div_rem_non_trivial; } }
+
+	  tr_clocking_pc { 
+	     @c_sys_rst { d_mc_reset;
+	               d_instr_s1_nop;
+	               d_instr_s2_nop; 
+	               d_pv_reset;
+	               d_pc4_s1_set;
+	               d_pc4_s2_set;
+	               d_pc_reset; }
+         else { 
+            @e_clk  { 
+               /////////////////////////////////////
+               // pipeline
+               /////////////////////////////////////
+               @c_pv_0 {
+                  @c_pipe_invalid {
+                     d_instr_s1_nop;
+                     d_instr_s2_nop;
+                     d_pc_next; }
+                  else {
+                     /////////////////////////////////////
+                     // write through
+                     /////////////////////////////////////
+                     @c_rf_write {
+                        @c_wrth_rs1 { d_rs1_dato_wrth; }
+                        else { d_rs1_dato; }
+                        @c_wrth_rs2 { d_rs2_dato_wrth; }
+                        else { d_rs2_dato; } }
+                     else { 
+                        @c_mul_s2 { 
+                           @c_mc_1 {
+                              d_rs1_dato;
+                              d_rs2_dato; } }
+                        else @c_div_rem_s2 {
+                           @c_mc_1 {
+                              d_rs1_dato;
+                              d_rs2_dato; } }
+                        else {
+                           d_rs1_dato;
+                           d_rs2_dato; } }
+                     /////////////////////////////////////
+                     // pc
+                     /////////////////////////////////////
+                     @c_mc_0 { 
+                        @c_mul_s2 { }
+                        //else @c_div_rem_s2 { }
+                        else @c_div_rem_non_trivial { }
+                        else {
+                           d_instr_s1_instr;
+                           d_instr_s2_instr_s1;
+                           d_pc4_s2; 
+                           @c_instr_i {
+                              d_pc4_s1_set;
+                              d_pc_step_4; }
+                           else { 
+                              d_pc4_s1_clr;
+                              d_pc_step_2; } } }
+                     else @c_mc_1 { 
+                        d_instr_s1_instr;
+                        d_instr_s2_instr_s1;
+                        d_pc4_s2; 
+                           @c_instr_i {
+                              d_pc4_s1_set;
+                              d_pc_step_4; }
+                           else { 
+                              d_pc4_s1_clr;
+                              d_pc_step_2; } } } }
+               else @c_pv_1 {
+                  d_instr_s1_instr;
+                  d_instr_s2_instr_s1; 
+                  d_pv_m1; }
+               else {
+                  d_instr_s1_instr;
+                  d_instr_s2_nop;
+                  d_pv_m1; }
+               @c_mc_0 { 
+                  tr_mc_mul;
+                  tr_mc_mulh;
+                  tr_mc_mulhu;
+                  tr_mc_mulhsu;
+                  tr_mc_div;
+                  tr_mc_divu;
+                  tr_mc_rem;
+                  tr_mc_remu; }
+               else {
+                  d_mc_m1; } } } } } cl_rv32_imc; 
+   join cl_rv32_imc;
+
+   //////////////////////////////////////////////
+   // Push RF in submodule for custom IP                               
+   //////////////////////////////////////////////
+   place RV32IMC_3P_RF i_rf;
+   move rs1_dato_async, rs2_dato_async, rf i_rf;
+} 
+">

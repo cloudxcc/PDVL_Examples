@@ -1,0 +1,58 @@
+//
+// Copyright 2023 Tobias Strauch, Munich, Bavaria, Germany
+// Licensed under the Apache License, Version 2.0, see LICENSE for details.
+// SPDX-License-Identifier: Apache-2.0
+//
+
+#define DMEM    (*((volatile unsigned long*) 0x00000010))
+
+#include "system.c"
+
+int main(void)
+{
+/*
+   DMEM = 0x01234567;
+   while (!(DMEM == 0x01234567));
+   while (!UART_RX_COM);
+   unsigned read = UART_REC;
+   while (UART_TX_COM);
+   UART_SEND = read;
+   while (UART_TX_COM);
+   UART_SEND = ~read;
+*/
+   GPIO_0_DIR_SET = 0xff;
+   GPIO_1_DIR_SET = 0xff;
+   GPIO_0_OUT_SET = 0xAA;
+   GPIO_1_OUT_SET = 0xAA;
+   GPIO_0_OUT_CLR = GPIO_0_IN;
+   GPIO_1_OUT_CLR = GPIO_1_IN;
+   GPIO_0_OUT_SET = 0x55;
+   GPIO_1_OUT_SET = 0x55;
+   GPIO_0_OUT_CLR = GPIO_0_IN;
+   GPIO_1_OUT_CLR = GPIO_1_IN;
+   GPIO_0_TRI_SET = 0xff;
+   GPIO_1_TRI_SET = 0xff;
+   GPIO_0_OUT_SET = 0xAA;
+   GPIO_1_OUT_SET = 0xAA;
+   GPIO_0_TRI_CLR = 0xff;
+   GPIO_1_TRI_CLR = 0xff;
+
+   GPIO_0_DIR_SET = 0xff;
+   GPIO_1_DIR_SET = 0xff;
+   while (1) {
+	   for (unsigned i = 0; i < 1000; i++) {
+		   for (unsigned ii = 0; ii < 1000; ii++) {
+			   for (unsigned iii = 0; iii < 1000; iii++) {
+     		       GPIO_1_OUT_SET = 0xFF;
+			   }
+		   }
+	   }
+	   for (unsigned i = 0; i < 1000; i++) {
+		   for (unsigned ii = 0; ii < 1000; ii++) {
+			   for (unsigned iii = 0; iii < 1000; iii++) {
+     		       GPIO_1_OUT_CLR = 0xFF;
+			   }
+		   }
+	   }
+   }
+}

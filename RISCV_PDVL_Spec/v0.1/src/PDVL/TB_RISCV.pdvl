@@ -5,9 +5,34 @@
 
 <"
 
+///////////////////////////////////////////// 
+// Routing signals as DUT toplevel IOs
+///////////////////////////////////////////// 
+cl_ios {
+   c_arst; 
+   item (* source *) clk; 
+   item (* source *) [31:0] instr; 
+   item (* sink *) [31:0] pc;
+   item (* sink *) [31:0] dmem_store_data;
+   item (* sink *) [1:0] dmem_store_width;
+   item (* sink *) [31:0] dmem_store_addr;
+   item (* sink *) [31:0] dmem_load_addr;
+   item (* source *) [31:0] dmem_load_data; 
+   item dummy;
+   d_dummy { dummy = 0; }
+   tr_dummy { @c_dmem_store { d_dummy; } 
+              @c_dmem_load { d_dummy; } }
+}
+
 cl_rv32imc {}
 
+///////////////////////////////////////////// 
+// Basic testbench to instantiate the RISCV
+///////////////////////////////////////////// 
 build TB_RV32IMC {
+   ///////////////////////////////////////////// 
+   // Joining RISC-V IMC ISA
+   ///////////////////////////////////////////// 
    join cl_rv32i cl_rv32imc;
    join cl_rv32i_rf cl_rv32imc;
    join cl_rv32i_dec cl_rv32imc;
@@ -19,6 +44,9 @@ build TB_RV32IMC {
    join cl_rv32c_dec_op1 cl_rv32imc;
    join cl_rv32c_dec_op2 cl_rv32imc;
 
+   ///////////////////////////////////////////// 
+   // Generate clocking structure in cl_rv32imc
+   ///////////////////////////////////////////// 
    join {
       parameter PC_LEN = 15;
       e_clk posedge clk;  
@@ -37,25 +65,12 @@ build TB_RV32IMC {
          
    } cl_rv32imc;
    
+   ///////////////////////////////////////////// 
+   // Generate SV hierarchy and join clusters
+   ///////////////////////////////////////////// 
    place RISCV i_rv;
    join cl_rv32imc i_rv;
    join cl_ios;
-}
-
-cl_ios {
-   c_arst; 
-   item (* source *) clk; 
-   item (* source *) [31:0] instr; 
-   item (* sink *) [31:0] pc;
-   item (* sink *) [31:0] dmem_store_data;
-   item (* sink *) [1:0] dmem_store_width;
-   item (* sink *) [31:0] dmem_store_addr;
-   item (* sink *) [31:0] dmem_load_addr;
-   item (* source *) [31:0] dmem_load_data; 
-   item dummy;
-   d_dummy { dummy = 0; }
-   tr_dummy { @c_dmem_store { d_dummy; } 
-              @c_dmem_load { d_dummy; } }
 }
 
 ">

@@ -15,7 +15,7 @@ module RISCV (
 parameter PC_LEN = 15;
 
 //------------------- Register declaration(s):
-reg  [31 : 0] rf [15 : 0];
+reg  [31 : 0] rf [31 : 0];
 reg  [PC_LEN - 1 : 0] pc;
 
 //------------------- Procedural register declaration(s):
@@ -202,913 +202,913 @@ assign i_m_mulh = $signed (rs1_dato) * $signed (rs2_dato);
 assign i_m_mul = rs1_dato * rs2_dato;
 always_comb begin
    dmem_store_data = 32'hxxxxxxxx;
-   unique if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       dmem_store_data = rs2_dato;
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       dmem_store_data = rs2_dato;
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       dmem_store_data = rs2_dato;
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       dmem_store_data = rs2_dato;
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       dmem_store_data = rs2_dato;
    end
 end
 always_comb begin
    dmem_store_width = 3'hx;
-   unique if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       dmem_store_width = funct3_i [2 : 0];
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       dmem_store_width = funct3_i [2 : 0];
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       dmem_store_width = funct3_i [2 : 0];
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       dmem_store_width = 2;
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       dmem_store_width = 2;
    end
 end
 always_comb begin
    dmem_store_addr = 33'hxxxxxxxxx;
-   unique if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       dmem_store_addr = {{20 {s_type [11]}}, s_type} + rs1_dato;
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       dmem_store_addr = {{20 {s_type [11]}}, s_type} + rs1_dato;
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       dmem_store_addr = {{20 {s_type [11]}}, s_type} + rs1_dato;
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       dmem_store_addr = offset_c + rs1_dato;
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       dmem_store_addr = offset_swsp_c + rs1_dato;
    end
 end
 always_comb begin
    dmem_load_width = 3'hx;
-   unique if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       dmem_load_width = funct3_i [2 : 0];
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       dmem_load_width = funct3_i [2 : 0];
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       dmem_load_width = funct3_i [2 : 0];
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       dmem_load_width = funct3_i [2 : 0];
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       dmem_load_width = funct3_i [2 : 0];
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       dmem_load_width = 2;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       dmem_load_width = 2;
    end
 end
 always_comb begin
    dmem_load_addr = 33'hxxxxxxxxx;
-   unique if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       dmem_load_addr = {{20 {i_type [11]}}, i_type} + rs1_dato;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       dmem_load_addr = {{20 {i_type [11]}}, i_type} + rs1_dato;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       dmem_load_addr = {{20 {i_type [11]}}, i_type} + rs1_dato;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       dmem_load_addr = {{20 {i_type [11]}}, i_type} + rs1_dato;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       dmem_load_addr = {{20 {i_type [11]}}, i_type} + rs1_dato;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       dmem_load_addr = offset_c + rs1_dato;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       dmem_load_addr = offset_lwsp_c + rs1_dato;
    end
 end
 always_comb begin
    dp_out = 32'hxxxxxxxx;
-   unique if (c_instr_i_lui) begin
+   if (c_instr_i_lui) begin
       dp_out = u_immediate;
    end
-   else if (c_instr_i_auipc) begin
+   if (c_instr_i_auipc) begin
       dp_out = pc + u_immediate;
    end
-   else if (c_instr_i_jal) begin
+   if (c_instr_i_jal) begin
       dp_out = pc + 4;
    end
-   else if (c_instr_i_jalr) begin
+   if (c_instr_i_jalr) begin
       dp_out = pc + 4;
    end
-   else if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       dp_out = {{24 {dmem_load_data [7]}}, dmem_load_data [7 : 0]};
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       dp_out = {{16 {dmem_load_data [15]}}, dmem_load_data [15 : 0]};
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       dp_out = dmem_load_data;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       dp_out = {{24 {1'b0}}, dmem_load_data [7 : 0]};
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       dp_out = {{16 {1'b0}}, dmem_load_data [15 : 0]};
    end
-   else if (c_instr_i_addi) begin
+   if (c_instr_i_addi) begin
       dp_out = rs1_dato + i_immediate;
    end
-   else if (c_instr_i_slti) begin
+   if (c_instr_i_slti) begin
       dp_out = $signed (rs1_dato) < $signed (i_immediate);
    end
-   else if (c_instr_i_sltiu) begin
+   if (c_instr_i_sltiu) begin
       dp_out = rs1_dato < i_immediate;
    end
-   else if (c_instr_i_xori) begin
+   if (c_instr_i_xori) begin
       dp_out = rs1_dato ^ i_immediate;
    end
-   else if (c_instr_i_ori) begin
+   if (c_instr_i_ori) begin
       dp_out = rs1_dato | i_immediate;
    end
-   else if (c_instr_i_andi) begin
+   if (c_instr_i_andi) begin
       dp_out = rs1_dato & i_immediate;
    end
-   else if (c_instr_i_slli) begin
+   if (c_instr_i_slli) begin
       dp_out = rs1_dato << shamt;
    end
-   else if (c_instr_i_srli) begin
+   if (c_instr_i_srli) begin
       dp_out = rs1_dato >> shamt;
    end
-   else if (c_instr_i_srai) begin
+   if (c_instr_i_srai) begin
       dp_out = $signed (rs1_dato) >>> shamt;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       dp_out = rs1_dato + rs2_dato;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       dp_out = rs1_dato - rs2_dato;
    end
-   else if (c_instr_i_sll) begin
-      dp_out = rs1_dato << rs2_dato;
+   if (c_instr_i_sll) begin
+      dp_out = rs1_dato << rs2_dato [4 : 0];
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       dp_out = $signed (rs1_dato) < $signed (rs2_dato);
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       dp_out = rs1_dato < rs2_dato;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       dp_out = rs1_dato ^ rs2_dato;
    end
-   else if (c_instr_i_srl) begin
-      dp_out = rs1_dato >> rs2_dato;
+   if (c_instr_i_srl) begin
+      dp_out = rs1_dato >> rs2_dato [4 : 0];
    end
-   else if (c_instr_i_sra) begin
-      dp_out = $signed (rs1_dato) >>> rs2_dato;
+   if (c_instr_i_sra) begin
+      dp_out = $signed (rs1_dato) >>> rs2_dato [4 : 0];
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       dp_out = rs1_dato | rs2_dato;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       dp_out = rs1_dato & rs2_dato;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       dp_out = i_m_mul [31 : 0];
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       dp_out = i_m_mulh [63 : 32];
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       dp_out = i_m_mulhu [63 : 32];
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       dp_out = i_m_mulhsu [63 : 32];
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       dp_out = $signed (rs1_dato) / $signed (rs2_dato);
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       dp_out = rs1_dato / rs2_dato;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       dp_out = $signed (rs1_dato) % $signed (rs2_dato);
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       dp_out = rs1_dato % rs2_dato;
    end
-   else if (c_instr_c_addi4sp) begin
+   if (c_instr_c_addi4sp) begin
       dp_out = rs1_dato + sign_ext_imm8;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       dp_out = dmem_load_data;
    end
-   else if (c_instr_c_addi) begin
+   if (c_instr_c_addi) begin
       dp_out = rs1_dato + sign_ext_imm6;
    end
-   else if (c_instr_c_jal) begin
+   if (c_instr_c_jal) begin
       dp_out = pc + 2;
    end
-   else if (c_instr_c_li) begin
+   if (c_instr_c_li) begin
       dp_out = {{26 {instr [12]}}, instr [12], instr [6 : 2]};
    end
-   else if (c_instr_c_lui) begin
+   if (c_instr_c_lui) begin
       dp_out = {{14 {instr [12]}}, instr [12], instr [6 : 2], 12'h000};
    end
-   else if (c_instr_c_addi16sp) begin
+   if (c_instr_c_addi16sp) begin
       dp_out = rs1_dato + sign_ext_imm6_sp;
    end
-   else if (c_instr_c_srli) begin
+   if (c_instr_c_srli) begin
       dp_out = rs1_dato >> i_shamt_c;
    end
-   else if (c_instr_c_srai) begin
+   if (c_instr_c_srai) begin
       dp_out = $signed (rs1_dato) >>> i_shamt_c;
    end
-   else if (c_instr_c_andi) begin
+   if (c_instr_c_andi) begin
       dp_out = rs1_dato & sign_ext_imm6;
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       dp_out = rs1_dato - rs2_dato;
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       dp_out = rs1_dato ^ rs2_dato;
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       dp_out = rs1_dato | rs2_dato;
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       dp_out = rs1_dato & rs2_dato;
    end
-   else if (c_instr_c_slli) begin
+   if (c_instr_c_slli) begin
       dp_out = rs1_dato << i_shamt_c;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       dp_out = dmem_load_data;
    end
-   else if (c_instr_c_mv) begin
+   if (c_instr_c_mv) begin
       dp_out = rs2_dato;
    end
-   else if (c_instr_c_jalr) begin
+   if (c_instr_c_jalr) begin
       dp_out = pc + 2;
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       dp_out = rs1_dato + rs2_dato;
    end
 end
 always_comb begin
    rd_dati = 32'hxxxxxxxx;
-   unique if (c_instr_i_lui) begin
+   if (c_instr_i_lui) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_auipc) begin
+   if (c_instr_i_auipc) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_jal) begin
+   if (c_instr_i_jal) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_jalr) begin
+   if (c_instr_i_jalr) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_addi) begin
+   if (c_instr_i_addi) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_slti) begin
+   if (c_instr_i_slti) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_sltiu) begin
+   if (c_instr_i_sltiu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_xori) begin
+   if (c_instr_i_xori) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_ori) begin
+   if (c_instr_i_ori) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_andi) begin
+   if (c_instr_i_andi) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_slli) begin
+   if (c_instr_i_slli) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_srli) begin
+   if (c_instr_i_srli) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_srai) begin
+   if (c_instr_i_srai) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_sll) begin
+   if (c_instr_i_sll) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_srl) begin
+   if (c_instr_i_srl) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_sra) begin
+   if (c_instr_i_sra) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_addi4sp) begin
+   if (c_instr_c_addi4sp) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_addi) begin
+   if (c_instr_c_addi) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_jal) begin
+   if (c_instr_c_jal) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_li) begin
+   if (c_instr_c_li) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_lui) begin
+   if (c_instr_c_lui) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_addi16sp) begin
+   if (c_instr_c_addi16sp) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_srli) begin
+   if (c_instr_c_srli) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_srai) begin
+   if (c_instr_c_srai) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_andi) begin
+   if (c_instr_c_andi) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_slli) begin
+   if (c_instr_c_slli) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_mv) begin
+   if (c_instr_c_mv) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_jalr) begin
+   if (c_instr_c_jalr) begin
       rd_dati = dp_out;
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       rd_dati = dp_out;
    end
 end
 always_comb begin
    rd_addr = 5'hxx;
-   unique if (c_instr_i_lui) begin
+   if (c_instr_i_lui) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_auipc) begin
+   if (c_instr_i_auipc) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_jal) begin
+   if (c_instr_i_jal) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_jalr) begin
+   if (c_instr_i_jalr) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_addi) begin
+   if (c_instr_i_addi) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_slti) begin
+   if (c_instr_i_slti) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_sltiu) begin
+   if (c_instr_i_sltiu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_xori) begin
+   if (c_instr_i_xori) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_ori) begin
+   if (c_instr_i_ori) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_andi) begin
+   if (c_instr_i_andi) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_slli) begin
+   if (c_instr_i_slli) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_srli) begin
+   if (c_instr_i_srli) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_srai) begin
+   if (c_instr_i_srai) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_sll) begin
+   if (c_instr_i_sll) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_srl) begin
+   if (c_instr_i_srl) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_sra) begin
+   if (c_instr_i_sra) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       rd_addr = rdi;
    end
-   else if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       rd_addr = rdi;
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       rd_addr = rdi;
    end
-   else if (c_instr_c_addi4sp) begin
+   if (c_instr_c_addi4sp) begin
       rd_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       rd_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_addi) begin
+   if (c_instr_c_addi) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_jal) begin
+   if (c_instr_c_jal) begin
       rd_addr = 1;
    end
-   else if (c_instr_c_li) begin
+   if (c_instr_c_li) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_lui) begin
+   if (c_instr_c_lui) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_addi16sp) begin
+   if (c_instr_c_addi16sp) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_srli) begin
+   if (c_instr_c_srli) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_srai) begin
+   if (c_instr_c_srai) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_andi) begin
+   if (c_instr_c_andi) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       rd_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_slli) begin
+   if (c_instr_c_slli) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_mv) begin
+   if (c_instr_c_mv) begin
       rd_addr = instr [11 : 7];
    end
-   else if (c_instr_c_jalr) begin
+   if (c_instr_c_jalr) begin
       rd_addr = 1;
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       rd_addr = instr [11 : 7];
    end
 end
 always_comb begin
    rs2_addr = 5'hxx;
-   unique if (c_instr_i_beq) begin
+   if (c_instr_i_beq) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_bne) begin
+   if (c_instr_i_bne) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_blt) begin
+   if (c_instr_i_blt) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_bge) begin
+   if (c_instr_i_bge) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_bltu) begin
+   if (c_instr_i_bltu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_bgeu) begin
+   if (c_instr_i_bgeu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sll) begin
+   if (c_instr_i_sll) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_srl) begin
+   if (c_instr_i_srl) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_sra) begin
+   if (c_instr_i_sra) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       rs2_addr = rs2i;
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       rs2_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       rs2_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       rs2_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       rs2_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       rs2_addr = {2'b01, instr [4 : 2]};
    end
-   else if (c_instr_c_mv) begin
+   if (c_instr_c_mv) begin
       rs2_addr = instr [6 : 2];
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       rs2_addr = instr [6 : 2];
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       rs2_addr = instr [6 : 2];
    end
 end
 always_comb begin
    rs1_addr = 5'hxx;
-   unique if (c_instr_i_jalr) begin
+   if (c_instr_i_jalr) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_beq) begin
+   if (c_instr_i_beq) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_bne) begin
+   if (c_instr_i_bne) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_blt) begin
+   if (c_instr_i_blt) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_bge) begin
+   if (c_instr_i_bge) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_bltu) begin
+   if (c_instr_i_bltu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_bgeu) begin
+   if (c_instr_i_bgeu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_addi) begin
+   if (c_instr_i_addi) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_slti) begin
+   if (c_instr_i_slti) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sltiu) begin
+   if (c_instr_i_sltiu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_xori) begin
+   if (c_instr_i_xori) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_ori) begin
+   if (c_instr_i_ori) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_andi) begin
+   if (c_instr_i_andi) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_slli) begin
+   if (c_instr_i_slli) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_srli) begin
+   if (c_instr_i_srli) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_srai) begin
+   if (c_instr_i_srai) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sll) begin
+   if (c_instr_i_sll) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_srl) begin
+   if (c_instr_i_srl) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_sra) begin
+   if (c_instr_i_sra) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       rs1_addr = rs1i;
    end
-   else if (c_instr_c_addi4sp) begin
+   if (c_instr_c_addi4sp) begin
       rs1_addr = 2;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_addi) begin
+   if (c_instr_c_addi) begin
       rs1_addr = instr [11 : 7];
    end
-   else if (c_instr_c_addi16sp) begin
+   if (c_instr_c_addi16sp) begin
       rs1_addr = instr [11 : 7];
    end
-   else if (c_instr_c_srli) begin
+   if (c_instr_c_srli) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_srai) begin
+   if (c_instr_c_srai) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_andi) begin
+   if (c_instr_c_andi) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_beqz) begin
+   if (c_instr_c_beqz) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_bnez) begin
+   if (c_instr_c_bnez) begin
       rs1_addr = {2'b01, instr [9 : 7]};
    end
-   else if (c_instr_c_slli) begin
+   if (c_instr_c_slli) begin
       rs1_addr = instr [11 : 7];
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       rs1_addr = 2;
    end
-   else if (c_instr_c_jr) begin
+   if (c_instr_c_jr) begin
       rs1_addr = instr [11 : 7];
    end
-   else if (c_instr_c_jalr) begin
+   if (c_instr_c_jalr) begin
       rs1_addr = instr [11 : 7];
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       rs1_addr = instr [11 : 7];
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       rs1_addr = 2;
    end
 end
@@ -1116,19 +1116,19 @@ assign rs2_dato = (rs2_addr == 0) ? 0 : rf [rs2_addr];
 assign rs1_dato = (rs1_addr == 0) ? 0 : rf [rs1_addr];
 always_comb begin
    succ = 4'hx;
-   unique if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       succ = instr [23 : 20];
    end
 end
 always_comb begin
    pred = 4'hx;
-   unique if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       pred = instr [27 : 24];
    end
 end
 always_comb begin
    fm = 4'hx;
-   unique if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       fm = instr [31 : 28];
    end
 end
@@ -1151,19 +1151,19 @@ always_comb begin
    for (integer i = 0; i < $size (pc_next); i = i + 1) begin
       pc_next [i] = 1'bx;
    end
-   unique if (c_instr_i_lui) begin
+   if (c_instr_i_lui) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_auipc) begin
+   if (c_instr_i_auipc) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_jal) begin
+   if (c_instr_i_jal) begin
       pc_next = pc + offset_20;
    end
-   else if (c_instr_i_jalr) begin
+   if (c_instr_i_jalr) begin
       pc_next = rs1_dato + imm_11;
    end
-   else if (c_instr_i_beq) begin
+   if (c_instr_i_beq) begin
       if (c_cond_beq) begin
          pc_next = pc + {b_type, 1'b0};
       end
@@ -1171,7 +1171,7 @@ always_comb begin
          pc_next = pc + 4;
       end
    end
-   else if (c_instr_i_bne) begin
+   if (c_instr_i_bne) begin
       if (c_cond_bne) begin
          pc_next = pc + {b_type, 1'b0};
       end
@@ -1179,7 +1179,7 @@ always_comb begin
          pc_next = pc + 4;
       end
    end
-   else if (c_instr_i_blt) begin
+   if (c_instr_i_blt) begin
       if (c_cond_blt) begin
          pc_next = pc + {b_type, 1'b0};
       end
@@ -1187,7 +1187,7 @@ always_comb begin
          pc_next = pc + 4;
       end
    end
-   else if (c_instr_i_bge) begin
+   if (c_instr_i_bge) begin
       if (c_cond_bge) begin
          pc_next = pc + {b_type, 1'b0};
       end
@@ -1195,7 +1195,7 @@ always_comb begin
          pc_next = pc + 4;
       end
    end
-   else if (c_instr_i_bltu) begin
+   if (c_instr_i_bltu) begin
       if (c_cond_bltu) begin
          pc_next = pc + {b_type, 1'b0};
       end
@@ -1203,7 +1203,7 @@ always_comb begin
          pc_next = pc + 4;
       end
    end
-   else if (c_instr_i_bgeu) begin
+   if (c_instr_i_bgeu) begin
       if (c_cond_bgeu) begin
          pc_next = pc + {b_type, 1'b0};
       end
@@ -1211,172 +1211,172 @@ always_comb begin
          pc_next = pc + 4;
       end
    end
-   else if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_addi) begin
+   if (c_instr_i_addi) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_slti) begin
+   if (c_instr_i_slti) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sltiu) begin
+   if (c_instr_i_sltiu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_xori) begin
+   if (c_instr_i_xori) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_ori) begin
+   if (c_instr_i_ori) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_andi) begin
+   if (c_instr_i_andi) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_slli) begin
+   if (c_instr_i_slli) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_srli) begin
+   if (c_instr_i_srli) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_srai) begin
+   if (c_instr_i_srai) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sll) begin
+   if (c_instr_i_sll) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_srl) begin
+   if (c_instr_i_srl) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_sra) begin
+   if (c_instr_i_sra) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_ecall) begin
+   if (c_instr_i_ecall) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_i_ebreak) begin
+   if (c_instr_i_ebreak) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       pc_next = pc + 4;
    end
-   else if (c_instr_c_addi4sp) begin
+   if (c_instr_c_addi4sp) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_nop) begin
+   if (c_instr_c_nop) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_addi) begin
+   if (c_instr_c_addi) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_jal) begin
+   if (c_instr_c_jal) begin
       pc_next = pc + imm_j_c;
    end
-   else if (c_instr_c_li) begin
+   if (c_instr_c_li) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_lui) begin
+   if (c_instr_c_lui) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_addi16sp) begin
+   if (c_instr_c_addi16sp) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_srli) begin
+   if (c_instr_c_srli) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_srai) begin
+   if (c_instr_c_srai) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_andi) begin
+   if (c_instr_c_andi) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_j) begin
+   if (c_instr_c_j) begin
       pc_next = pc + imm_j_c;
    end
-   else if (c_instr_c_beqz) begin
+   if (c_instr_c_beqz) begin
       if (c_cond_beqz_c) begin
          pc_next = pc + sign_ext_imm8_c;
       end
@@ -1384,7 +1384,7 @@ always_comb begin
          pc_next = pc + 2;
       end
    end
-   else if (c_instr_c_bnez) begin
+   if (c_instr_c_bnez) begin
       if (c_cond_bnez_c) begin
          pc_next = pc + sign_ext_imm8_c;
       end
@@ -1392,28 +1392,28 @@ always_comb begin
          pc_next = pc + 2;
       end
    end
-   else if (c_instr_c_slli) begin
+   if (c_instr_c_slli) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_jr) begin
+   if (c_instr_c_jr) begin
       pc_next = rs1_dato;
    end
-   else if (c_instr_c_mv) begin
+   if (c_instr_c_mv) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_ebreak) begin
+   if (c_instr_c_ebreak) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_jalr) begin
+   if (c_instr_c_jalr) begin
       pc_next = rs1_dato;
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       pc_next = pc + 2;
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       pc_next = pc + 2;
    end
 end
@@ -1521,214 +1521,214 @@ assign c_instr_i_auipc = (c_cmp (opcode_i, 7'b0010111));
 assign c_instr_i_lui = (c_cmp (opcode_i, 7'b0110111));
 always_comb begin
    c_dmem_store = 1'b0;
-   unique if (c_instr_i_sb) begin
+   if (c_instr_i_sb) begin
       c_dmem_store = 1'b1;
    end
-   else if (c_instr_i_sh) begin
+   if (c_instr_i_sh) begin
       c_dmem_store = 1'b1;
    end
-   else if (c_instr_i_sw) begin
+   if (c_instr_i_sw) begin
       c_dmem_store = 1'b1;
    end
-   else if (c_instr_c_sw) begin
+   if (c_instr_c_sw) begin
       c_dmem_store = 1'b1;
    end
-   else if (c_instr_c_swsp) begin
+   if (c_instr_c_swsp) begin
       c_dmem_store = 1'b1;
    end
 end
 always_comb begin
    c_dmem_load = 1'b0;
-   unique if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       c_dmem_load = 1'b1;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       c_dmem_load = 1'b1;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       c_dmem_load = 1'b1;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       c_dmem_load = 1'b1;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       c_dmem_load = 1'b1;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       c_dmem_load = 1'b1;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       c_dmem_load = 1'b1;
    end
 end
 always_comb begin
    c_rf_write = 1'b0;
-   unique if (c_instr_i_lui) begin
+   if (c_instr_i_lui) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_auipc) begin
+   if (c_instr_i_auipc) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_jal) begin
+   if (c_instr_i_jal) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_jalr) begin
+   if (c_instr_i_jalr) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_lb) begin
+   if (c_instr_i_lb) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_lh) begin
+   if (c_instr_i_lh) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_lw) begin
+   if (c_instr_i_lw) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_lbu) begin
+   if (c_instr_i_lbu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_lhu) begin
+   if (c_instr_i_lhu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_addi) begin
+   if (c_instr_i_addi) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_slti) begin
+   if (c_instr_i_slti) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_sltiu) begin
+   if (c_instr_i_sltiu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_xori) begin
+   if (c_instr_i_xori) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_ori) begin
+   if (c_instr_i_ori) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_andi) begin
+   if (c_instr_i_andi) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_slli) begin
+   if (c_instr_i_slli) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_srli) begin
+   if (c_instr_i_srli) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_srai) begin
+   if (c_instr_i_srai) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_add) begin
+   if (c_instr_i_add) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_sub) begin
+   if (c_instr_i_sub) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_sll) begin
+   if (c_instr_i_sll) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_slt) begin
+   if (c_instr_i_slt) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_sltu) begin
+   if (c_instr_i_sltu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_xor) begin
+   if (c_instr_i_xor) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_srl) begin
+   if (c_instr_i_srl) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_sra) begin
+   if (c_instr_i_sra) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_or) begin
+   if (c_instr_i_or) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_and) begin
+   if (c_instr_i_and) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_i_fence) begin
+   if (c_instr_i_fence) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_mul) begin
+   if (c_instr_m_mul) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_mulh) begin
+   if (c_instr_m_mulh) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_mulhu) begin
+   if (c_instr_m_mulhu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_mulhsu) begin
+   if (c_instr_m_mulhsu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_div) begin
+   if (c_instr_m_div) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_divu) begin
+   if (c_instr_m_divu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_rem) begin
+   if (c_instr_m_rem) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_m_remu) begin
+   if (c_instr_m_remu) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_addi4sp) begin
+   if (c_instr_c_addi4sp) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_lw) begin
+   if (c_instr_c_lw) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_addi) begin
+   if (c_instr_c_addi) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_jal) begin
+   if (c_instr_c_jal) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_li) begin
+   if (c_instr_c_li) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_lui) begin
+   if (c_instr_c_lui) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_addi16sp) begin
+   if (c_instr_c_addi16sp) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_srli) begin
+   if (c_instr_c_srli) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_srai) begin
+   if (c_instr_c_srai) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_andi) begin
+   if (c_instr_c_andi) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_sub) begin
+   if (c_instr_c_sub) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_xor) begin
+   if (c_instr_c_xor) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_or) begin
+   if (c_instr_c_or) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_and) begin
+   if (c_instr_c_and) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_slli) begin
+   if (c_instr_c_slli) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_lwsp) begin
+   if (c_instr_c_lwsp) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_mv) begin
+   if (c_instr_c_mv) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_jalr) begin
+   if (c_instr_c_jalr) begin
       c_rf_write = 1'b1;
    end
-   else if (c_instr_c_add) begin
+   if (c_instr_c_add) begin
       c_rf_write = 1'b1;
    end
 end

@@ -9,7 +9,7 @@ module RV32IMC_1P_RF (
    input clk);
 
 //------------------- Register declaration(s):
-reg  [31 : 0] rf [15 : 0];
+reg  [31 : 0] rf [31 : 0];
 
 //------------------- Procedural register declaration(s):
 reg  [31 : 0] rs2_dato;

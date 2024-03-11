@@ -4,7 +4,7 @@
    SPDX-License-Identifier: Apache-2.0
 
    An already customized version of program memory.
-   Demonstrates route by name (instr, pc).
+   Demonstrates routing by name (instr, pc).
 
 <"        
 cluster c_pmem {      

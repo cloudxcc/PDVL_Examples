@@ -1,0 +1,25 @@
+17:59:40 **** Incremental Build of configuration Release for project blinky16 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32imc -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\mSoC_RV32IMC_1P\v0.1\src\dyn_tests\system\blinky16\ws_blinky16\blinky16\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: blinky16.elf
+Invoking: GNU RISC-V Cross C Linker
+riscv64-unknown-elf-gcc -march=rv32imc -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky16.map" -o "blinky16.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky16.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky16.elf"  "blinky16.hex"
+Finished building: blinky16.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky16.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1504	   1080	     28	   2612	    a34	blinky16.elf
+Finished building: blinky16.siz
+ 
+
+17:59:41 Build Finished (took 484ms)
+

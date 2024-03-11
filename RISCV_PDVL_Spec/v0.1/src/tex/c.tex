@@ -470,7 +470,7 @@ C.FLDSP& offset[5] & dest        & offset[4:3$\vert$8:6] & C2 \\
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent item [31:0] offset\_lwsp\_c = \{\{26\{1'b0\}\}, instr[3:2], instr[12], instr[6:4], 2'b00\};\\%pdvlrvc
 \indent d\_dmem\_load\_addr\_lwsp\_c \{ dmem\_load\_addr = offset\_lwsp\_c + rs1\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_lwsp \{ unique @c\_instr\_c\_lwsp \{\\%pdvlrvc
+\indent tr\_rv32c\_lwsp \{ @c\_instr\_c\_lwsp \{\\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1sp\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_dmem\_load\_addr\_lwsp\_c; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_c\_addr; \\%pdvlrvc
@@ -552,7 +552,7 @@ C.FSDSP& offset[5:3$\vert$8:6] & src & C2 \\
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent item [31:0] offset\_swsp\_c = \{\{25\{1'b0\}\}, instr[8:7], instr[12:9], 2'b00\};\\%pdvlrvc
 \indent d\_dmem\_store\_addr\_sp\_c \{ dmem\_store\_addr = offset\_swsp\_c + rs1\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_swsp \{ unique @c\_instr\_c\_swsp \{ \\%pdvlrvc
+\indent tr\_rv32c\_swsp \{ @c\_instr\_c\_swsp \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1sp\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_dmem\_store\_addr\_sp\_c; \\%pdvlrvc
@@ -659,7 +659,7 @@ C.FLD& offset[5:3] & base & offset[7:6] & dest & C0 \\
 %   ///////////////////////////////////////////// \\%pdvlrvc
 %   // C.LW \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
-\indent tr\_rv32c\_lw \{ unique @c\_instr\_c\_lw \{\\%pdvlrvc
+\indent tr\_rv32c\_lw \{ @c\_instr\_c\_lw \{\\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_dmem\_load\_addr\_c; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rda1\_c\_addr;\\%pdvlrvc
@@ -726,7 +726,7 @@ C.FSD& offset[5:3] & base & offset[7:6] & src & C0 \\
 %   ///////////////////////////////////////////// \\%pdvlrvc
 %   // C.SW \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
-\indent tr\_rv32c\_sw \{ unique @c\_instr\_c\_sw \{ \\%pdvlrvc
+\indent tr\_rv32c\_sw \{ @c\_instr\_c\_sw \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_dmem\_store\_addr\_c; \\%pdvlrvc
@@ -793,7 +793,7 @@ C.JAL & offset[11$\vert$4$\vert$9:8$\vert$10$\vert$6$\vert$7$\vert$3:1$\vert$5] 
 \indent item [31:0] imm\_j\_c = \{\{26\{instr[12]\}\}, instr[12], instr[8], \\%pdvlrvc
 \indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent} instr[10:9], instr[6], instr[7], instr[2], instr[11], instr[5:3], 1'b0\};\\%pdvlrvc
 \indent d\_pc\_j\_c \{ pc\_next = pc + imm\_j\_c; \}\\%pdvlrvc
-\indent tr\_rv32c\_j \{ unique @c\_instr\_c\_j \{\\%pdvlrvc
+\indent tr\_rv32c\_j \{ @c\_instr\_c\_j \{\\%pdvlrvc
 \indent \hspace{\parindent} d\_pc\_j\_c; \} \} \\%pdvlrvc
 \\
 %   ///////////////////////////////////////////// \\%pdvlrvc
@@ -803,7 +803,7 @@ C.JAL & offset[11$\vert$4$\vert$9:8$\vert$10$\vert$6$\vert$7$\vert$3:1$\vert$5] 
 \indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent} instr[10:9], instr[6], instr[7], instr[2], instr[11], instr[5:3], 1'b0\};\\%pdvlrvc
 \indent d\_jal\_c \{ dp\_out = pc + 2; \}\\%pdvlrvc
 \indent d\_rd\_link\_c\_addr \{ rd\_addr = 1; \}\\%pdvlrvc
-\indent tr\_rv32c\_jal \{ unique @c\_instr\_c\_jal \{\\%pdvlrvc
+\indent tr\_rv32c\_jal \{ @c\_instr\_c\_jal \{\\%pdvlrvc
 \indent \hspace{\parindent} d\_jal\_c; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rd\_link\_c\_addr; c\_rf\_write;  \\%pdvlrvc
 \indent \hspace{\parindent} d\_pc\_j\_c; \} \} \\%pdvlrvc
@@ -843,7 +843,7 @@ C.JALR & src$\neq$0 & 0 & C2 \\
 %   // C.JR \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_pc\_jr\_c \{ pc\_next = rs1\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_jr \{ unique @c\_instr\_c\_jr \{ \\%pdvlrvc
+\indent tr\_rv32c\_jr \{ @c\_instr\_c\_jr \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_pc\_jr\_c; \} \} \\%pdvlrvc
 \\
@@ -852,7 +852,7 @@ C.JALR & src$\neq$0 & 0 & C2 \\
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_pc\_jalr\_c \{ pc\_next = rs1\_dato; \}\\%pdvlrvc
 \indent d\_jalr\_c \{ dp\_out = pc + 2; \}\\%pdvlrvc
-\indent tr\_rv32c\_jalr \{ unique @c\_instr\_c\_jalr \{ \\%pdvlrvc
+\indent tr\_rv32c\_jalr \{ @c\_instr\_c\_jalr \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_jalr\_c; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rd\_link\_c\_addr; c\_rf\_write;  \\%pdvlrvc
@@ -908,7 +908,7 @@ C.BNEZ & offset[8$\vert$4:3] & src & offset[7:6$\vert$2:1$\vert$5] & C1 \\
 \indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent} instr[6:5], instr[2], instr[11:10], instr[4:3], 1'b0\};\\%pdvlrvc
 \indent d\_pc\_branch\_c \{ pc\_next = pc + sign\_ext\_imm8\_c; \}\\%pdvlrvc
 \indent c\_cond\_beqz\_c \{ if (rs1\_dato == 0) this; \}\\%pdvlrvc
-\indent tr\_rv32c\_beqz \{ unique @c\_instr\_c\_beqz \{ \\%pdvlrvc
+\indent tr\_rv32c\_beqz \{ @c\_instr\_c\_beqz \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr;\\%pdvlrvc
 \indent \hspace{\parindent} @c\_cond\_beqz\_c \{ d\_pc\_branch\_c; \}\\%pdvlrvc
 \indent \hspace{\parindent} else \{ d\_pc2; \} \} \} \\%pdvlrvc
@@ -917,7 +917,7 @@ C.BNEZ & offset[8$\vert$4:3] & src & offset[7:6$\vert$2:1$\vert$5] & C1 \\
 %   // C.BNEZ \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent c\_cond\_bnez\_c \{ if (rs1\_dato != 0) this; \}\\%pdvlrvc
-\indent tr\_rv32c\_bnez \{ unique @c\_instr\_c\_bnez \{ \\%pdvlrvc
+\indent tr\_rv32c\_bnez \{ @c\_instr\_c\_bnez \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} @c\_cond\_bnez\_c \{ d\_pc\_branch\_c; \}\\%pdvlrvc
 \indent \hspace{\parindent} else \{ d\_pc2; \} \} \} \\%pdvlrvc
@@ -969,7 +969,7 @@ C.LUI    & nzimm[17] & $\textrm{dest}{\neq}{\left\{0,2\right\}}$ & nzimm[16:12] 
 %   // C.LI\\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_li\_c \{ dp\_out = \{\{26\{instr[12]\}\}, instr[12], instr[6:2]\}; \}\\%pdvlrvc
-\indent tr\_rv32c\_li \{ unique @c\_instr\_c\_li \{ \\%pdvlrvc
+\indent tr\_rv32c\_li \{ @c\_instr\_c\_li \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_li\_c; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rd\_c\_addr; c\_rf\_write;  \\%pdvlrvc
 \indent \hspace{\parindent} d\_pc2; \} \} \\%pdvlrvc
@@ -978,7 +978,7 @@ C.LUI    & nzimm[17] & $\textrm{dest}{\neq}{\left\{0,2\right\}}$ & nzimm[16:12] 
 %   // C.LUI \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_lui\_c \{ dp\_out = \{\{14\{instr[12]\}\}, instr[12], instr[6:2], 12'h000\}; \}\\%pdvlrvc
-\indent tr\_rv32c\_lui \{ unique @c\_instr\_c\_lui \{ \\%pdvlrvc
+\indent tr\_rv32c\_lui \{ @c\_instr\_c\_lui \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_lui\_c; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_dp\_out; d\_rd\_c\_addr; c\_rf\_write;  \\%pdvlrvc
 \indent \hspace{\parindent} d\_pc2; \} \} \\%pdvlrvc
@@ -1046,7 +1046,7 @@ C.ADDI16SP & nzimm[9] & 2 & nzimm[4$\vert$6$\vert$8:7$\vert$5] & C1 \\
 %   // .C.ADDI\\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_addi \{ dp\_out = rs1\_dato + sign\_ext\_imm6; \}\\%pdvlrvc
-\indent tr\_rv32c\_addi \{ unique @c\_instr\_c\_addi \{\\%pdvlrvc
+\indent tr\_rv32c\_addi \{ @c\_instr\_c\_addi \{\\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_addi; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_c\_addr;\\%pdvlrvc
@@ -1056,7 +1056,7 @@ C.ADDI16SP & nzimm[9] & 2 & nzimm[4$\vert$6$\vert$8:7$\vert$5] & C1 \\
 %   // C.ADDI16SP\\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_addi16sp \{ dp\_out = rs1\_dato + sign\_ext\_imm6\_sp; \}\\%pdvlrvc
-\indent tr\_rv32c\_addi16sp \{ unique @c\_instr\_c\_addi16sp \{ \\%pdvlrvc
+\indent tr\_rv32c\_addi16sp \{ @c\_instr\_c\_addi16sp \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_addi16sp; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_c\_addr;\\%pdvlrvc
@@ -1117,7 +1117,7 @@ C.ADDI4SPN & nzuimm[5:4$\vert$9:6$\vert$2$\vert$3] & dest & C0 \\
 \indent \hspace{\parindent} \hspace{\parindent} \hspace{\parindent} instr[12:11], instr[5], instr[6], 2'b00\};\\%pdvlrvc
 	\\
 \indent d\_c\_addi4sp \{ dp\_out = rs1\_dato + sign\_ext\_imm8; \}\\%pdvlrvc
-\indent tr\_rv32c\_addi4sp \{ unique @c\_instr\_c\_addi4sp \{ \\%pdvlrvc
+\indent tr\_rv32c\_addi4sp \{ @c\_instr\_c\_addi4sp \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1sp\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_addi4sp; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rda1\_c\_addr; \\%pdvlrvc
@@ -1159,7 +1159,7 @@ C.SLLI  & shamt[5] & dest$\neq$0 & shamt[4:0] & C2 \\
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent item [5:0] i\_shamt\_c = \{instr[12], instr[6:2]\};\\%pdvlrvc
 \indent d\_c\_slli \{ dp\_out = rs1\_dato $<<$ i\_shamt\_c; \}\\%pdvlrvc
-\indent tr\_rv32c\_slli \{ unique @c\_instr\_c\_slli \{ \\%pdvlrvc
+\indent tr\_rv32c\_slli \{ @c\_instr\_c\_slli \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_slli; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_c\_addr; \\%pdvlrvc
@@ -1207,7 +1207,7 @@ C.SRAI  & shamt[5] & C.SRAI & dest & shamt[4:0] & C1 \\
 %   // C.SRLI \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_srli \{ dp\_out = rs1\_dato $>>$ i\_shamt\_c; \}\\%pdvlrvc
-\indent tr\_rv32c\_srli \{ unique @c\_instr\_c\_srli \{ \\%pdvlrvc
+\indent tr\_rv32c\_srli \{ @c\_instr\_c\_srli \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_srli; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rda2\_c\_addr;\\%pdvlrvc
@@ -1217,7 +1217,7 @@ C.SRAI  & shamt[5] & C.SRAI & dest & shamt[4:0] & C1 \\
 %   // C.SRAI \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_srai \{ dp\_out = \$signed(rs1\_dato) $>>>$ i\_shamt\_c; \}\\%pdvlrvc
-\indent tr\_rv32c\_srai \{ unique @c\_instr\_c\_srai \{ \\%pdvlrvc
+\indent tr\_rv32c\_srai \{ @c\_instr\_c\_srai \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_srai; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rda2\_c\_addr;\\%pdvlrvc
@@ -1282,7 +1282,7 @@ C.ANDI  & imm[5] & C.ANDI & dest & imm[4:0] & C1 \\
 %   // C.ANDI \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_andi \{ dp\_out = rs1\_dato \& sign\_ext\_imm6; \}\\%pdvlrvc
-\indent tr\_rv32c\_andi \{ unique @c\_instr\_c\_andi \{ \\%pdvlrvc
+\indent tr\_rv32c\_andi \{ @c\_instr\_c\_andi \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_andi; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rda2\_c\_addr;\\%pdvlrvc
@@ -1319,7 +1319,7 @@ C.ADD & dest$\neq$0 & src$\neq$0 & C2 \\
 %   // C.ADD \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_add \{ dp\_out = rs1\_dato + rs2\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_add \{ unique @c\_instr\_c\_add \{ \\%pdvlrvc
+\indent tr\_rv32c\_add \{ @c\_instr\_c\_add \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_add; \\%pdvlrvc
@@ -1330,7 +1330,7 @@ C.ADD & dest$\neq$0 & src$\neq$0 & C2 \\
 %   // C.MV \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_mv \{ dp\_out = rs2\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_mv \{ unique @c\_instr\_c\_mv \{ \\%pdvlrvc
+\indent tr\_rv32c\_mv \{ @c\_instr\_c\_mv \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_mv; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rd\_c\_addr;\\%pdvlrvc
@@ -1390,7 +1390,7 @@ C.SUBW & dest & C.SUBW & src & C1 \\
 %   // C.AND \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_and \{ dp\_out = rs1\_dato \& rs2\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_and \{ unique @c\_instr\_c\_and \{ \\%pdvlrvc
+\indent tr\_rv32c\_and \{ @c\_instr\_c\_and \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_and; \\%pdvlrvc
@@ -1401,7 +1401,7 @@ C.SUBW & dest & C.SUBW & src & C1 \\
 %   // C.OR \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_or \{ dp\_out = rs1\_dato $\vert$ rs2\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_or \{ unique @c\_instr\_c\_or \{ \\%pdvlrvc
+\indent tr\_rv32c\_or \{ @c\_instr\_c\_or \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_or; \\%pdvlrvc
@@ -1412,7 +1412,7 @@ C.SUBW & dest & C.SUBW & src & C1 \\
 %   // C.XOR \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_xor \{ dp\_out = rs1\_dato $\wedge$ rs2\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_xor \{ unique @c\_instr\_c\_xor \{ \\%pdvlrvc
+\indent tr\_rv32c\_xor \{ @c\_instr\_c\_xor \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_xor; \\%pdvlrvc
@@ -1423,7 +1423,7 @@ C.SUBW & dest & C.SUBW & src & C1 \\
 %   // C.SUB \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
 \indent d\_c\_sub \{ dp\_out = rs1\_dato - rs2\_dato; \}\\%pdvlrvc
-\indent tr\_rv32c\_sub \{ unique @c\_instr\_c\_sub \{ \\%pdvlrvc
+\indent tr\_rv32c\_sub \{ @c\_instr\_c\_sub \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs1a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_rs2a1\_c\_addr; \\%pdvlrvc
 \indent \hspace{\parindent} d\_c\_sub; \\%pdvlrvc
@@ -1525,7 +1525,7 @@ C.NOP & 0 & 0 & 0 & C1 \\
 %   ///////////////////////////////////////////// \\%pdvlrvc
 %   // C.NOP \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
-\indent tr\_rv32c\_nop \{ unique @c\_instr\_c\_nop \{ \\%pdvlrvc
+\indent tr\_rv32c\_nop \{ @c\_instr\_c\_nop \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_pc2; \} \} \\%pdvlrvc
 }
 
@@ -1555,7 +1555,7 @@ C.EBREAK & 0 & C2 \\
 %   ///////////////////////////////////////////// \\%pdvlrvc
 %   // C.EBREAK \\%pdvlrvc
 %   ///////////////////////////////////////////// %pdvlrvc
-\indent tr\_rv32c\_ebreak \{ unique @c\_instr\_c\_ebreak \{ \\%pdvlrvc
+\indent tr\_rv32c\_ebreak \{ @c\_instr\_c\_ebreak \{ \\%pdvlrvc
 \indent \hspace{\parindent} d\_pc2; \} \} \\%pdvlrvc
 \} "\textgreater\\%pdvlrvc
 }
