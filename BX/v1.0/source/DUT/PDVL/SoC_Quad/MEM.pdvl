@@ -1,0 +1,70 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Memory with fixed size
+   "AXI" slave interface for write and read.
+
+<"
+cl_mem {
+      
+   //////////////////////////////////////////////
+   // AXI slave write interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_AWADDR *) [31:0] slv_wr_addr;
+   item (* AXI_SLV_AWDATA *) [31:0] slv_wr_data;
+   item (* AXI_SLV_AWSTRB *) [3:0] slv_wr_strobe;
+   (* AXI_SLV_AWVALID *) c_slv_wr;
+
+   //////////////////////////////////////////////
+   // AXI slave read interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_ARADDR *) [31:0] slv_rd_addr;
+   item (* AXI_SLV_ARDATA=DRIVER *) [31:0] slv_rd_data;
+   (* AXI_SLV_ARVALID *) c_slv_rd_valid;
+   (* AXI_SLV_ARREADY=DRIVER *) c_slv_rd_ready;
+
+   //////////////////////////////////////////////
+   // memory model write                              
+   //////////////////////////////////////////////
+   reg [31:0] ram [255:0]; 
+    
+   reg [7:0] slv_wr_addr_c5;
+   reg [3:0] slv_wr_strobe_c5;
+   reg [31:0] slv_wr_data_c5;
+   d_slv_wr_c5 { slv_wr_addr_c5 = slv_wr_addr;
+                 slv_wr_strobe_c5 = slv_wr_strobe;
+                 slv_wr_data_c5 = slv_wr_data; }
+   
+   d_mem_store { ram[slv_wr_addr_c5] = slv_wr_data_c5 & {{8{slv_wr_strobe_c5[3]}}, {8{slv_wr_strobe_c5[2]}}, {8{slv_wr_strobe_c5[1]}}, {8{slv_wr_strobe_c5[0]}}}; }
+
+   c_mem_store { if (c_slv_wr & (slv_wr_addr[11:10] != 2'h1)) this; }
+   c_slv_rd_ready_c4 { if (c_slv_rd_valid & (slv_rd_addr[11:10] != 2'h1)) this; }
+   
+   //////////////////////////////////////////////
+   // memory model sync read
+   //////////////////////////////////////////////
+   reg [32] slv_rd_data_c5;
+   d_slv_rd_data_c5 { slv_rd_data_c5 = ram[slv_rd_addr]; }   
+   
+   reg slv_rd_ready_c5;
+   d_slv_rd_ready_c5 { slv_rd_ready_c5 = c_slv_rd_ready_c4; }
+   c_slv_rd_ready { if (slv_rd_ready_c5 == 1'b1) this; }
+   
+   d_sv_rd_data { slv_rd_data = slv_rd_data_c5; }
+   tr_slv_rd_data { d_sv_rd_data; }
+   
+   tr_clocking { 
+      @e_clk {
+         // write 
+         d_slv_wr_c5;
+         @c_mem_store { c_mem_store_c5#1; }
+         @c_mem_store_c5 { 
+            d_mem_store; } 
+         // read
+         d_slv_rd_data_c5;
+         d_slv_rd_ready_c5; } }           
+
+}
+">

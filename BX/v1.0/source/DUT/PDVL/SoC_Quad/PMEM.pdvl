@@ -1,0 +1,36 @@
+
+   Copyright 2025 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   An already customized version of program memory.
+   Demonstrates routing by name (instr, pc).
+
+<"        
+cluster c_pmem {      
+
+   //////////////////////////////////////////////
+   // Split memory                               
+   //////////////////////////////////////////////
+   reg [16] pmemh [512];
+   reg [16] pmeml [512];
+
+   //////////////////////////////////////////////
+   // Async read                             
+   //////////////////////////////////////////////
+   reg  [32 - 1 : 0] mem32 [128 * 256 - 1:0];
+
+   item [31:0] instr0;
+   d_instr0 { instr0 = mem32[pc_read_c0[31:2]]; }
+   e_neg_clk negedge clk;
+   tr_clocking_neg { 
+      @e_clk { 
+         d_instr0; } }
+
+   reg [31:0] instr_reg_c1;
+   d_instr { instr_reg_c1 = instr0; }
+   tr_clocking_read { 
+      @e_clk { 
+         d_instr; } }
+}
+">

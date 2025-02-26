@@ -1,0 +1,195 @@
+
+   Copyright 2024 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+
+<"        
+cluster c_tc {      
+
+   //////////////////////////////////////////////
+   // AXI slave write interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_AWADDR *) [11:0] slv_wr_addr;
+   item (* AXI_SLV_AWDATA *) [31:0] slv_wr_data;
+   (* AXI_SLV_AWVALID *) c_slv_wr;
+
+   //////////////////////////////////////////////
+   // AXI slave read interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_ARADDR *) [31:0] slv_rd_addr;
+   item (* AXI_SLV_ARDATA=DRIVER *) [31:0] slv_rd_data;
+   (* AXI_SLV_ARVALID *) c_slv_rd;
+   (* AXI_SLV_ARREADY=DRIVER *) c_slv_rd_ready;  
+   
+   d_dummy { slv_rd_data  = 0; }
+   tr_dummy { d_dummy; }
+
+   reg [2:0] tid_rd0;
+   reg [2:0] tid_rd1;
+   reg [2:0] tid_rd2;
+   reg [2:0] tid_rd3;
+   reg [2:0] tid_rd4;
+   reg [2:0] tid_rd5;
+   reg [2:0] tid_wr;
+   reg [6:0] thread_pipe_valid;
+   reg [7:0] tid_active; 
+   item [10-1:0] pc_set = pc_set_c6;
+   reg [10-1:0] pc_set_c6;
+   d_pc_set { pc_set_c6#1 = slv_wr_data; }
+   item [20:0] pc_pass_next;
+   
+   reg [2:0] fifo [0:0];
+   reg [0:0] fifo_level;
+   
+   item [3:0] tid_next_avail = !tid_active[0] ? 0 :
+                               !tid_active[1] ? 1 :
+                               !tid_active[2] ? 2 :
+                               !tid_active[3] ? 3 :
+                               !tid_active[4] ? 4 :
+                               !tid_active[5] ? 5 : 
+                               !tid_active[6] ? 6 : 7;
+
+   d_reset { tid_wr = 0;
+             tid_rd5 = 0;
+             tid_rd4 = 0;
+             tid_rd3 = 0;
+             tid_rd2 = 0;
+             tid_rd1 = 0; 
+             tid_rd0 = 0;
+             thread_pipe_valid = 7'h01;
+             tid_active = 1; 
+             fifo_level = 0; 
+             } 
+
+   c_pc_pass_current;
+   c_pc_pass_fifo_0;
+   c_pc_pass_set;
+   item [2:0] fifo_0 = fifo[0];
+   
+   d_tid { tid_wr = tid_rd5;
+           tid_rd5 = tid_rd4;
+           tid_rd4 = tid_rd3;
+           tid_rd3 = tid_rd2;
+           tid_rd2 = tid_rd1;
+           tid_rd1 = tid_rd0; 
+           tid_rd0 = tid_wr; }
+   d_tid_fifo { tid_wr = tid_rd5;
+                tid_rd5 = tid_rd4;
+                tid_rd4 = tid_rd3;
+                tid_rd3 = tid_rd2;
+                tid_rd2 = tid_rd1;
+                tid_rd1 = tid_rd0; 
+                tid_rd0 = tid_next_avail;
+                tid_active[tid_next_avail] = 1'b1;} 
+   d_tid_kill { tid_wr = tid_rd5;
+                tid_rd5 = tid_rd4;
+                tid_rd4 = tid_rd3;
+                tid_rd3 = tid_rd2;
+                tid_rd2 = tid_rd1;
+                tid_rd1 = tid_rd0; 
+                tid_rd0 = 3'h0;
+                tid_active[tid_wr] = 1'b0;} 
+                
+   d_thread_pipe_valid { thread_pipe_valid = { thread_pipe_valid[5:0], thread_pipe_valid[6]}; } 
+   d_thread_pipe_valid_kill { thread_pipe_valid = { thread_pipe_valid[5:0], 1'b0}; } 
+   
+   c_tc_start { if (c_slv_wr & (slv_wr_addr[11:0] == 12'h400)) this; }	
+   c_tc_kill { if (c_slv_wr & (slv_wr_addr[11:0] == 12'h404)) this; }	
+   
+   c_thread_pipe_valid { if (thread_pipe_valid[6] == 1'b1) this; }
+   d_insert_into_fifo_tc_start_fifo { fifo[fifo_level] = tid_wr; }
+   d_insert_into_fifo_tc_start_fifo_level { fifo_level = fifo_level + 1; }
+   c_fifo_not_empty { if (fifo_level != 0) this; }                   
+   d_fifo_to_pipe { fifo_level = fifo_level - 1;
+                    thread_pipe_valid = { thread_pipe_valid[5:0], 1'b1}; 
+                    tid_wr = tid_rd5;
+                    tid_rd5 = tid_rd4;
+                    tid_rd4 = tid_rd3;
+                    tid_rd3 = tid_rd2;
+                    tid_rd2 = tid_rd1;
+                    tid_rd1 = tid_rd0; 
+                    tid_rd0 = fifo[0]; } 
+   d_fifo_to_pipe_replace { thread_pipe_valid = { thread_pipe_valid[5:0], 1'b1}; 
+                            tid_wr = tid_rd5;
+                            tid_rd5 = tid_rd4;
+                            tid_rd4 = tid_rd3;
+                            tid_rd3 = tid_rd2;
+                            tid_rd2 = tid_rd1;
+                            tid_rd1 = tid_rd0; 
+                            tid_rd0 = fifo[0]; }
+   d_fifo_to_pipe_replace_fifo { fifo[fifo_level - 1] = tid_wr; } 
+   
+   tr_clocking_pc_no_reset { 
+            @e_clk  { 
+               @c_tc_start{
+                  c_tc_start_c6#2; }
+               @c_tc_kill {
+                  c_tc_kill_c6#2; }
+               d_pc_set;
+               //////////////////////////////////
+               // thread pipe[4] valid
+               //////////////////////////////////
+               @c_thread_pipe_valid {
+                  //////////////////////////////////
+                  // insert into fifo
+                  //////////////////////////////////
+                  @c_tc_start_c6 {
+                     d_insert_into_fifo_tc_start_fifo;
+                  } else 
+                  @c_tc_kill_c6 {
+                  } else {
+                     @c_fifo_not_empty {
+                        d_fifo_to_pipe_replace_fifo;
+                     }
+                  } } } }
+
+   tr_clocking_pc { 
+      @c_sys_rst { d_reset; }
+         else { 
+            @e_clk  { 
+               c_pc_pass_set;
+               //////////////////////////////////
+               // thread pipe[4] valid
+               //////////////////////////////////
+               @c_thread_pipe_valid {
+                  //////////////////////////////////
+                  // insert into fifo
+                  //////////////////////////////////
+                  @c_tc_start_c6 {
+                     d_insert_into_fifo_tc_start_fifo_level;
+                     d_tid_fifo;
+                     d_thread_pipe_valid;
+                  } else 
+                  @c_tc_kill_c6 {
+                     d_tid_kill;
+                     d_thread_pipe_valid_kill;
+                  } else {
+                     @c_fifo_not_empty {
+                        d_fifo_to_pipe_replace;
+                        c_pc_pass_fifo_0;
+                     } else {
+                        d_tid;
+                        d_thread_pipe_valid;
+                        c_pc_pass_current;
+                     }
+                  }
+               } else {
+               //////////////////////////////////
+               // thread pipe[5] invalid
+               //////////////////////////////////
+                  //////////////////////////////////
+                  // insert from fifo
+                  //////////////////////////////////
+                  @c_fifo_not_empty {
+                     d_fifo_to_pipe;
+                     c_pc_pass_fifo_0;
+                  } else {
+                  //////////////////////////////////
+                  // just pass
+                  //////////////////////////////////
+                     d_tid;
+                     d_thread_pipe_valid; }
+               } } } }
+}
+">

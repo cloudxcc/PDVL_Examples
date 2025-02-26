@@ -1,0 +1,53 @@
+
+   Copyright 2025 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Top level implementation:
+      4 mini SoCs with individual ROMs
+      There is one clock used in the system generated in a PLL
+      There are 2 resets:
+         c_ex_rst: global asynchron (external pin)
+         sys_rst: sync. reset set\unset by UART
+
+<"
+////////////////////////////////////////////////////////////////////////
+// FPGA_TOP
+////////////////////////////////////////////////////////////////////////
+build FPGA_TOP {
+              
+   ////////////////////////////////////////////////////////////////////
+   // 4 mini SoCs with individual ROMs
+   ////////////////////////////////////////////////////////////////////
+   foreach n in 4 { 
+      uniquify mSoC _n;					// uniquify mSoC
+      place mSoC_n i_soc_n;             // place individual mSoC
+      place PMEM_n i_soc_n.i_pmem;      // place individual PMEM (different ROM code)
+      join c_pmem i_soc_n.i_pmem; }     //
+
+   ////////////////////////////////////////////////////////////////////
+   // PLL
+   ////////////////////////////////////////////////////////////////////
+   place PLL i_pll;
+   join { item clk;
+          d_clk { clk = clk_in; }
+          tr_pll { d_clk; } } i_pll;
+
+   ////////////////////////////////////////////////////////////////////
+   // Top level reset
+   ////////////////////////////////////////////////////////////////////
+   join {
+      reg sys_rst;
+      c_sys_rst { if (sys_rst == 1) this; }
+      d_sys_rst_set { sys_rst = 1; }
+      d_sys_rst_clr { sys_rst = !rst_cnt[3]; }
+      reg [4] rst_cnt;
+      c_rst_cnt { if (rst_cnt != 4'ha) this; }
+      d_rst_cnt { rst_cnt = rst_cnt + 1; }
+      tr_sys_rst { 
+         @c_ex_rst { d_sys_rst_set; }
+         else { @e_clk { d_sys_rst_clr; } } }
+      tr_rst_cnt { 
+         @e_clk { @c_rst_cnt { d_rst_cnt; } } } };
+}
+">

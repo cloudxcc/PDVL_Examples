@@ -1,0 +1,25 @@
+12:54:27 **** Build of configuration Release for project blinky84s_0 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.3\src\dyn_tests\system\blinky84s_0\ws_blinky84s_0\blinky84s_0\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: blinky84s_0.elf
+Invoking: GNU RISC-V Cross C++ Linker
+riscv64-unknown-elf-g++ -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky84s_0.map" -o "blinky84s_0.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky84s_0.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky84s_0.elf"  "blinky84s_0.hex"
+Finished building: blinky84s_0.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky84s_0.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1928	   1080	     28	   3036	    bdc	blinky84s_0.elf
+Finished building: blinky84s_0.siz
+ 
+
+12:54:27 Build Finished (took 539ms)
+

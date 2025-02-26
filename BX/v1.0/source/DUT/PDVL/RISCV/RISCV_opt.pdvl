@@ -1,0 +1,708 @@
+
+   Copyright 2025 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+<" cl_rv32i_rf {
+   reg [31:0] rf [255:0]; 
+} ">
+<" cl_rv32i {
+   ///////////////////////////////////////////// 
+   // RV32I, key registers PC, instruction and RF
+   /////////////////////////////////////////////
+   parameter PC_LEN = 10; //20; //
+   item [PC_LEN - 1 :0] pc_c2; 
+   reg [31:0] instr_reg_c2;
+   
+   ///////////////////////////////////////////// 
+   // cycle 0, read instruction from mem32
+   /////////////////////////////////////////////
+   d_instr_reg { instr_reg_c2 = instr_reg_c1; }
+
+   ///////////////////////////////////////////// 
+   // cycle 1, read from RF
+   /////////////////////////////////////////////
+   item [8] rs1_addr_c1 = {tid_rd1, instr_reg_c1[19:15]};
+   item [8] rs2_addr_c1 = {tid_rd1, instr_reg_c1[24:20]};
+   reg [31:0] rs1_dato_reg_c2;
+   reg [31:0] rs2_dato_reg_c2;
+   d_rs1_dato_reg { rs1_dato_reg_c2 = rf[rs1_addr_c1]; }
+   d_rs2_dato_reg { rs2_dato_reg_c2 = rf[rs2_addr_c1]; }
+   reg [8] rd_addr_c6;
+   d_rd_propagate { rd_addr_c6#4 = {tid_rd1, instr_reg_c1[11:7]}; }
+
+   ///////////////////////////////////////////// 
+   // cycle 2, start decoding
+   /////////////////////////////////////////////
+   reg [5] rs1_addr_c2;
+   reg [5] rs2_addr_c2;
+   d_rs_addr { rs1_addr_c2 = instr_reg_c1[19:15];
+               rs2_addr_c2 = instr_reg_c1[24:20]; }
+   item [31:0] rs1_dato_c2 = (rs1_addr_c2 == 0) ? 0 : rs1_dato_reg_c2;
+   item [31:0] rs2_dato_c2 = (rs2_addr_c2 == 0) ? 0 : rs2_dato_reg_c2;
+   reg [32:0] rs1_dato_c3;
+   d_rs1_dato_c3_sra { rs1_dato_c3 = {rs1_dato_c2[31], rs1_dato_c2}; }
+   d_rs1_dato_c3 { rs1_dato_c3 = {1'b0, rs1_dato_c2}; }
+   reg [31:0] rs2_dato_c3;
+   d_rs2_dato_c3 { rs2_dato_c3 = rs2_dato_c2; }
+   
+   ///////////////////////////////////////////// 
+   // Formats 
+   ///////////////////////////////////////////// 
+   item [8] funct7_i = instr_reg_c2[31:25]; 
+   item [3] funct3_i = instr_reg_c2[14:12];
+   item [5] rs2i = instr_reg_c2[24:20];
+   item [5] rs1i = instr_reg_c2[19:15];
+   item [5] rdi = instr_reg_c2[11:7];
+   item [7] opcode_i = instr_reg_c2[6:0];
+   item [12] i_type = instr_reg_c2[31:20];
+   item [12] s_type = {instr_reg_c2[31:25], instr_reg_c2[11:7]};
+   item [11:0] b_type = {instr_reg_c2[31], instr_reg_c2[7], instr_reg_c2[30:25], instr_reg_c2[11:8]};
+   item [19:0] j_type = {instr_reg_c2[31], instr_reg_c2[19:12], instr_reg_c2[20], instr_reg_c2[30:21]};
+   item [31:0] i_immediate = {{20{instr_reg_c2[31]}}, instr_reg_c2[31:20]};
+   item [31:0] u_immediate = {instr_reg_c2[31:12], 12'h000};
+
+   ///////////////////////////////////////////// 
+   // Interleaved transactions
+   /////////////////////////////////////////////
+   tr_rv32i { inter {
+      init: { d_instr_reg; 
+              d_rs_addr; 
+              d_pc_read;
+              s_1; }
+      s_1 : { d_rs1i_addr; d_rs1_dato_reg; 
+              d_rs2i_addr; d_rs2_dato_reg; 
+              d_rd_propagate; 
+              d_dp_in_b_imm;
+              s_2; }
+      s_2:  { @ c_instr_i_sra_c2 { d_rs1_dato_c3_sra; }
+              else @c_instr_i_srai_c2 { d_rs1_dato_c3_sra; } 
+              else { d_rs1_dato_c3; }
+              d_rs2_dato_c3;
+              d_pc_branch;
+              d_less_a_def;
+              d_less_b_def;
+              d_dmem_store_data;
+              d_dp_in_a_rs1_data;
+              @c_instr_i_auipc_c2 { d_dp_in_a_pc_read; }
+              @c_instr_i_jal_c2 { d_dp_in_a_pc_read; }
+              @c_instr_i_jalr_c2 { d_dp_in_a_pc_read; }
+              d_dp_add_in;
+              @c_instr_i_shift_c2 { d_dp_in_b_shamt_rf; }
+              else { d_dp_in_b_shamt_instr; }
+              exclusive { tr_rv32i_addi; tr_rv32i_slti; tr_rv32i_sltiu; tr_rv32i_andi; tr_rv32i_ori; tr_rv32i_xori;
+                          tr_rv32i_slli; tr_rv32i_srli; tr_rv32i_srai;
+                          tr_rv32i_lui; tr_rv32i_auipc;
+                          tr_rv32i_add; tr_rv32i_slt; tr_rv32i_sltu; tr_rv32i_sub; 
+                          tr_rv32i_and; tr_rv32i_or; tr_rv32i_xor;
+                          tr_rv32i_sll; tr_rv32i_srl; tr_rv32i_sra; 
+                          tr_rv32i_jal; tr_rv32i_jalr; 
+                          tr_rv32i_beq; tr_rv32i_bne; tr_rv32i_blt; tr_rv32i_bge; tr_rv32i_bltu; tr_rv32i_bgeu; 
+                          tr_rv32i_store; tr_rv32i_load; }; 
+              s_3; }
+      s_3:  { d_dp_i_less;
+              d_dp_i_equal;
+              @c_dp_out_shl_result_c3 { d_dp_in_a_shl_c4; }
+              else @c_dp_out_sra_result_c3 { d_dp_in_a_sra_c4; }               
+              s_4; }
+      s_4:  { @c_dp_out_less_c4 { d_dp_out_less_c5; }
+              @c_dp_out_shl_result_c4 { d_dp_in_a_shl_c5; }
+              @c_dp_out_sra_result_c4 { d_dp_in_a_sra_c5; }
+              s_5; }
+      s_5:  { @c_dmem_load_lb { c_dmem_load_lb_c6#1; }
+              @c_dmem_load_lh { c_dmem_load_lh_c6#1; }
+              @c_dmem_load_lw { c_dmem_load_lw_c6#1; }
+              @c_dmem_load_lbu { c_dmem_load_lbu_c6#1; }
+              @c_dmem_load_lhu { c_dmem_load_lhu_c6#1; }
+              @c_dp_out_add_c5 { d_dp_out_add_c6; } 
+              s_6; }
+      s_6:  { d_pc_next_c6; 
+              @c_rf_write_c6 { @c_thread_pipe_valid { c_rf_wr; } }
+              @c_rf_wr { d_rf_write; } } } }
+
+   ///////////////////////////////////////////// 
+   // PC path
+   /////////////////////////////////////////////
+   item [PC_LEN - 1 : 0] pc_next = pc_dp_add_c5; 
+   reg [31:0] pc_read_c2;
+   d_pc_read { pc_read_c2#1 = pc_read_c0; }
+
+   d_pc4_c5 { pc_i_add_b_in = 4; }
+
+   reg [31:0] pc_next_c6;
+   d_pc_next_c6 { pc_next_c6 = pc_next; }
+
+   ///////////////////////////////////////////// 
+   // RF write datapath path
+   /////////////////////////////////////////////
+   c_rf_write_c6;
+   d_rf_write { rf[rd_addr_c6] = rd_dati; }
+
+   ///////////////////////////////////////////// 
+   // Pipelined adder datapath 
+   /////////////////////////////////////////////
+   item [32:0] dp_in_a;
+   item [32:0] dp_in_b = dp_in_b_c3;
+   reg [32:0] dp_in_a_c5;
+   reg [32:0] dp_in_b_c5;
+   d_dp_in_a_rs1_data { dp_in_a_c5#2 = {1'bx, rs1_dato_c2}; }
+   d_dp_in_a_pc_read { dp_in_a_c5#2 = pc_read_c2; }
+   d_dp_in_b_imm { dp_in_b_c5#2 = i_immediate_c2; }
+   d_dp_in_b_4 { dp_in_b_c5#2 = 4; }
+
+   reg  [12:0] dp_add_0_c6;
+   item [19:0] dp_add_1p = dp_in_a_c4[31:12] + dp_in_b_c4[31:12] + dp_add_0_c4[12];
+   reg  [10:0] dp_add_1_c6;
+   item [10:0] dp_add_2 = dp_in_a_c5[31:22] + dp_in_b_c5[31:22] + dp_add_1_c5[10];
+   d_dp_add_in { dp_add_0_c6#2 = dp_in_a_c3[11: 0] + dp_in_b[11: 0] + c_sub_c3;
+                 dp_add_1_c6#1 = dp_in_a_c4[21:12] + dp_in_b_c4[21:12] + dp_add_0_c4[12]; }
+   item [31:0] dp_add = {dp_add_2[9:0], dp_add_1_c6[9:0], dp_add_0_c6[11:0]};
+   reg [31:0] dp_out_reg_c6;
+
+   ///////////////////////////////////////////// 
+   // Pipelined shift datapath
+   ///////////////////////////////////////////// 
+   reg [4:0] dp_in_b_shamt_c4;
+   d_dp_in_b_shamt_instr { dp_in_b_shamt_c4#1[4:0] = shamt; }
+   d_dp_in_b_shamt_rf { dp_in_b_shamt_c4#1[4:0] = rs2_dato_c2[4:0]; }
+      
+   d_dp_in_a_shl_c4 { dp_in_a_c4 = rs1_dato_c3 << dp_in_b_shamt_c3[2:0]; }
+   d_dp_in_a_shl_c5 { dp_out_reg_c5 = dp_in_a_c4 << {dp_in_b_shamt_c4[4:3], 3'h0}; }
+
+   d_dp_in_a_sra_c4 { dp_in_a_c4 = $signed(rs1_dato_c3) >>> (dp_in_b_shamt_c3[2:0]); }
+   d_dp_in_a_sra_c5 { dp_out_reg_c5 = $signed(dp_in_a_c4) >>> {dp_in_b_shamt_c4[4:3], 3'h0}; }
+
+   ///////////////////////////////////////////// 
+   // Pipelined less and equal datapaths
+   ///////////////////////////////////////////// 
+   d_less_a_def { i_less_a_c4#1 = {rs1_dato_c2[31], rs1_dato_c2}; }
+   d_less_b_def { i_less_b_c4#1 = {rs2_dato_c2[31], rs2_dato_c2}; }
+   reg [32:0] i_less_a_c4;
+   reg [32:0] i_less_b_c4;
+   reg less_0_c4;
+   reg less_1_c4;
+   reg less_2_c4;
+   reg less_3_c4;
+   reg equal_0_c4;
+   reg equal_1_c4;
+   reg equal_2_c4;
+   reg equal_3_c4;
+   d_dp_i_less { less_0_c4 = i_less_a_c3[ 7: 0] < i_less_b_c3[ 7: 0];
+                 less_1_c4 = i_less_a_c3[15: 8] < i_less_b_c3[15: 8];
+                 less_2_c4 = i_less_a_c3[23:16] < i_less_b_c3[23:16];
+                 less_3_c4 = i_less_a_c3[31:24] < i_less_b_c3[31:24]; }
+   d_dp_i_equal { equal_0_c4 = i_less_a_c3[ 7: 0] == i_less_b_c3[ 7: 0];
+                  equal_1_c4 = i_less_a_c3[15: 8] == i_less_b_c3[15: 8];
+                  equal_2_c4 = i_less_a_c3[23:16] == i_less_b_c3[23:16];
+                  equal_3_c4 = i_less_a_c3[31:24] == i_less_b_c3[31:24]; }
+   item uless_c4 = less_3_c4 |
+                   (equal_3_c4 & less_2_c4) |
+                   (equal_3_c4 & equal_2_c4 & less_1_c4) |
+                   (equal_3_c4 & equal_2_c4 & equal_1_c4 & less_0_c4);
+   item less_result_0_c4 = (~i_less_a_c4[32] &  i_less_b_c4[32]) ? 1'b0 :	// + !< - 
+                           ( i_less_a_c4[32] & ~i_less_b_c4[32]) ? 1'b1 : uless_c4;
+
+   d_dp_out_less_c5 { dp_out_reg_c5 = {{31{1'b0}}, less_result_0_c4}; }
+   
+   ///////////////////////////////////////////// 
+   // Pipelined PC adder datapath 
+   ///////////////////////////////////////////// 
+   reg [31:0] pc_i_add_a_c5;
+   reg [31:0] pc_i_add_b_c5;
+   item [31:0] pc_i_add_a_in = pc_i_add_a_c5;
+   item [31:0] pc_i_add_b_in;
+   item [31:0] pc_dp_add_c5 = pc_i_add_a_in + pc_i_add_b_in;
+   
+   ///////////////////////////////////////////// 
+   // ADDI 
+   ///////////////////////////////////////////// 
+   //d_addi { dp_out = rs1_dato_c2 + i_immediate; }
+   d_dp_out_add_c6 { dp_out_reg_c6 = {dp_add_2[9:0], dp_add_1_c5[9:0], dp_add_0_c5[11:0]}; }
+   tr_rv32i_addi { 
+      s_2: { @c_instr_i_addi_c2 {
+                c_rf_write_c6#4;
+                c_dp_out_add_c5#3; } } }
+
+   ///////////////////////////////////////////// 
+   // SLTI
+   ///////////////////////////////////////////// 
+   //d_slti { dp_out = $signed(rs1_dato_c2) < $signed(i_immediate); }
+   d_slti { //i_less_a_c4#1 = {rs1_dato_c2[31], rs1_dato_c2};
+            i_less_b_c4#1 = {i_immediate[31], i_immediate}; }
+   tr_rv32i_slti { 
+      s_2: { @c_instr_i_slti_c2 {
+                d_slti; 
+                c_rf_write_c6#4;
+                c_dp_out_less_c4#2; } } }
+
+   ///////////////////////////////////////////// 
+   // SLTIU
+   ///////////////////////////////////////////// 
+   //d_sltiu { dp_out = rs1_dato_c2 < i_immediate; }
+   d_sltiu { i_less_a_c4#1 = {1'b0, rs1_dato_c2};
+             i_less_b_c4#1 = {1'b0, i_immediate}; }
+   tr_rv32i_sltiu { 
+      s_2: { @c_instr_i_sltiu_c2 { 
+                d_sltiu; 
+                c_rf_write_c6#4;
+                c_dp_out_less_c4#2; } } }
+
+   ///////////////////////////////////////////// 
+   // ANDI 
+   ///////////////////////////////////////////// 
+   //d_andi { dp_out = rs1_dato_c2 & i_immediate; } 
+   d_i_immediate_c3 { rs2_dato_c3 = i_immediate; }
+   d_dp_out_andi_c3 { dp_out_reg_c4 = rs1_dato_c3[31:0] & rs2_dato_c3; }
+   tr_rv32i_andi { 
+      s_2: { @c_instr_i_andi_c2 {
+                d_i_immediate_c3; 
+                c_rf_write_c6#4;
+                s_andi_c3; } } 
+      s_andi_c3: { d_dp_out_andi_c3; } }
+
+   ///////////////////////////////////////////// 
+   // ORI 
+   ///////////////////////////////////////////// 
+   //d_ori { dp_out = rs1_dato_c2 | i_immediate; }
+   d_dp_out_ori_c3 { dp_out_reg_c4 = rs1_dato_c3[31:0] | rs2_dato_c3; }
+   tr_rv32i_ori { 
+      s_2: { @c_instr_i_ori_c2 {
+                d_i_immediate_c3; 
+                c_rf_write_c6#4;
+                s_ori_c3; } } 
+      s_ori_c3: { d_dp_out_ori_c3; } }
+
+   ///////////////////////////////////////////// 
+   // XORI 
+   ///////////////////////////////////////////// 
+   //d_xori { dp_out = rs1_dato_c2 ^ i_immediate; }
+   d_dp_out_xori_c3 { dp_out_reg_c4 = rs1_dato_c3[31:0] ^ rs2_dato_c3; }
+   tr_rv32i_xori { 
+      s_2: { @c_instr_i_xori_c2 {
+                d_i_immediate_c3; 
+                c_rf_write_c6#4;
+                s_xori_c3; } } 
+      s_xori_c3: { d_dp_out_xori_c3; } }
+
+   ///////////////////////////////////////////// 
+   // SLLI
+   ///////////////////////////////////////////// 
+   //d_slli { dp_out = rs1_dato_c2 << shamt; }
+   item [4:0] shamt = instr_reg_c2[24:20];
+   tr_rv32i_slli { 
+      s_2: { @c_instr_i_slli_c2 {
+                c_dp_out_shl_result_c4#2; 
+                c_rf_write_c6#4; } } }
+
+   ///////////////////////////////////////////// 
+   // SRLI
+   ///////////////////////////////////////////// 
+   //d_srli { dp_out = rs1_dato_c2 >> shamt; }
+   tr_rv32i_srli { 
+      s_2: { @c_instr_i_srli_c2 {
+                c_dp_out_sra_result_c4#2; 
+                c_rf_write_c6#4; } } }
+
+   ///////////////////////////////////////////// 
+   // SRAI
+   ///////////////////////////////////////////// 
+   //d_srai { dp_out = $signed(rs1_dato_c2) >>> shamt; }
+   tr_rv32i_srai { 
+      s_2: { @c_instr_i_srai_c2 {
+                c_dp_out_sra_result_c4#2; 
+                c_rf_write_c6#4; } } }
+
+   ///////////////////////////////////////////// 
+   // LUI 
+   ///////////////////////////////////////////// 
+   d_lui_c3 { dp_out_reg_c6#2 = rs2_dato_c3; }
+   d_u_immediate_c3 { rs2_dato_c3 = u_immediate; }
+   tr_rv32i_lui { 
+      s_2: { @c_instr_i_lui_c2 {
+                d_u_immediate_c3;
+                c_rf_write_c6#4;
+                s_lui_c3; } } 
+      s_lui_c3: { d_lui_c3; } } 
+
+   ///////////////////////////////////////////// 
+   // AUIPC 
+   ///////////////////////////////////////////// 
+   //d_auipc { dp_out = pc_read_c2 + u_immediate; }
+   d_auipc { dp_in_b_c5#2[19:0] = u_immediate[19:0]; }
+   tr_rv32i_auipc { 
+      s_2: { @c_instr_i_auipc_c2 {
+                d_auipc; 
+                c_rf_write_c6#4; } } } 
+
+   ///////////////////////////////////////////// 
+   // ADD 
+   ///////////////////////////////////////////// 
+   //d_add { dp_out = rs1_dato_c2 + rs2_dato_c2; }
+   d_add { dp_in_b = {1'bx, rs2_dato_c3[31:0]}; 
+           dp_in_b_c5#1 = {1'bx, rs2_dato_c3}; }
+   tr_rv32i_add { 
+      s_2: { @c_instr_i_add_c2 {
+                c_rf_write_c6#4;
+                c_dp_out_add_c5#3; 
+                s_3_add; } }
+      s_3_add: { d_add; } }
+ 
+   ///////////////////////////////////////////// 
+   // SLT 
+   ///////////////////////////////////////////// 
+   //d_slt { dp_out = $signed(rs1_dato_c2) < $signed(rs2_dato_c2); }
+   tr_rv32i_slt { 
+      s_2: { @c_instr_i_slt_c2 { 
+                c_rf_write_c6#4;
+                c_dp_out_less_c4#2; } } }
+ 
+   ///////////////////////////////////////////// 
+   // SLTU 
+   ///////////////////////////////////////////// 
+   //d_sltu { dp_out = rs1_dato_c2 < rs2_dato_c2; }
+   d_sltu { i_less_a_c4#1 = {1'b0, rs1_dato_c2};
+            i_less_b_c4#1 = {1'b0, rs2_dato_c2}; }
+   tr_rv32i_sltu { 
+      s_2: { @c_instr_i_sltu_c2 { 
+                //d_slt; 
+                c_rf_write_c6#4;
+                c_dp_out_less_c4#2; } } }
+ 
+   ///////////////////////////////////////////// 
+   // SUB
+   ///////////////////////////////////////////// 
+   //d_sub { dp_out = rs1_dato_c2 - rs2_dato_c2; }
+   d_sub { dp_in_b = {1'bx, ~rs2_dato_c3[31:0]}; 
+           dp_in_b_c5#1 = {1'bx, ~rs2_dato_c3}; }
+   tr_rv32i_sub { 
+      s_2: { @c_instr_i_sub_c2 {
+                c_sub_c3#1;
+                c_rf_write_c6#4;
+                c_dp_out_add_c5#3; 
+                s_3_sub; } }
+      s_3_sub: { d_sub; } }
+ 
+   ///////////////////////////////////////////// 
+   // AND 
+   ///////////////////////////////////////////// 
+   //d_and { dp_out = rs1_dato_c2 & rs2_dato_c2; }
+   d_dp_out_and_c3 { dp_out_reg_c4 = rs1_dato_c3[31:0] & rs2_dato_c3[31:0]; }
+   tr_rv32i_and { 
+      s_2: { @c_instr_i_and_c2 { 
+                c_rf_write_c6#4;
+                s_and_c3; } } 
+      s_and_c3: { d_dp_out_and_c3; } }
+ 
+   ///////////////////////////////////////////// 
+   // OR 
+   ///////////////////////////////////////////// 
+   //d_or { dp_out = rs1_dato_c2 | rs2_dato_c2; }
+   d_dp_out_or_c3 { dp_out_reg_c4 = rs1_dato_c3[31:0] | rs2_dato_c3[31:0]; }
+   tr_rv32i_or { 
+      s_2: { @c_instr_i_or_c2 { 
+                c_rf_write_c6#4;
+                s_or_c3; } } 
+      s_or_c3: { d_dp_out_or_c3; } }
+
+   ///////////////////////////////////////////// 
+   // XOR 
+   ///////////////////////////////////////////// 
+   //d_xor { dp_out = rs1_dato_c2 ^ rs2_dato_c2; }
+   d_dp_out_xor_c3 { dp_out_reg_c4 = rs1_dato_c3[31:0] ^ rs2_dato_c3[31:0]; }
+   tr_rv32i_xor { 
+      s_2: { @c_instr_i_xor_c2 { 
+                c_rf_write_c6#4;
+                s_xor_c3; } } 
+      s_xor_c3: { d_dp_out_xor_c3; } }
+
+   ///////////////////////////////////////////// 
+   // SLL 
+   ///////////////////////////////////////////// 
+   //d_sll { dp_out = rs1_dato_c2 << rs2_dato_c2; }
+   tr_rv32i_sll { 
+      s_2: { @c_instr_i_sll_c2 {
+                c_dp_out_shl_result_c4#2; 
+                c_rf_write_c6#4; } } }
+
+   ///////////////////////////////////////////// 
+   // SRL 
+   ///////////////////////////////////////////// 
+   //d_srl { dp_out = rs1_dato_c2 >> rs2_dato_c2; }
+   tr_rv32i_srl { 
+      s_2: { @c_instr_i_srl_c2 { 
+                c_dp_out_sra_result_c4#2;
+                c_rf_write_c6#4; } } }
+
+   ///////////////////////////////////////////// 
+   // SRA 
+   ///////////////////////////////////////////// 
+   //d_sra { dp_out = $signed(rs1_dato_c2) >>> rs2_dato_c2; }
+   tr_rv32i_sra { 
+      s_2: { @c_instr_i_sra_c2 {
+                c_dp_out_sra_result_c4#2; 
+                c_rf_write_c6#4; } } }
+
+   ///////////////////////////////////////////// 
+   // Stage 1 decoding for JAL[R]
+   ///////////////////////////////////////////// 
+   item [31:0] i_immediate_c2 = {{20{instr_reg_c2[31]}}, instr_reg_c2[31:20]};
+   
+   ///////////////////////////////////////////// 
+   // JAL 
+   ///////////////////////////////////////////// 
+   item [31:0] offset_20 = {{11{j_type[19]}}, j_type, 1'b0};
+   d_pc_jal { pc_i_add_a_c5#2 = pc_read_c2;
+              pc_i_add_b_c5#2 = offset_20; }
+   tr_rv32i_jal { 
+      s_2: { @c_instr_i_jal_c2 { 
+                d_pc_jal;
+                d_dp_in_b_4;
+                c_instr_i_j_c5#3;
+                c_rf_write_c6#4;
+                c_dp_out_add_c5#3; } } }
+
+   ///////////////////////////////////////////// 
+   // JALR 
+   ///////////////////////////////////////////// 
+   item [11:0] imm_11 = {{20{instr_reg_c2[31]}}, instr_reg_c2[31:20]};
+   d_pc_jalr { pc_i_add_a_c5#2 = rs1_dato_c2;
+               pc_i_add_b_c5#2 = imm_11; }
+   tr_rv32i_jalr { 
+      s_2: { @c_instr_i_jalr_c2 { 
+                d_pc_jalr;
+                d_dp_in_b_4;
+                c_instr_i_j_c5#3;
+                c_rf_write_c6#4;
+                c_dp_out_add_c5#3; } } }
+
+   ///////////////////////////////////////////// 
+   // BEQ old
+   ///////////////////////////////////////////// 
+   d_pc_next_pc_branch_c5 { pc_i_add_b_in = pc_i_add_b_c5; }
+   d_pc_branch { pc_i_add_a_c5#2 = pc_read_c2;
+                 pc_i_add_b_c5#2 = {{19{b_type[11]}}, b_type, 1'b0}; }
+
+   c_pc_next_pc4;
+   c_pc_next_pc_branch;
+
+   tr_pc_next {
+      d_pc4_c5;
+      @c_beq_c5 { 
+         @c_equal_c5 { d_pc_next_pc_branch_c5; } 
+         else { d_pc4_c5; } }
+      @c_bne_c5 { 
+         @c_equal_c5 { d_pc4_c5; }
+         else { d_pc_next_pc_branch_c5; } }
+      @c_blt_c5 { 
+         @c_less_c5 { d_pc_next_pc_branch_c5; } 
+         else { d_pc4_c5; } }
+      @c_bge_c5 { 
+         @c_less_c5 { d_pc4_c5; }
+         else { d_pc_next_pc_branch_c5; } }
+      @c_instr_i_j_c5 { d_pc_next_pc_branch_c5; } } 
+
+   d_branch { i_less_a_c4#1 = {1'b0, rs1_dato_c2};
+              i_less_b_c4#1 = {1'b0, rs2_dato_c2}; }
+              
+   ///////////////////////////////////////////// 
+   // BEQ
+   ///////////////////////////////////////////// 
+   c_equal { if (equal_0_c4 & equal_1_c4 & equal_2_c4 & equal_3_c4) this; }
+   c_equal_c4;
+   c_equal_c5;
+   tr_rv32i_beq { 
+      s_2: { @c_instr_i_beq_c2 { 
+                d_branch;
+                //d_pc_branch; 
+                c_beq_c5#3; } } 
+      s_4: { @c_equal { c_equal_c5#1; } } }
+      
+   ///////////////////////////////////////////// 
+   // BNE 
+   ///////////////////////////////////////////// 
+   //c_cond_bne { if (rs1_dato_c2 != rs2_dato_c2) this; }
+   tr_rv32i_bne { 
+      s_2: { @c_instr_i_bne_c2 { 
+                d_branch;
+                //d_pc_branch; 
+                c_bne_c5#3; } } 
+      s_4: { @c_equal { c_equal_c5#1; } } }
+
+   ///////////////////////////////////////////// 
+   // BLT 
+   ///////////////////////////////////////////// 
+   //c_cond_blt { if ($signed(rs1_dato_c2) < $signed(rs2_dato_c2)) this; }
+   c_less_c5 { if (dp_out_reg_c5[0] == 1'b1) this; }
+   tr_rv32i_blt { 
+      s_2: { @c_instr_i_blt_c2 { 
+                //d_blt;
+                //d_pc_branch;
+                c_dp_out_less_c4#2; 
+                c_blt_c5#3; } } 
+      s_4: { @c_equal { c_equal_c5#1; } } }
+
+   ///////////////////////////////////////////// 
+   // BGE 
+   /////////////////////////////////////////////
+   //c_cond_bge { if ($signed(rs1_dato_c2) >= $signed(rs2_dato_c2)) this; }
+   tr_rv32i_bge { 
+      s_2: { @c_instr_i_bge_c2 { 
+                //d_blt;
+                //d_pc_branch;
+                c_dp_out_less_c4#2; 
+                c_bge_c5#3; } } 
+      s_4: { @c_equal { c_equal_c5#1; } } }
+ 
+   ///////////////////////////////////////////// 
+   // BLTU 
+   ///////////////////////////////////////////// 
+   //c_cond_bltu { if (rs1_dato_c2 < rs2_dato_c2) this; }
+   d_bltu { i_less_a_c4#1 = {1'b0, rs1_dato_c2};
+            i_less_b_c4#1 = {1'b0, rs2_dato_c2}; }
+   tr_rv32i_bltu { 
+      s_2: { @c_instr_i_bltu_c2 { 
+                d_bltu;
+                //d_pc_branch;
+                c_dp_out_less_c4#2; 
+                c_blt_c5#3; } } 
+      s_4: { @c_equal { c_equal_c5#1; } } }
+
+   ///////////////////////////////////////////// 
+   // BGEU 
+   ///////////////////////////////////////////// 
+   //c_cond_bgeu { if (rs1_dato_c2 >= rs2_dato_c2) this; }
+   tr_rv32i_bgeu { 
+      s_2: { @c_instr_i_bgeu_c2 { 
+                d_bltu;
+                //d_pc_branch;
+                c_dp_out_less_c4#2; 
+                c_bge_c5#3; } } 
+      s_4: { @c_equal { c_equal_c5#1; } } }
+
+   ///////////////////////////////////////////// 
+   // Memory interface 
+   ///////////////////////////////////////////// 
+   item [32:0] dmem_addr = {dp_add_1p[19:4], dp_add_1p[3:0], dp_add_0_c4[11:0]};
+   item [31:0] dmem_store_data = dp_out_reg_c4;
+   item [2:0] dmem_width = funct3_i_c3[2:0];
+   item [31:0] dmem_load_data;
+
+   ///////////////////////////////////////////// 
+   // LW, LH, LHU, LB, LBU 
+   ///////////////////////////////////////////// 
+   d_dmem_load_addr { dp_in_b_c5#2 = {{20{i_type[11]}}, i_type}; }
+   tr_rv32i_load { 
+      s_2: { @c_instr_i_load_c2 {
+                d_dmem_load_addr;
+                c_dmem_load_c5#3;
+                c_rf_write_c6#4; } } }
+
+   c_dmem_load_lb { if (c_dmem_load_c5 & (funct3_i_c5 == 3'h0)) this; }
+   c_dmem_load_lh { if (c_dmem_load_c5 & (funct3_i_c5 == 3'h1)) this; }
+   c_dmem_load_lw { if (c_dmem_load_c5 & (funct3_i_c5 == 3'h2)) this; }
+   c_dmem_load_lbu { if (c_dmem_load_c5 & (funct3_i_c5 == 3'h4)) this; }
+   c_dmem_load_lhu { if (c_dmem_load_c5 & (funct3_i_c5 == 3'h5)) this; }
+
+   d_rd_dati_dp_out { rd_dati = dp_out_reg_c6; }
+   d_rd_dati_lb { rd_dati = {{24{dmem_load_data_c6[7]}}, dmem_load_data_c6[7:0]}; }
+   d_rd_dati_lh { rd_dati = {{16{dmem_load_data_c6[15]}}, dmem_load_data_c6[15:0]}; }
+   d_rd_dati_lw { rd_dati = dmem_load_data_c6; }
+   d_rd_dati_lbu { rd_dati = {{24{1'b0}}, dmem_load_data_c6[7:0]}; }
+   d_rd_dati_lhu { rd_dati = {{16{1'b0}}, dmem_load_data_c6[15:0]}; }
+
+   tr_rd_dati { d_rd_dati_dp_out;
+                @c_dmem_load_lb_c6 { d_rd_dati_lb; }
+                @c_dmem_load_lh_c6 { d_rd_dati_lh; }
+                @c_dmem_load_lw_c6 { d_rd_dati_lw; }
+                @c_dmem_load_lbu_c6 { d_rd_dati_lbu; }
+                @c_dmem_load_lhu_c6 { d_rd_dati_lhu; } }
+
+   ///////////////////////////////////////////// 
+   // SW, SB, SH 
+   ///////////////////////////////////////////// 
+   d_dmem_store_addr { dp_in_b_c5#2 = {{20{s_type[11]}}, s_type}; }
+   d_dmem_store_data { dp_out_reg_c6#2 = rs2_dato_c3; } 
+   reg [2:0] funct3_i_c5;
+   d_dmem_store_width { funct3_i_c5#2 = funct3_i; }
+   tr_rv32i_store { 
+      s_2: { d_dmem_store_width;
+             @c_instr_i_store_c2 { 
+                d_dmem_store_addr;
+                c_dmem_store_c4#2; } } }
+
+   ///////////////////////////////////////////// 
+   // Registerfile 
+   ///////////////////////////////////////////// 
+   // read from rf; 
+   c_rf_write; 
+   item [4:0] rs1_addr;
+   item [4:0] rs2_addr;
+   item [31 : 0] rd_dati;
+   d_rs1i_addr { rs1_addr = rs1i; }
+   d_rs2i_addr { rs2_addr = rs2i; }
+
+   ///////////////////////////////////////////// 
+   // Datapath 
+   ///////////////////////////////////////////// 
+   item [31:0] dp_out;
+} ">
+<" cl_rv32i_dec {
+   ///////////////////////////////////////////// 
+   // Support function 
+   ///////////////////////////////////////////// 
+   c_cmp(integer a, integer b) { if (a == b) this; }
+   ///////////////////////////////////////////// 
+   // I decode 
+   ///////////////////////////////////////////// 
+   tr_decode {
+      @c_cmp(opcode_i[2:2], 1'b1) {
+         @c_cmp(opcode_i[6:5], 2'b01) { c_instr_i_lui_c2; }
+         @c_cmp(opcode_i[6:5], 2'b00) { c_instr_i_auipc_c2; }
+         @c_cmp(opcode_i[6:6], 1'b1) {
+            @c_cmp(opcode_i[3:3], 1'b1) { c_instr_i_jal_c2; }
+            @c_cmp(opcode_i[3:3], 1'b0) { c_instr_i_jalr_c2; } } }
+      @c_cmp(opcode_i[6:2], 5'b00000) {
+         c_instr_i_load_c2; }
+      @c_cmp(opcode_i[6:2], 5'b00100) {
+         @c_cmp(funct3_i, 0) { c_instr_i_addi_c2; }
+         @c_cmp(funct3_i, 1) { 
+            c_instr_i_slli_c2; }
+         @c_cmp(funct3_i, 2) { c_instr_i_slti_c2; }
+         @c_cmp(funct3_i, 3) { c_instr_i_sltiu_c2; }
+         @c_cmp(funct3_i, 4) { c_instr_i_xori_c2; }
+         @c_cmp(funct3_i, 5) { 
+           	@c_cmp(funct7_i[5], 0) { c_instr_i_srli_c2; }
+           	@c_cmp(funct7_i[5], 1'b1) { c_instr_i_srai_c2; } }
+         @c_cmp(funct3_i, 6) { c_instr_i_ori_c2; }
+         @c_cmp(funct3_i, 7) { c_instr_i_andi_c2; } }
+      @c_cmp(opcode_i[6:2], 5'b01000) {
+         c_instr_i_store_c2; }
+      @c_cmp(opcode_i[6:2], 5'b01100) {
+         c_instr_i_shift_c2;
+         @c_cmp(funct3_i, 0) {
+           	@c_cmp(funct7_i[5], 0) { c_instr_i_add_c2; }
+           	@c_cmp(funct7_i[5], 1'b1) { c_instr_i_sub_c2; } }
+         @c_cmp(funct3_i, 1) {
+           	c_instr_i_sll_c2; }
+         @c_cmp(funct3_i, 2) {
+           	c_instr_i_slt_c2; }
+         @c_cmp(funct3_i, 3) {
+           	c_instr_i_sltu_c2; }
+         @c_cmp(funct3_i, 4) { 
+            c_instr_i_xor_c2; }
+         @c_cmp(funct3_i, 5) {
+           	@c_cmp(funct7_i[5], 0)  { c_instr_i_srl_c2; }
+           	@c_cmp(funct7_i[5], 1'b1) { c_instr_i_sra_c2; } }
+         @c_cmp(funct3_i, 6) { 
+           c_instr_i_or_c2; }
+     	 @c_cmp(funct3_i, 7)  { 
+     	   c_instr_i_and_c2; } }
+      @c_cmp(opcode_i[6:2], 5'b11000) {
+         @c_cmp(funct3_i, 0) { c_instr_i_beq_c2; }
+         @c_cmp(funct3_i, 1) { c_instr_i_bne_c2; }
+         @c_cmp(funct3_i, 4) { c_instr_i_blt_c2; }
+         @c_cmp(funct3_i, 5) { c_instr_i_bge_c2; }
+         @c_cmp(funct3_i, 6) { c_instr_i_bltu_c2; }
+         @c_cmp(funct3_i, 7) { c_instr_i_bgeu_c2; } } 
+      }
+} ">

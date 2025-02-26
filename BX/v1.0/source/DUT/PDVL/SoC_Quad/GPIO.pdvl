@@ -1,0 +1,92 @@
+
+   Copyright 2025 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   Minimalistic GPIO implementation with 8-bit wide
+   direction, output-value, trisate and input registers.
+
+<"
+cluster c_gpio {      
+
+   //////////////////////////////////////////////
+   // AXI slave write interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_AWADDR *) [11:0] slv_wr_addr;
+   item (* AXI_SLV_AWDATA *) [31:0] slv_wr_data;
+   (* AXI_SLV_AWVALID *) c_slv_wr;
+
+   //////////////////////////////////////////////
+   // AXI slave read interface                               
+   //////////////////////////////////////////////
+   item (* AXI_SLV_ARADDR *) [11:0] slv_rd_addr;
+   item (* AXI_SLV_ARDATA=DRIVER *) [31:0] slv_rd_data;
+   (* AXI_SLV_ARVALID *) c_slv_rd;
+   (* AXI_SLV_ARREADY=DRIVER *) c_slv_rd_ready;
+
+   //////////////////////////////////////////////
+   // Basic registers                               
+   //////////////////////////////////////////////
+   reg [3:0] gpio_data_dir_reg;
+   reg [3:0] gpio_data_tri_reg;
+   reg [3:0] gpio_data_out_reg;
+   reg [3:0] gpio_data_in_reg;
+      
+   //////////////////////////////////////////////
+   // Write mechanism                              
+   //////////////////////////////////////////////
+   reg [31:0] slv_wr_data_c5;
+   d_slv_wr_c5 { slv_wr_data_c5 = slv_wr_data; }
+
+   d_data_dir_clr { gpio_data_dir_reg = gpio_data_dir_reg & ~slv_wr_data_c5; } 
+   d_data_dir_set { gpio_data_dir_reg = gpio_data_dir_reg | slv_wr_data_c5; } 
+   d_data_out_clr { gpio_data_out_reg = gpio_data_out_reg & ~slv_wr_data_c5; } 
+   d_data_out_set { gpio_data_out_reg = gpio_data_out_reg | slv_wr_data_c5; } 
+   d_data_tri_clr { gpio_data_tri_reg = gpio_data_tri_reg & ~slv_wr_data_c5; }
+   d_data_tri_set { gpio_data_tri_reg = gpio_data_tri_reg | slv_wr_data_c5; }
+    
+   item [12] base_offset = BASE + OFFSET;
+   c_base_offset { if (c_slv_wr & (slv_wr_addr[11:5] == base_offset[11:5])) this; }
+   reg [5] slv_wr_addr_c5;
+   d_slv_wr_addr_c5 { slv_wr_addr_c5 = slv_wr_addr; }
+
+   c_data_dir_clr_c5 { if (c_base_offset_c5 & (slv_wr_addr_c5[4:0] == 5'h00)) this; }	
+   c_data_dir_set_c5 { if (c_base_offset_c5 & (slv_wr_addr_c5[4:0] == 5'h04)) this; }	
+   c_data_tri_clr_c5 { if (c_base_offset_c5 & (slv_wr_addr_c5[4:0] == 5'h08)) this; }	
+   c_data_tri_set_c5 { if (c_base_offset_c5 & (slv_wr_addr_c5[4:0] == 5'h0C)) this; }	
+   c_data_out_clr_c5 { if (c_base_offset_c5 & (slv_wr_addr_c5[4:0] == 5'h10)) this; }	
+   c_data_out_set_c5 { if (c_base_offset_c5 & (slv_wr_addr_c5[4:0] == 5'h14)) this; }	
+
+
+   //////////////////////////////////////////////
+   // Read mechanism                              
+   //////////////////////////////////////////////
+   c_data_in_rd_c4  { if (c_slv_rd & (slv_rd_addr[11:0] == (BASE + OFFSET + 32'h00000020))) this; }
+   tr_rd { d_data_cap_reg; 
+           d_data_in_rd; }
+   
+   reg data_in_rd_c5;
+   d_data_in_rd { data_in_rd_c5 = c_data_in_rd_c4; }
+   c_data_in_rd { if (data_in_rd_c5 == 1'b1) this; }
+
+   //////////////////////////////////////////////
+   // Collecting further logic
+   //////////////////////////////////////////////
+   d_reset { gpio_data_dir_reg = 0; 
+             gpio_data_tri_reg = 0;
+             gpio_data_out_reg = 0; 
+             gpio_data_in_reg = 0; }                
+
+   tr_wr { d_slv_wr_c5;
+           
+           @c_base_offset { c_base_offset_c5#1; }
+           d_slv_wr_addr_c5;
+           
+           @c_data_dir_clr_c5 { d_data_dir_clr; } 
+           @c_data_dir_set_c5 { d_data_dir_set; }
+           @c_data_out_clr_c5 { d_data_out_clr; } 
+           @c_data_out_set_c5 { d_data_out_set; }
+           @c_data_tri_clr_c5 { d_data_tri_clr; } 
+           @c_data_tri_set_c5 { d_data_tri_set; } }
+}
+">

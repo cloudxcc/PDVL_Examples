@@ -1,0 +1,73 @@
+
+   Copyright 2025 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+   SoC implementation (RISC-V, program memory, data memory, GPIO)
+
+<"
+///////////////////////////////////////////////////////////////////////
+// SoC
+///////////////////////////////////////////////////////////////////////
+build mSoC {              
+                
+   ////////////////////////////////////////////////////////////////////
+   // Data RAM
+   ////////////////////////////////////////////////////////////////////
+   place DMEM i_dmem;
+   join cl_mem i_dmem;                   
+             
+   ////////////////////////////////////////////////////////////////////
+   // GPIOs
+   ////////////////////////////////////////////////////////////////////
+   place GPIO i_gpio;
+   join c_gpio i_gpio;
+   join { 
+      parameter BASE = 32'h00000440; 
+      parameter OFFSET = 32'h00000040 * 0; 
+      d_axi_dato_0 { slv_rd_data = 0; }
+      d_axi_dato { slv_rd_data = gpio_data_in_reg; }
+      tr_rd_glue { 
+         d_axi_dato_0;
+         @c_data_in_rd { 
+          c_slv_rd_ready; 
+          d_axi_dato; } }
+      tr_clocking {
+      @e_clk { tr_rd; tr_wr; } } } i_gpio;
+   
+   ////////////////////////////////////////////////////////////////////
+   // Thread controller
+   ////////////////////////////////////////////////////////////////////
+   place TC i_tc; 
+   join c_tc i_tc;
+
+   ////////////////////////////////////////////////////////////////////
+   // ic0 rv
+   ////////////////////////////////////////////////////////////////////
+   place RV32i_1P i_rv;
+   join {
+      item (* AXI_MST_ARDATA *) [31:0] axi_mst_rd_data; 
+      d_load_slv { dmem_load_data = axi_mst_rd_data; } 
+      tr_d_load_slv { d_load_slv; } } i_rv;
+
+   ////////////////////////////////////////////////////////////////////
+   // AXI (ic0_)
+   ////////////////////////////////////////////////////////////////////
+   uniquify axi ic0_;
+   join { parameter ic0_axi_masters = 1; 
+          parameter ic0_axi_slaves = 3; } ic0_axi;
+   join ic0_axi;
+   join ic0_axi.ic0_axi_mst_wr i_rv;
+   join ic0_axi.ic0_axi_slv_wr_0 i_gpio;
+   join ic0_axi.ic0_axi_slv_wr_1 i_dmem;
+   join ic0_axi.ic0_axi_slv_wr_2 i_tc;
+
+   join ic0_axi.ic0_axi_mst_rd i_rv;
+   join ic0_axi.ic0_axi_mst_rd_0 i_rv;
+   join ic0_axi.ic0_axi_mst_rd_1 i_rv;
+   join ic0_axi.ic0_axi_mst_rd_2 i_rv;
+   join ic0_axi.ic0_axi_slv_rd_0 i_gpio;
+   join ic0_axi.ic0_axi_slv_rd_1 i_dmem;
+   join ic0_axi.ic0_axi_slv_rd_2 i_tc;
+} 
+">

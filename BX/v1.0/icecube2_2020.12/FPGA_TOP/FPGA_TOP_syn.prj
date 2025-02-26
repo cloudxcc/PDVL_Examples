@@ -1,0 +1,73 @@
+#-- Synopsys, Inc.
+#-- Project file C:\projects\PDVL_Examples\github\release\BX\v1.0\icecube2_2020.12\FPGA_TOP\FPGA_TOP_syn.prj
+#project files
+
+add_file -verilog -lib work "../../source/DUT/SV/RV32i_1P.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/TC.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/mSoC_0.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/mSoC_1.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/mSoC_2.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/mSoC_3.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/DMEM.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/FPGA_TOP.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/GPIO.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/GPIO_0.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/GPIO_1.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/GPIO_2.sv" 
+add_file -verilog -lib work "../../source/DUT/SV/RV32_1P_RF.sv" 
+add_file -verilog -lib work "../../source/DUT/IP_SV/PLL_Lat.sv" 
+add_file -verilog -lib work "../../source/dyn_tests/system/blinky84s_0/work/PMEM_ROM_0_Lat.sv" 
+add_file -verilog -lib work "../../source/dyn_tests/system/blinky84s_1/work/PMEM_ROM_1_Lat.sv" 
+add_file -verilog -lib work "../../source/dyn_tests/system/blinky84s_2/work/PMEM_ROM_2_Lat.sv" 
+add_file -verilog -lib work "../../source/dyn_tests/system/blinky84s_3/work/PMEM_ROM_3_Lat.sv" 
+#implementation: "FPGA_TOP_Implmnt"
+impl -add FPGA_TOP_Implmnt -type fpga
+
+#implementation attributes
+set_option -vlog_std v2001
+set_option -project_relative_includes 1
+
+#device options
+set_option -technology SBTiCE40
+set_option -part iCE40LP8K
+set_option -package CM81
+set_option -speed_grade 
+set_option -part_companion ""
+
+#compilation/mapping options
+
+# mapper_options
+set_option -frequency auto
+set_option -write_verilog 0
+set_option -write_vhdl 0
+
+# Silicon Blue iCE40
+set_option -maxfan 10000
+set_option -disable_io_insertion 0
+set_option -pipe 1
+set_option -retiming 0
+set_option -update_models_cp 0
+set_option -fixgatedclocks 2
+set_option -fixgeneratedclocks 0
+
+# NFilter
+set_option -popfeed 0
+set_option -constprop 0
+set_option -createhierarchy 0
+
+# sequential_optimization_options
+set_option -symbolic_fsm_compiler 1
+
+# Compiler Options
+set_option -compiler_compatible 0
+set_option -resource_sharing 1
+
+#automatic place and route (vendor) options
+set_option -write_apr_constraint 1
+
+#set result format/file last
+project -result_format "edif"
+project -result_file ./FPGA_TOP_Implmnt/FPGA_TOP.edf
+project -log_file "./FPGA_TOP_Implmnt/FPGA_TOP.srr"
+impl -active FPGA_TOP_Implmnt
+project -run synthesis -clean

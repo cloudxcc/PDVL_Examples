@@ -1,0 +1,147 @@
+
+   Copyright 2025 Tobias Strauch, Munich, Bavaria
+   Licensed under the Apache License, Version 2.0, see LICENSE for details.
+   SPDX-License-Identifier: Apache-2.0
+
+<" 
+
+cl_rv32i_1p {}
+
+/////////////////////////////////////////////////////////
+// Build the RISCV 32 I with 7-stage, interleaved pipeline stage
+/////////////////////////////////////////////////////////
+build RV32i_1P {
+   ///////////////////////////////////////////// 
+   // Joining RISC-V IMC ISA
+   ///////////////////////////////////////////// 
+   join cl_rv32i cl_rv32i_1p;
+   join cl_rv32i_rf cl_rv32i_1p;
+   join cl_rv32i_dec cl_rv32i_1p;
+   join cl_rv32i_1p;
+
+   ///////////////////////////////////////////// 
+   // Generate clocking structure in cl_rv32i_1p
+   // and implement multi-cycle structure
+   ///////////////////////////////////////////// 
+   join {
+      //////////////////////////////////////////////
+      // AXI master write interface                               
+      //////////////////////////////////////////////
+      item (* AXI_MST_AWADDR=DRIVER *) [31:0] mst_wr_addr;
+      item (* AXI_MST_AWDATA=DRIVER *) [31:0] mst_wr_data;
+      item (* AXI_MST_AWSTRB=DRIVER *) [31:0] mst_strobe;
+      (* AXI_MST_AWVALID=DRIVER *) c_mst_wr;
+
+      //////////////////////////////////////////////
+      // AXI master read interface                               
+      //////////////////////////////////////////////
+      item (* AXI_MST_ARADDR=DRIVER *) [31:0] mst_rd_addr;
+      (* AXI_MST_ARVALID=DRIVER *) c_mst_rd;
+   
+      //////////////////////////////////////////////
+      // Connect memory write access
+      //////////////////////////////////////////////
+      d_mst_wr_addr { mst_wr_addr = dmem_addr; }
+      d_mst_wr_data { mst_wr_data = dmem_store_data; }
+      c_dmem_width_0 { if (dmem_width[1:0] == 2'b00) this; }
+      c_dmem_width_1 { if (dmem_width[1:0] == 2'b01) this; }
+      c_dmem_width_2 { if (dmem_width[1:0] == 2'b10) this; }
+      reg [3:0] mst_strobe_c4;
+      d_mst_strobe_0 { mst_strobe_c4 = 4'b0001; }
+      d_mst_strobe_1 { mst_strobe_c4 = 4'b0011; }
+      d_mst_strobe_2 { mst_strobe_c4 = 4'b1111; }
+      d_mst_strobe { mst_strobe = mst_strobe_c4; }
+      c_thread_valid_c6 { if (thread_pipe_valid[6] == 1'b1) this; }
+      c_thread_valid_c5 { if (thread_pipe_valid[5] == 1'b1) this; }
+      c_thread_valid_c4 { if (thread_pipe_valid[4] == 1'b1) this; }
+      c_thread_valid_c3 { if (thread_pipe_valid[3] == 1'b1) this; }
+      tr_store { 
+         @c_thread_valid_c4 {
+            @c_dmem_store_c4 { c_mst_wr; } }
+         d_mst_wr_addr;
+         d_mst_wr_data; }
+      tr_mst_strobe_async { d_mst_strobe; }
+                   
+      //////////////////////////////////////////////
+      // Connect memory read access
+      //////////////////////////////////////////////
+      d_mst_rd_addr { mst_rd_addr = dmem_addr; }
+      tr_load { 
+         @c_thread_valid_c4 {
+            @c_dmem_load_c4 { c_mst_rd; } }
+            d_mst_rd_addr; }
+                   
+      reg [31:0] dmem_load_data_c6;
+      d_dmem_load_data_c6 { dmem_load_data_c6 = ic0_axi_slv_rd_data_2 |
+                                                ic0_axi_slv_rd_data_1 |
+                                                ic0_axi_slv_rd_data_0; }
+
+	  tr_clocking_access_no_reset { 
+         @e_clk  { 
+               @c_dmem_width_0 { d_mst_strobe_0; } 
+               @c_dmem_width_1 { d_mst_strobe_1; } 
+               @c_dmem_width_2 { d_mst_strobe_2; }
+               d_dmem_load_data_c6; } }
+
+      tr_empty { }
+      
+      //////////////////////////////////////////////
+      // Handling PC-FIFO
+      //////////////////////////////////////////////
+      d_pc_reset { /* for (i = 0; i < 8; i = i + 1) begin
+                      pc[i] = 0;
+                   end */
+                   pc[0] = 0; 
+                   pc[1] = 0; 
+                   pc[2] = 0; 
+                   pc[3] = 0; 
+                   pc[4] = 0; 
+                   pc[5] = 0; 
+                   pc[6] = 0; 
+                   pc[7] = 0; 
+                   pc_pass = 0; } 
+
+      d_pc_next { pc[tid_wr] = pc_next_c6; } 
+      reg [PC_LEN - 1 : 0] pc [7:0]; 
+
+      reg [PC_LEN - 1 : 0] pc_pass; 
+      d_pc_pass_current {  pc_pass = pc_next_c6; } 
+      d_pc_pass_fifo_0 {  pc_pass = pc[fifo_0]; }
+      d_pc_pass_set {  pc_pass = {10'h000, pc_set[10 - 2:0], 1'b0}; }
+   
+      tr_pc_pass {
+               @c_pc_pass_current {
+                  d_pc_pass_current;
+               } else @c_pc_pass_fifo_0 {
+                  d_pc_pass_fifo_0;
+               } else @c_pc_pass_set {
+                  d_pc_pass_set;
+               } }
+               
+      item [31 : 0] pc_read_c0 = pc_pass;
+
+      //////////////////////////////////////////////
+      // Add reset and clocking structure to design
+      //////////////////////////////////////////////
+      e_clk posedge clk;
+        
+	  tr_clocking_no_reset { 
+         @e_clk  { 
+               tr_rv32i; } }
+      
+	  tr_clocking_reset { 
+	     @c_sys_rst { d_pc_reset; }
+         else { 
+            @e_clk  {
+               tr_pc_pass; 
+               d_pc_next;
+               } } } } cl_rv32i_1p;
+
+   ///////////////////////////////////////////// 
+   // Generate RF submodule and move RF logic
+   ///////////////////////////////////////////// 
+   place RV32_1P_RF i_rf;
+   move rs1_dato_reg_c2, rs2_dato_reg_c2, rf i_rf;
+
+}	
+">

@@ -1,0 +1,115 @@
+20:45:11 **** Build of configuration Release for project blinky84s_3 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.4\src\dyn_tests\system\blinky84s_3\ws_blinky84s_3\blinky84s_3\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building file: ../include/system.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.4\src\dyn_tests\system\blinky84s_3\ws_blinky84s_3\blinky84s_3\include" -std=gnu11 -MMD -MP -MF"include/system.d" -MT"include/system.o" -c -o "include/system.o" "../include/system.c"
+Finished building: ../include/system.c
+ 
+Building target: blinky84s_3.elf
+Invoking: GNU RISC-V Cross C++ Linker
+riscv64-unknown-elf-g++ -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky84s_3.map" -o "blinky84s_3.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky84s_3.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky84s_3.elf"  "blinky84s_3.hex"
+Finished building: blinky84s_3.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky84s_3.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1920	   1080	     28	   3028	    bd4	blinky84s_3.elf
+Finished building: blinky84s_3.siz
+ 
+20:45:15 **** Incremental Build of configuration Release for project blinky84s_3 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.4\src\dyn_tests\system\blinky84s_3\ws_blinky84s_3\blinky84s_3\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: blinky84s_3.elf
+Invoking: GNU RISC-V Cross C++ Linker
+riscv64-unknown-elf-g++ -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky84s_3.map" -o "blinky84s_3.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky84s_3.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky84s_3.elf"  "blinky84s_3.hex"
+Finished building: blinky84s_3.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky84s_3.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1920	   1080	     28	   3028	    bd4	blinky84s_3.elf
+Finished building: blinky84s_3.siz
+ 
+23:15:41 **** Incremental Build of configuration Release for project blinky84s_3 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.4\src\dyn_tests\system\blinky84s_3\ws_blinky84s_3\blinky84s_3\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: blinky84s_3.elf
+Invoking: GNU RISC-V Cross C++ Linker
+riscv64-unknown-elf-g++ -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky84s_3.map" -o "blinky84s_3.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky84s_3.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky84s_3.elf"  "blinky84s_3.hex"
+Finished building: blinky84s_3.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky84s_3.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1920	   1080	     28	   3028	    bd4	blinky84s_3.elf
+Finished building: blinky84s_3.siz
+ 
+20:41:20 **** Incremental Build of configuration Release for project blinky84s_3 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.5\src\dyn_tests\system\blinky84s_3\ws_blinky84s_3\blinky84s_3\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: blinky84s_3.elf
+Invoking: GNU RISC-V Cross C++ Linker
+riscv64-unknown-elf-g++ -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky84s_3.map" -o "blinky84s_3.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky84s_3.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky84s_3.elf"  "blinky84s_3.hex"
+Finished building: blinky84s_3.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky84s_3.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1920	   1080	     28	   3028	    bd4	blinky84s_3.elf
+Finished building: blinky84s_3.siz
+ 
+19:15:50 **** Incremental Build of configuration Release for project blinky84s_3 ****
+make all 
+Building file: ../src/main.c
+Invoking: GNU RISC-V Cross C Compiler
+riscv64-unknown-elf-gcc -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -I"C:\projects\PDVL_Examples\dev\BX_CUBEV\v0.6\src\dyn_tests\system\blinky84s_3\ws_blinky84s_3\blinky84s_3\include" -std=gnu11 -MMD -MP -MF"src/main.d" -MT"src/main.o" -c -o "src/main.o" "../src/main.c"
+Finished building: ../src/main.c
+ 
+Building target: blinky84s_3.elf
+Invoking: GNU RISC-V Cross C++ Linker
+riscv64-unknown-elf-g++ -march=rv32i -mabi=ilp32 -msmall-data-limit=8 -Os -fmessage-length=0 -fsigned-char -ffunction-sections -fdata-sections  -g -Xlinker --gc-sections -Wl,-Map,"blinky84s_3.map" -o "blinky84s_3.elf"  ./src/main.o  ./include/system.o   
+Finished building target: blinky84s_3.elf
+ 
+Invoking: GNU RISC-V Cross Create Flash Image
+riscv64-unknown-elf-objcopy -O ihex "blinky84s_3.elf"  "blinky84s_3.hex"
+Finished building: blinky84s_3.hex
+ 
+Invoking: GNU RISC-V Cross Print Size
+riscv64-unknown-elf-size --format=berkeley "blinky84s_3.elf"
+   text	   data	    bss	    dec	    hex	filename
+   1920	   1080	     28	   3028	    bd4	blinky84s_3.elf
+Finished building: blinky84s_3.siz
+ 
