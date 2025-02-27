@@ -26,4 +26,7 @@ The executable spec version is not timing optimized. This project now is a manua
 
 The core from the RV32IMC_3P is taken and embedded in a minimalistic SoC completely written in PDVL. 
 
+## BX:
+     
+This example uses 4 CUBE-V cores, which are then placed on the TinyFPGA BX board.
 
